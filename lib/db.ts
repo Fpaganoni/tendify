@@ -1,5 +1,6 @@
 // Mock database functions for development
 // In production, replace with actual database queries
+import axios from "axios";
 
 export const mockProducts: Product[] = [
   {
@@ -120,8 +121,35 @@ import type { Product } from "./types";
 
 export async function getProducts(): Promise<Product[]> {
   // Simulate API delay
-  await new Promise((resolve) => setTimeout(resolve, 100));
-  return mockProducts;
+  // await new Promise((resolve) => setTimeout(resolve, 100));
+  // return mockProducts;
+
+  const WORDPRESS_URL = "http://localhost/trendify";
+  const WOOCOMMERCE_CONSUMER_KEY = process.env.WOOCOMMERCE_CONSUMER_KEY;
+  const WOOCOMMERCE_CONSUMER_SECRET = process.env.WOOCOMMERCE_CONSUMER_SECRET;
+
+  if (!WOOCOMMERCE_CONSUMER_KEY || !WOOCOMMERCE_CONSUMER_SECRET) {
+    throw new Error("WooCommerce API keys are not defined in .env.local");
+  }
+
+  try {
+    const response = await axios.get(
+      `${WORDPRESS_URL}/wp-json/wc/v3/products`,
+      {
+        auth: {
+          username: WOOCOMMERCE_CONSUMER_KEY,
+          password: WOOCOMMERCE_CONSUMER_SECRET,
+        },
+      }
+    );
+    if (!response.data) {
+      throw new Error("No data found");
+    }
+    return response.data;
+  } catch (error: unknown) {
+    console.log("Error fetching data", error);
+    throw new Error("Failed to fetch products");
+  }
 }
 
 export async function getFeaturedProducts(): Promise<Product[]> {
