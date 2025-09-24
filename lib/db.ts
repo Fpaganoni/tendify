@@ -124,24 +124,32 @@ export async function getProducts(): Promise<Product[]> {
   // await new Promise((resolve) => setTimeout(resolve, 100));
   // return mockProducts;
 
+  // http://localhost/trendify
+
   const WORDPRESS_URL = "http://localhost/trendify";
   const WOOCOMMERCE_CONSUMER_KEY = process.env.WOOCOMMERCE_CONSUMER_KEY;
   const WOOCOMMERCE_CONSUMER_SECRET = process.env.WOOCOMMERCE_CONSUMER_SECRET;
 
-  if (!WOOCOMMERCE_CONSUMER_KEY || !WOOCOMMERCE_CONSUMER_SECRET) {
-    throw new Error("WooCommerce API keys are not defined in .env.local");
-  }
+  // if (!WOOCOMMERCE_CONSUMER_KEY || !WOOCOMMERCE_CONSUMER_SECRET) {
+  //   throw new Error("WooCommerce API keys are not defined in .env.local");
+  // }
 
   try {
     const response = await axios.get(
-      `${WORDPRESS_URL}/wp-json/wc/v3/products`,
+      `${WORDPRESS_URL}/wp-json/wc/store/products`,
       {
-        auth: {
-          username: WOOCOMMERCE_CONSUMER_KEY,
-          password: WOOCOMMERCE_CONSUMER_SECRET,
+        headers: {
+          "Content-Type": "application/json",
         },
       }
+      // {
+      //   auth: {
+      //     username: WOOCOMMERCE_CONSUMER_KEY,
+      //     password: WOOCOMMERCE_CONSUMER_SECRET,
+      //   },
+      // }
     );
+    console.log("Fetched products:", response.data);
     if (!response.data) {
       throw new Error("No data found");
     }
