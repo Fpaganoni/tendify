@@ -119,7 +119,9 @@ export const mockProducts: Product[] = [
 
 import type { Product } from "./types";
 
-export async function getProducts(): Promise<Product[]> {
+// : Promise<Product[]>
+
+export async function getProducts() {
   // Simulate API delay
   // await new Promise((resolve) => setTimeout(resolve, 100));
   // return mockProducts;
@@ -134,30 +136,14 @@ export async function getProducts(): Promise<Product[]> {
   //   throw new Error("WooCommerce API keys are not defined in .env.local");
   // }
 
-  try {
-    const response = await axios.get(
-      `${WORDPRESS_URL}/wp-json/wc/store/products`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-      // {
-      //   auth: {
-      //     username: WOOCOMMERCE_CONSUMER_KEY,
-      //     password: WOOCOMMERCE_CONSUMER_SECRET,
-      //   },
-      // }
-    );
-    console.log("Fetched products:", response.data);
-    if (!response.data) {
-      throw new Error("No data found");
-    }
-    return response.data;
-  } catch (error: unknown) {
-    console.log("Error fetching data", error);
-    throw new Error("Failed to fetch products");
-  }
+  fetch(`${WORDPRESS_URL}/wp-json/wc/store/products`)
+    .then((response) => {
+      response.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => console.error("Error fetching products:", error));
 }
 
 export async function getFeaturedProducts(): Promise<Product[]> {
