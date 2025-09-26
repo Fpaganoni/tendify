@@ -1,19 +1,14 @@
 import { WooCommerceProduct } from "./product-types";
 
-import {
-  ProductPrices,
-  ProductImage,
-  ProductCategory,
-  StockAvailability,
-} from "./product-types";
+import { StockAvailability } from "./product-types";
 
 export interface Product {
   id: number;
   name: string;
   description: string;
-  prices: ProductPrices;
-  images: ProductImage[];
-  categories: ProductCategory[];
+  prices: { price: string };
+  images: [{ src: string; alt: string }];
+  categories: [{ name: string }];
   featured: { categories: { name: string } };
   stock_availability: StockAvailability;
   // created_at: string; Doesn't work with public API

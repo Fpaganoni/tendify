@@ -43,8 +43,8 @@ export interface ProductPrices {
 }
 
 export interface StockAvailability {
-  text: string;
-  class: string;
+  text?: string;
+  class?: string;
 }
 
 export interface WooCommerceProduct {

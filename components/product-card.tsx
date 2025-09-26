@@ -27,7 +27,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <Link href={`/products/${product.id}`}>
         <div className="relative aspect-square overflow-hidden">
           <Image
-            src={product.images[0]?.src || "/placeholder.svg"}
+            src={product.images?.[0].src || "/placeholder.svg"}
             alt={product.name}
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -61,7 +61,7 @@ export function ProductCard({ product }: ProductCardProps) {
               ${product.prices.price}
             </span>
             <Badge variant="outline" className="text-xs">
-              {product.categories[0]?.name}
+              {product.categories?.[0].name}
             </Badge>
           </div>
         </Link>
