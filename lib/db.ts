@@ -137,52 +137,50 @@ export const mockProducts: Product[] = [
   // },
 ];
 
-import { WooCommerceProduct } from "./product-types";
+import { WooCommerceProduct } from "./woocommerce-types";
 
 import type { Product } from "./types";
 
 // funcion debugger
 export async function getProducts(): Promise<WooCommerceProduct[]> {
   const WORDPRESS_URL = process.env.WORDPRESS_URL;
-  const CONSUMER_KEY = process.env.WC_CONSUMER_KEY;
-  const CONSUMER_SECRET = process.env.WC_CONSUMER_SECRET;
+  const WP_USERNAME = process.env.WP_USERNAME; // Tu usuario de WordPress
+  const WP_APP_PASSWORD = process.env.WP_APP_PASSWORD; // La contraseña que acabas de generar
 
-  // Debug: verificar variables de entorno
-  console.log("🔍 Debug - Environment variables:");
-  console.log("WORDPRESS_URL:", WORDPRESS_URL);
-  console.log("CONSUMER_KEY exists:", !!CONSUMER_KEY);
-  console.log("CONSUMER_SECRET exists:", !!CONSUMER_SECRET);
+  console.log("🔍 Using Application Password authentication");
+  console.log("Username:", WP_USERNAME);
+  console.log("Password exists:", !!WP_APP_PASSWORD);
 
-  if (!WORDPRESS_URL || !CONSUMER_KEY || !CONSUMER_SECRET) {
+  if (!WORDPRESS_URL || !WP_USERNAME || !WP_APP_PASSWORD) {
     throw new Error("Missing required environment variables");
   }
 
   try {
     const url = `${WORDPRESS_URL}/wp-json/wc/v3/products`;
+
     console.log("🌐 Making request to:", url);
 
-    const resolve = await axios.get(url, {
+    // Quitar espacios de la contraseña de aplicación
+    const cleanPassword = WP_APP_PASSWORD.replace(/\s/g, "");
+
+    const response = await axios.get(url, {
+      auth: {
+        username: WP_USERNAME,
+        password: cleanPassword,
+      },
       headers: {
         "Content-Type": "application/json",
       },
-      auth: {
-        username: CONSUMER_KEY,
-        password: CONSUMER_SECRET,
-      },
     });
 
-    console.log("✅ Response status:", resolve.status);
-    console.log("📦 Response data length:", resolve.data?.length || 0);
-    return resolve.data;
-  } catch (error: any) {
-    console.log("❌ Full error object:", error);
-    console.log("❌ Error message:", error.message);
-    console.log("❌ Error response:", error.response?.data);
-    console.log("❌ Error status:", error.response?.status);
-    console.log("❌ Error config:", error.config?.url);
+    console.log("✅ Response status:", response.status);
+    console.log("📦 Products found:", response.data?.length || 0);
 
+    return response.data;
+  } catch (error: any) {
+    console.log("❌ Error details:", error.response?.data);
     throw new Error(
-      `WooCommerce API Error: ${error.message} - Status: ${error.response?.status}`
+      `WooCommerce API Error: ${JSON.stringify(error.response?.data)}`
     );
   }
 }

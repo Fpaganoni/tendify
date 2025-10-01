@@ -32,7 +32,7 @@ export function AddToCartButton({
     }, 2000);
   };
 
-  if (product.stock_availability.class === "out-of-stock") {
+  if (product.stock_quantity === 0) {
     return (
       <Button disabled size={size} variant={variant} className={className}>
         Out of Stock

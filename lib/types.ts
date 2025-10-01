@@ -1,18 +1,20 @@
-import { WooCommerceProduct } from "./product-types";
+import { WooCommerceProduct } from "./woocommerce-types";
 
-import { StockAvailability } from "./product-types";
-
+type Categories = {
+  id: number;
+  name: string;
+};
 export interface Product {
   id: number;
   name: string;
   description: string;
-  prices: { price: string };
+  price: string;
   images: [{ src: string; alt: string }];
-  categories: [{ name: string }];
-  featured: { categories: { name: string } };
-  stock_availability: StockAvailability;
-  // created_at: string; Doesn't work with public API
-  // updated_at: string;
+  categories: Categories[];
+  featured: boolean;
+  stock_quantity: number;
+  date_created: string;
+  date_modified: string;
 }
 
 export interface User {
@@ -54,15 +56,15 @@ export interface OrderItem {
   product: Product;
 }
 
-// Guard type para verificar si un producto está en stock
-export function isProductInStock(product: WooCommerceProduct): boolean {
-  return product.is_in_stock && product.is_purchasable;
-}
+// // Guard type para verificar si un producto está en stock
+// export function isProductInStock(product: WooCommerceProduct): boolean {
+//   return product.is_in_stock && product.is_purchasable;
+// }
 
-// Guard type para verificar si un producto está en oferta
-export function isProductOnSale(product: WooCommerceProduct): boolean {
-  return (
-    product.on_sale &&
-    product.prices.sale_price !== product.prices.regular_price
-  );
-}
+// // Guard type para verificar si un producto está en oferta
+// export function isProductOnSale(product: WooCommerceProduct): boolean {
+//   return (
+//     product.on_sale &&
+//     product.prices.sale_price !== product.prices.regular_price
+//   );
+// }
