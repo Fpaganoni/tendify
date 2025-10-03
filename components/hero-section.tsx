@@ -1,6 +1,6 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ScrollAnimation } from "@/components/scroll-animations"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ScrollAnimation } from "@/components/scroll-animations";
 
 export function HeroSection() {
   return (
@@ -14,7 +14,8 @@ export function HeroSection() {
           </ScrollAnimation>
           <ScrollAnimation animation="fadeInUp" delay={200}>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 text-pretty">
-              Shop our curated collection of high-quality products designed to enhance your everyday life.
+              Shop our curated collection of high-quality products designed to
+              enhance your everyday life.
             </p>
           </ScrollAnimation>
           <ScrollAnimation animation="fadeInUp" delay={400}>
@@ -22,7 +23,12 @@ export function HeroSection() {
               <Button size="lg" className="text-lg px-8 py-6" asChild>
                 <Link href="/products">Shop Now</Link>
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-6 bg-transparent" asChild>
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 bg-transparent"
+                asChild
+              >
                 <Link href="/categories">Browse Categories</Link>
               </Button>
             </div>
@@ -30,5 +36,5 @@ export function HeroSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

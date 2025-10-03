@@ -1,12 +1,15 @@
-import Link from "next/link"
-import { CheckCircle, Package, Truck } from "lucide-react"
-import { Header } from "@/components/header"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { CheckoutProgress } from "@/components/checkout-progress"
+import Link from "next/link";
+import { CheckCircle, Package, Truck } from "lucide-react";
+import { Header } from "@/components/header";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CheckoutProgress } from "@/components/checkout-progress";
 
 export default function CheckoutSuccessPage() {
-  const orderNumber = `ORD-${Math.random().toString(36).substr(2, 9).toUpperCase()}`
+  const orderNumber = `ORD-${Math.random()
+    .toString(36)
+    .substr(2, 9)
+    .toUpperCase()}`;
 
   return (
     <div className="min-h-screen">
@@ -19,7 +22,8 @@ export default function CheckoutSuccessPage() {
             <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6" />
             <h1 className="text-3xl font-bold mb-4">Order Confirmed!</h1>
             <p className="text-xl text-muted-foreground mb-8">
-              Thank you for your purchase. Your order has been successfully placed.
+              Thank you for your purchase. Your order has been successfully
+              placed.
             </p>
 
             <Card className="max-w-md mx-auto mb-8">
@@ -41,7 +45,9 @@ export default function CheckoutSuccessPage() {
                   <Package className="h-8 w-8 text-primary" />
                   <div className="text-left">
                     <h3 className="font-semibold">Processing</h3>
-                    <p className="text-sm text-muted-foreground">Your order is being prepared</p>
+                    <p className="text-sm text-muted-foreground">
+                      Your order is being prepared
+                    </p>
                   </div>
                 </CardContent>
               </Card>
@@ -50,7 +56,9 @@ export default function CheckoutSuccessPage() {
                   <Truck className="h-8 w-8 text-primary" />
                   <div className="text-left">
                     <h3 className="font-semibold">Shipping</h3>
-                    <p className="text-sm text-muted-foreground">Estimated delivery: 5-7 business days</p>
+                    <p className="text-sm text-muted-foreground">
+                      Estimated delivery: 5-7 business days
+                    </p>
                   </div>
                 </CardContent>
               </Card>
@@ -68,5 +76,5 @@ export default function CheckoutSuccessPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

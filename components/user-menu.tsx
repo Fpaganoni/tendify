@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { User, Settings, Package, LogOut } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { User, Settings, Package, LogOut } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,18 +9,19 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { useAuth } from "@/lib/auth-context"
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useAuth } from "@/lib/auth-context";
 
 export function UserMenu() {
-  const { state, logout } = useAuth()
+  const { state, logout } = useAuth();
 
   if (!state.isAuthenticated || !state.user) {
-    return null
+    return null;
   }
 
-  const initials = `${state.user.first_name[0]}${state.user.last_name[0]}`.toUpperCase()
+  const initials =
+    `${state.user.first_name[0]}${state.user.last_name[0]}`.toUpperCase();
 
   return (
     <DropdownMenu>
@@ -37,7 +38,9 @@ export function UserMenu() {
             <p className="text-sm font-medium leading-none">
               {state.user.first_name} {state.user.last_name}
             </p>
-            <p className="text-xs leading-none text-muted-foreground">{state.user.email}</p>
+            <p className="text-xs leading-none text-muted-foreground">
+              {state.user.email}
+            </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -60,5 +63,5 @@ export function UserMenu() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

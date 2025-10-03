@@ -1,11 +1,17 @@
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { ScrollAnimation } from "@/components/scroll-animations"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import Image from "next/image"
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { ScrollAnimation } from "@/components/scroll-animations";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import Image from "next/image";
 
 const categories = [
   {
@@ -56,11 +62,11 @@ const categories = [
     productCount: 8,
     featured: false,
   },
-]
+];
 
 export default function CategoriesPage() {
-  const featuredCategories = categories.filter((cat) => cat.featured)
-  const allCategories = categories
+  const featuredCategories = categories.filter((cat) => cat.featured);
+  const allCategories = categories;
 
   return (
     <div className="min-h-screen">
@@ -71,10 +77,13 @@ export default function CategoriesPage() {
           <section className="bg-gradient-to-r from-primary/10 to-secondary/10 py-16">
             <div className="container px-4">
               <div className="text-center max-w-3xl mx-auto">
-                <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">Shop by Category</h1>
+                <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+                  Shop by Category
+                </h1>
                 <p className="text-lg text-muted-foreground mb-8">
-                  Discover our carefully curated collection across different categories. Find exactly what you're
-                  looking for with our organized shopping experience.
+                  Discover our carefully curated collection across different
+                  categories. Find exactly what you're looking for with our
+                  organized shopping experience.
                 </p>
               </div>
             </div>
@@ -85,7 +94,9 @@ export default function CategoriesPage() {
         <ScrollAnimation>
           <section className="py-16">
             <div className="container px-4">
-              <h2 className="text-3xl font-bold text-center mb-12">Featured Categories</h2>
+              <h2 className="text-3xl font-bold text-center mb-12">
+                Featured Categories
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {featuredCategories.map((category, index) => (
                   <ScrollAnimation key={category.id} delay={index * 0.1}>
@@ -98,17 +109,29 @@ export default function CategoriesPage() {
                           className="object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
-                        <Badge className="absolute top-4 right-4 bg-primary text-primary-foreground">Featured</Badge>
+                        <Badge className="absolute top-4 right-4 bg-primary text-primary-foreground">
+                          Featured
+                        </Badge>
                       </div>
                       <CardHeader>
-                        <CardTitle className="text-xl">{category.name}</CardTitle>
-                        <CardDescription>{category.description}</CardDescription>
+                        <CardTitle className="text-xl">
+                          {category.name}
+                        </CardTitle>
+                        <CardDescription>
+                          {category.description}
+                        </CardDescription>
                       </CardHeader>
                       <CardContent>
                         <div className="flex items-center justify-between">
-                          <span className="text-sm text-muted-foreground">{category.productCount} products</span>
+                          <span className="text-sm text-muted-foreground">
+                            {category.productCount} products
+                          </span>
                           <Button asChild>
-                            <Link href={`/products?category=${category.name.toLowerCase()}`}>Shop Now</Link>
+                            <Link
+                              href={`/products?category=${category.name.toLowerCase()}`}
+                            >
+                              Shop Now
+                            </Link>
                           </Button>
                         </div>
                       </CardContent>
@@ -124,7 +147,9 @@ export default function CategoriesPage() {
         <ScrollAnimation>
           <section className="py-16 bg-muted/30">
             <div className="container px-4">
-              <h2 className="text-3xl font-bold text-center mb-12">All Categories</h2>
+              <h2 className="text-3xl font-bold text-center mb-12">
+                All Categories
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {allCategories.map((category, index) => (
                   <ScrollAnimation key={category.id} delay={index * 0.05}>
@@ -140,12 +165,24 @@ export default function CategoriesPage() {
                             />
                           </div>
                           <div className="flex-1">
-                            <h3 className="font-semibold text-lg">{category.name}</h3>
-                            <p className="text-sm text-muted-foreground">{category.productCount} products</p>
+                            <h3 className="font-semibold text-lg">
+                              {category.name}
+                            </h3>
+                            <p className="text-sm text-muted-foreground">
+                              {category.productCount} products
+                            </p>
                           </div>
                         </div>
-                        <Button asChild className="w-full mt-4 bg-transparent" variant="outline">
-                          <Link href={`/products?category=${category.name.toLowerCase()}`}>Browse</Link>
+                        <Button
+                          asChild
+                          className="w-full mt-4 bg-transparent"
+                          variant="outline"
+                        >
+                          <Link
+                            href={`/products?category=${category.name.toLowerCase()}`}
+                          >
+                            Browse
+                          </Link>
                         </Button>
                       </CardContent>
                     </Card>
@@ -158,5 +195,5 @@ export default function CategoriesPage() {
       </main>
       <Footer />
     </div>
-  )
+  );
 }

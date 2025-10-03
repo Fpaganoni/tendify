@@ -1,42 +1,48 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { CreditCard, Truck, MapPin } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Separator } from "@/components/ui/separator"
-import { useCart } from "@/lib/cart-context"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { CreditCard, Truck, MapPin } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Separator } from "@/components/ui/separator";
+import { useCart } from "@/lib/cart-context";
 
 interface CheckoutFormData {
-  email: string
-  firstName: string
-  lastName: string
-  address: string
-  city: string
-  state: string
-  zipCode: string
-  country: string
-  phone: string
-  shippingMethod: string
-  paymentMethod: string
-  cardNumber: string
-  expiryDate: string
-  cvv: string
-  cardName: string
+  email: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+  phone: string;
+  shippingMethod: string;
+  paymentMethod: string;
+  cardNumber: string;
+  expiryDate: string;
+  cvv: string;
+  cardName: string;
 }
 
 export function CheckoutForm() {
-  const { state, dispatch } = useCart()
-  const router = useRouter()
-  const [isProcessing, setIsProcessing] = useState(false)
+  const { state, dispatch } = useCart();
+  const router = useRouter();
+  const [isProcessing, setIsProcessing] = useState(false);
   const [formData, setFormData] = useState<CheckoutFormData>({
     email: "",
     firstName: "",
@@ -53,28 +59,32 @@ export function CheckoutForm() {
     expiryDate: "",
     cvv: "",
     cardName: "",
-  })
+  });
 
   const handleInputChange = (field: keyof CheckoutFormData, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
-  }
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsProcessing(true)
+    e.preventDefault();
+    setIsProcessing(true);
 
     // Simulate payment processing
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     // Clear cart and redirect to success page
-    dispatch({ type: "CLEAR_CART" })
-    router.push("/checkout/success")
-  }
+    dispatch({ type: "CLEAR_CART" });
+    router.push("/checkout/success");
+  };
 
   const shippingCost =
-    formData.shippingMethod === "express" ? 15.99 : formData.shippingMethod === "overnight" ? 29.99 : 5.99
-  const tax = state.total * 0.08
-  const finalTotal = state.total + shippingCost + tax
+    formData.shippingMethod === "express"
+      ? 15.99
+      : formData.shippingMethod === "overnight"
+      ? 29.99
+      : 5.99;
+  const tax = state.total * 0.08;
+  const finalTotal = state.total + shippingCost + tax;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
@@ -106,7 +116,9 @@ export function CheckoutForm() {
                   <Input
                     id="firstName"
                     value={formData.firstName}
-                    onChange={(e) => handleInputChange("firstName", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("firstName", e.target.value)
+                    }
                     required
                   />
                 </div>
@@ -115,7 +127,9 @@ export function CheckoutForm() {
                   <Input
                     id="lastName"
                     value={formData.lastName}
-                    onChange={(e) => handleInputChange("lastName", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("lastName", e.target.value)
+                    }
                     required
                   />
                 </div>
@@ -177,13 +191,20 @@ export function CheckoutForm() {
                   <Input
                     id="zipCode"
                     value={formData.zipCode}
-                    onChange={(e) => handleInputChange("zipCode", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("zipCode", e.target.value)
+                    }
                     required
                   />
                 </div>
                 <div>
                   <Label htmlFor="country">Country</Label>
-                  <Select value={formData.country} onValueChange={(value) => handleInputChange("country", value)}>
+                  <Select
+                    value={formData.country}
+                    onValueChange={(value) =>
+                      handleInputChange("country", value)
+                    }
+                  >
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -206,7 +227,9 @@ export function CheckoutForm() {
             <CardContent>
               <RadioGroup
                 value={formData.shippingMethod}
-                onValueChange={(value) => handleInputChange("shippingMethod", value)}
+                onValueChange={(value) =>
+                  handleInputChange("shippingMethod", value)
+                }
               >
                 <div className="flex items-center space-x-2 p-3 border rounded-lg">
                   <RadioGroupItem value="standard" id="standard" />
@@ -214,7 +237,9 @@ export function CheckoutForm() {
                     <div className="flex justify-between">
                       <div>
                         <p className="font-medium">Standard Shipping</p>
-                        <p className="text-sm text-muted-foreground">5-7 business days</p>
+                        <p className="text-sm text-muted-foreground">
+                          5-7 business days
+                        </p>
                       </div>
                       <span className="font-medium">$5.99</span>
                     </div>
@@ -226,7 +251,9 @@ export function CheckoutForm() {
                     <div className="flex justify-between">
                       <div>
                         <p className="font-medium">Express Shipping</p>
-                        <p className="text-sm text-muted-foreground">2-3 business days</p>
+                        <p className="text-sm text-muted-foreground">
+                          2-3 business days
+                        </p>
                       </div>
                       <span className="font-medium">$15.99</span>
                     </div>
@@ -238,7 +265,9 @@ export function CheckoutForm() {
                     <div className="flex justify-between">
                       <div>
                         <p className="font-medium">Overnight Shipping</p>
-                        <p className="text-sm text-muted-foreground">Next business day</p>
+                        <p className="text-sm text-muted-foreground">
+                          Next business day
+                        </p>
                       </div>
                       <span className="font-medium">$29.99</span>
                     </div>
@@ -262,7 +291,9 @@ export function CheckoutForm() {
                 <Input
                   id="cardName"
                   value={formData.cardName}
-                  onChange={(e) => handleInputChange("cardName", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("cardName", e.target.value)
+                  }
                   required
                 />
               </div>
@@ -272,7 +303,9 @@ export function CheckoutForm() {
                   id="cardNumber"
                   placeholder="1234 5678 9012 3456"
                   value={formData.cardNumber}
-                  onChange={(e) => handleInputChange("cardNumber", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("cardNumber", e.target.value)
+                  }
                   required
                 />
               </div>
@@ -283,7 +316,9 @@ export function CheckoutForm() {
                     id="expiryDate"
                     placeholder="MM/YY"
                     value={formData.expiryDate}
-                    onChange={(e) => handleInputChange("expiryDate", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("expiryDate", e.target.value)
+                    }
                     required
                   />
                 </div>
@@ -312,12 +347,21 @@ export function CheckoutForm() {
               {/* Cart Items */}
               <div className="space-y-3">
                 {state.items.map((item) => (
-                  <div key={item.product.id} className="flex justify-between items-center">
+                  <div
+                    key={item.product.id}
+                    className="flex justify-between items-center"
+                  >
                     <div className="flex-1">
-                      <p className="font-medium text-sm line-clamp-1">{item.product.name}</p>
-                      <p className="text-sm text-muted-foreground">Qty: {item.quantity}</p>
+                      <p className="font-medium text-sm line-clamp-1">
+                        {item.product.name}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        Qty: {item.quantity}
+                      </p>
                     </div>
-                    <span className="font-medium">${(item.product.price * item.quantity).toFixed(2)}</span>
+                    <span className="font-medium">
+                      ${(item.product.price * item.quantity).toFixed(2)}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -345,13 +389,20 @@ export function CheckoutForm() {
                 </div>
               </div>
 
-              <Button type="submit" className="w-full" size="lg" disabled={isProcessing}>
-                {isProcessing ? "Processing..." : `Complete Order - $${finalTotal.toFixed(2)}`}
+              <Button
+                type="submit"
+                className="w-full"
+                size="lg"
+                disabled={isProcessing}
+              >
+                {isProcessing
+                  ? "Processing..."
+                  : `Complete Order - $${finalTotal.toFixed(2)}`}
               </Button>
             </CardContent>
           </Card>
         </div>
       </div>
     </form>
-  )
+  );
 }

@@ -1,33 +1,45 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Image from "next/image"
-import { MoreHorizontal, Edit, Trash2, Eye } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import type { Product } from "@/lib/types"
+import { useState } from "react";
+import Image from "next/image";
+import { MoreHorizontal, Edit, Trash2, Eye } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { Product } from "@/lib/types";
 
 interface AdminProductTableProps {
-  products: Product[]
+  products: Product[];
 }
 
 export function AdminProductTable({ products }: AdminProductTableProps) {
-  const [selectedProducts, setSelectedProducts] = useState<number[]>([])
+  const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
 
   const handleEdit = (productId: number) => {
-    console.log("Edit product:", productId)
-  }
+    console.log("Edit product:", productId);
+  };
 
   const handleDelete = (productId: number) => {
-    console.log("Delete product:", productId)
-  }
+    console.log("Delete product:", productId);
+  };
 
   const handleView = (productId: number) => {
-    console.log("View product:", productId)
-  }
+    console.log("View product:", productId);
+  };
 
   return (
     <Card>
@@ -61,16 +73,26 @@ export function AdminProductTable({ products }: AdminProductTableProps) {
                     </div>
                     <div>
                       <p className="font-medium line-clamp-1">{product.name}</p>
-                      <p className="text-sm text-muted-foreground line-clamp-1">{product.description}</p>
+                      <p className="text-sm text-muted-foreground line-clamp-1">
+                        {product.description}
+                      </p>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>
                   <Badge variant="outline">{product.category}</Badge>
                 </TableCell>
-                <TableCell className="font-medium">${product.price.toFixed(2)}</TableCell>
+                <TableCell className="font-medium">
+                  ${product.price.toFixed(2)}
+                </TableCell>
                 <TableCell>
-                  <span className={product.stock_quantity > 0 ? "text-green-600" : "text-red-600"}>
+                  <span
+                    className={
+                      product.stock_quantity > 0
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }
+                  >
                     {product.stock_quantity}
                   </span>
                 </TableCell>
@@ -95,7 +117,10 @@ export function AdminProductTable({ products }: AdminProductTableProps) {
                         <Edit className="mr-2 h-4 w-4" />
                         Edit
                       </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => handleDelete(product.id)} className="text-destructive">
+                      <DropdownMenuItem
+                        onClick={() => handleDelete(product.id)}
+                        className="text-destructive"
+                      >
                         <Trash2 className="mr-2 h-4 w-4" />
                         Delete
                       </DropdownMenuItem>
@@ -108,5 +133,5 @@ export function AdminProductTable({ products }: AdminProductTableProps) {
         </Table>
       </CardContent>
     </Card>
-  )
+  );
 }

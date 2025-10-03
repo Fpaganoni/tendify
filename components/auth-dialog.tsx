@@ -1,74 +1,81 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { User, LogIn, UserPlus } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useAuth } from "@/lib/auth-context"
-import { useToast } from "@/hooks/use-toast"
+import { useState } from "react";
+import { User, LogIn, UserPlus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useAuth } from "@/lib/auth-context";
+import { useToast } from "@/hooks/use-toast";
 
 export function AuthDialog() {
-  const { state, login, register } = useAuth()
-  const { toast } = useToast()
-  const [isOpen, setIsOpen] = useState(false)
-  const [loginForm, setLoginForm] = useState({ email: "", password: "" })
+  const { state, login, register } = useAuth();
+  const { toast } = useToast();
+  const [isOpen, setIsOpen] = useState(false);
+  const [loginForm, setLoginForm] = useState({ email: "", password: "" });
   const [registerForm, setRegisterForm] = useState({
     email: "",
     password: "",
     firstName: "",
     lastName: "",
-  })
+  });
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const success = await login(loginForm.email, loginForm.password)
+    e.preventDefault();
+    const success = await login(loginForm.email, loginForm.password);
     if (success) {
       toast({
         title: "Welcome back!",
         description: "You have been successfully logged in.",
-      })
-      setIsOpen(false)
-      setLoginForm({ email: "", password: "" })
+      });
+      setIsOpen(false);
+      setLoginForm({ email: "", password: "" });
     } else {
       toast({
         title: "Login failed",
-        description: "Invalid email or password. Try admin@example.com / password",
+        description:
+          "Invalid email or password. Try admin@example.com / password",
         variant: "destructive",
-      })
+      });
     }
-  }
+  };
 
   const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     const success = await register(
       registerForm.email,
       registerForm.password,
       registerForm.firstName,
-      registerForm.lastName,
-    )
+      registerForm.lastName
+    );
     if (success) {
       toast({
         title: "Account created!",
         description: "Your account has been successfully created.",
-      })
-      setIsOpen(false)
-      setRegisterForm({ email: "", password: "", firstName: "", lastName: "" })
+      });
+      setIsOpen(false);
+      setRegisterForm({ email: "", password: "", firstName: "", lastName: "" });
     } else {
       toast({
         title: "Registration failed",
         description: "An account with this email already exists.",
         variant: "destructive",
-      })
+      });
     }
-  }
+  };
 
   if (state.isAuthenticated) {
-    return null
+    return null;
   }
 
   return (
@@ -96,7 +103,9 @@ export function AuthDialog() {
                   id="login-email"
                   type="email"
                   value={loginForm.email}
-                  onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
+                  onChange={(e) =>
+                    setLoginForm({ ...loginForm, email: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -106,16 +115,24 @@ export function AuthDialog() {
                   id="login-password"
                   type="password"
                   value={loginForm.password}
-                  onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
+                  onChange={(e) =>
+                    setLoginForm({ ...loginForm, password: e.target.value })
+                  }
                   required
                 />
               </div>
-              <Button type="submit" className="w-full" disabled={state.isLoading}>
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={state.isLoading}
+              >
                 <LogIn className="h-4 w-4 mr-2" />
                 {state.isLoading ? "Signing in..." : "Sign In"}
               </Button>
             </form>
-            <p className="text-xs text-muted-foreground text-center">Demo: admin@example.com / password</p>
+            <p className="text-xs text-muted-foreground text-center">
+              Demo: admin@example.com / password
+            </p>
           </TabsContent>
 
           <TabsContent value="register" className="space-y-4">
@@ -126,7 +143,12 @@ export function AuthDialog() {
                   <Input
                     id="register-firstName"
                     value={registerForm.firstName}
-                    onChange={(e) => setRegisterForm({ ...registerForm, firstName: e.target.value })}
+                    onChange={(e) =>
+                      setRegisterForm({
+                        ...registerForm,
+                        firstName: e.target.value,
+                      })
+                    }
                     required
                   />
                 </div>
@@ -135,7 +157,12 @@ export function AuthDialog() {
                   <Input
                     id="register-lastName"
                     value={registerForm.lastName}
-                    onChange={(e) => setRegisterForm({ ...registerForm, lastName: e.target.value })}
+                    onChange={(e) =>
+                      setRegisterForm({
+                        ...registerForm,
+                        lastName: e.target.value,
+                      })
+                    }
                     required
                   />
                 </div>
@@ -146,7 +173,9 @@ export function AuthDialog() {
                   id="register-email"
                   type="email"
                   value={registerForm.email}
-                  onChange={(e) => setRegisterForm({ ...registerForm, email: e.target.value })}
+                  onChange={(e) =>
+                    setRegisterForm({ ...registerForm, email: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -156,11 +185,20 @@ export function AuthDialog() {
                   id="register-password"
                   type="password"
                   value={registerForm.password}
-                  onChange={(e) => setRegisterForm({ ...registerForm, password: e.target.value })}
+                  onChange={(e) =>
+                    setRegisterForm({
+                      ...registerForm,
+                      password: e.target.value,
+                    })
+                  }
                   required
                 />
               </div>
-              <Button type="submit" className="w-full" disabled={state.isLoading}>
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={state.isLoading}
+              >
                 <UserPlus className="h-4 w-4 mr-2" />
                 {state.isLoading ? "Creating account..." : "Create Account"}
               </Button>
@@ -169,5 +207,5 @@ export function AuthDialog() {
         </Tabs>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

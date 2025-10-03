@@ -1,31 +1,33 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Search, Menu } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { CartDrawer } from "./cart-drawer"
-import { AuthDialog } from "./auth-dialog"
-import { UserMenu } from "./user-menu"
-import { ThemeToggle } from "./theme-toggle"
-import { useAuth } from "@/lib/auth-context"
+import { useState } from "react";
+import Link from "next/link";
+import { Search, Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { CartDrawer } from "./cart-drawer";
+import { AuthDialog } from "./auth-dialog";
+import { UserMenu } from "./user-menu";
+import { ThemeToggle } from "./theme-toggle";
+import { useAuth } from "@/lib/auth-context";
 
 export function Header() {
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState("")
-  const { state } = useAuth()
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const { state } = useAuth();
 
   const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (searchQuery.trim()) {
       // Navigate to products page with search query
-      window.location.href = `/products?search=${encodeURIComponent(searchQuery.trim())}`
+      window.location.href = `/products?search=${encodeURIComponent(
+        searchQuery.trim()
+      )}`;
     }
-  }
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -40,20 +42,35 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          <Link href="/products" className="text-sm font-medium hover:text-primary transition-colors">
+          <Link
+            href="/products"
+            className="text-sm font-medium hover:text-primary transition-colors"
+          >
             Products
           </Link>
-          <Link href="/categories" className="text-sm font-medium hover:text-primary transition-colors">
+          <Link
+            href="/categories"
+            className="text-sm font-medium hover:text-primary transition-colors"
+          >
             Categories
           </Link>
-          <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors">
+          <Link
+            href="/about"
+            className="text-sm font-medium hover:text-primary transition-colors"
+          >
             About
           </Link>
-          <Link href="/contact" className="text-sm font-medium hover:text-primary transition-colors">
+          <Link
+            href="/contact"
+            className="text-sm font-medium hover:text-primary transition-colors"
+          >
             Contact
           </Link>
           {state.user?.role === "admin" && (
-            <Link href="/admin" className="text-sm font-medium hover:text-primary transition-colors">
+            <Link
+              href="/admin"
+              className="text-sm font-medium hover:text-primary transition-colors"
+            >
               Admin
             </Link>
           )}
@@ -76,7 +93,12 @@ export function Header() {
           </div>
 
           {/* Mobile Search Toggle */}
-          <Button variant="ghost" size="icon" className="sm:hidden" onClick={() => setIsSearchOpen(!isSearchOpen)}>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="sm:hidden"
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+          >
             <Search className="h-5 w-5" />
           </Button>
 
@@ -96,20 +118,35 @@ export function Header() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
               <nav className="flex flex-col space-y-4 mt-6">
-                <Link href="/products" className="text-lg font-medium hover:text-primary transition-colors">
+                <Link
+                  href="/products"
+                  className="text-lg font-medium hover:text-primary transition-colors"
+                >
                   Products
                 </Link>
-                <Link href="/categories" className="text-lg font-medium hover:text-primary transition-colors">
+                <Link
+                  href="/categories"
+                  className="text-lg font-medium hover:text-primary transition-colors"
+                >
                   Categories
                 </Link>
-                <Link href="/about" className="text-lg font-medium hover:text-primary transition-colors">
+                <Link
+                  href="/about"
+                  className="text-lg font-medium hover:text-primary transition-colors"
+                >
                   About
                 </Link>
-                <Link href="/contact" className="text-lg font-medium hover:text-primary transition-colors">
+                <Link
+                  href="/contact"
+                  className="text-lg font-medium hover:text-primary transition-colors"
+                >
                   Contact
                 </Link>
                 {state.user?.role === "admin" && (
-                  <Link href="/admin" className="text-lg font-medium hover:text-primary transition-colors">
+                  <Link
+                    href="/admin"
+                    className="text-lg font-medium hover:text-primary transition-colors"
+                  >
                     Admin
                   </Link>
                 )}
@@ -135,5 +172,5 @@ export function Header() {
         </div>
       )}
     </header>
-  )
+  );
 }

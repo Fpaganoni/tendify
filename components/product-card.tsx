@@ -10,6 +10,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AddToCartButton } from "./add-to-cart-button";
 import { Product } from "@/lib/types";
+import { stripHtml } from "../utils/stripHtml";
 
 interface ProductCardProps {
   product: Product;
@@ -22,6 +23,9 @@ export function ProductCard({ product }: ProductCardProps) {
     console.log("Toggle favorite:", product.id);
   };
 
+  const stripDescription = stripHtml(product.description || "");
+  const stripCategorie = stripHtml(product.categories?.[0]?.name || "");
+
   return (
     <Card className="group overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <Link href={`/products/${product.id}`}>
@@ -32,7 +36,7 @@ export function ProductCard({ product }: ProductCardProps) {
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
-          {product && (
+          {product.featured && (
             <Badge className="absolute top-2 left-2 bg-secondary text-secondary-foreground">
               Featured
             </Badge>
@@ -54,14 +58,14 @@ export function ProductCard({ product }: ProductCardProps) {
             {product.name}
           </h3>
           <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
-            {product.description}
+            {stripDescription}
           </p>
           <div className="flex items-center justify-between">
             <span className="text-2xl font-bold text-primary">
               ${product.price}
             </span>
             <Badge variant="outline" className="text-xs">
-              {product.categories?.[0].name}
+              {stripCategorie}
             </Badge>
           </div>
         </Link>

@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { AdminLayout } from "@/components/admin-layout"
-import { AdminStats } from "@/components/admin-stats"
-import { AdminProductTable } from "@/components/admin-product-table"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { mockProducts } from "@/lib/db"
+import { AdminLayout } from "@/components/admin-layout";
+import { AdminStats } from "@/components/admin-stats";
+import { AdminProductTable } from "@/components/admin-product-table";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { mockProducts } from "@/lib/db";
 
 export default function AdminDashboard() {
   return (
@@ -12,7 +12,9 @@ export default function AdminDashboard() {
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold">Dashboard</h1>
-          <p className="text-muted-foreground">Welcome to your admin dashboard</p>
+          <p className="text-muted-foreground">
+            Welcome to your admin dashboard
+          </p>
         </div>
 
         <AdminStats />
@@ -25,19 +27,46 @@ export default function AdminDashboard() {
             <CardContent>
               <div className="space-y-4">
                 {[
-                  { id: "ORD-001", customer: "John Doe", amount: "$299.99", status: "Completed" },
-                  { id: "ORD-002", customer: "Jane Smith", amount: "$129.99", status: "Processing" },
-                  { id: "ORD-003", customer: "Bob Johnson", amount: "$89.99", status: "Shipped" },
-                  { id: "ORD-004", customer: "Alice Brown", amount: "$199.99", status: "Pending" },
+                  {
+                    id: "ORD-001",
+                    customer: "John Doe",
+                    amount: "$299.99",
+                    status: "Completed",
+                  },
+                  {
+                    id: "ORD-002",
+                    customer: "Jane Smith",
+                    amount: "$129.99",
+                    status: "Processing",
+                  },
+                  {
+                    id: "ORD-003",
+                    customer: "Bob Johnson",
+                    amount: "$89.99",
+                    status: "Shipped",
+                  },
+                  {
+                    id: "ORD-004",
+                    customer: "Alice Brown",
+                    amount: "$199.99",
+                    status: "Pending",
+                  },
                 ].map((order) => (
-                  <div key={order.id} className="flex items-center justify-between p-3 border rounded-lg">
+                  <div
+                    key={order.id}
+                    className="flex items-center justify-between p-3 border rounded-lg"
+                  >
                     <div>
                       <p className="font-medium">{order.id}</p>
-                      <p className="text-sm text-muted-foreground">{order.customer}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {order.customer}
+                      </p>
                     </div>
                     <div className="text-right">
                       <p className="font-medium">{order.amount}</p>
-                      <p className="text-sm text-muted-foreground">{order.status}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {order.status}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -63,7 +92,10 @@ export default function AdminDashboard() {
                       <span>{category.sales} sales</span>
                     </div>
                     <div className="w-full bg-muted rounded-full h-2">
-                      <div className="bg-primary h-2 rounded-full" style={{ width: `${category.percentage}%` }} />
+                      <div
+                        className="bg-primary h-2 rounded-full"
+                        style={{ width: `${category.percentage}%` }}
+                      />
                     </div>
                   </div>
                 ))}
@@ -75,5 +107,5 @@ export default function AdminDashboard() {
         <AdminProductTable products={mockProducts} />
       </div>
     </AdminLayout>
-  )
+  );
 }

@@ -1,30 +1,36 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { ShoppingCart, Plus, Minus, X, Trash2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import { Separator } from "@/components/ui/separator"
-import { Badge } from "@/components/ui/badge"
-import { useCart } from "@/lib/cart-context"
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { ShoppingCart, Plus, Minus, X, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import { useCart } from "@/lib/cart-context";
 
 export function CartDrawer() {
-  const { state, dispatch } = useCart()
-  const [isOpen, setIsOpen] = useState(false)
+  const { state, dispatch } = useCart();
+  const [isOpen, setIsOpen] = useState(false);
 
   const updateQuantity = (productId: number, quantity: number) => {
-    dispatch({ type: "UPDATE_QUANTITY", productId, quantity })
-  }
+    dispatch({ type: "UPDATE_QUANTITY", productId, quantity });
+  };
 
   const removeItem = (productId: number) => {
-    dispatch({ type: "REMOVE_ITEM", productId })
-  }
+    dispatch({ type: "REMOVE_ITEM", productId });
+  };
 
   const clearCart = () => {
-    dispatch({ type: "CLEAR_CART" })
-  }
+    dispatch({ type: "CLEAR_CART" });
+  };
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -56,8 +62,12 @@ export function CartDrawer() {
             <div className="flex-1 flex items-center justify-center">
               <div className="text-center">
                 <ShoppingCart className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Your cart is empty</h3>
-                <p className="text-muted-foreground mb-4">Add some products to get started!</p>
+                <h3 className="text-lg font-semibold mb-2">
+                  Your cart is empty
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  Add some products to get started!
+                </p>
                 <Button asChild onClick={() => setIsOpen(false)}>
                   <Link href="/products">Browse Products</Link>
                 </Button>
@@ -69,7 +79,10 @@ export function CartDrawer() {
               <div className="flex-1 overflow-y-auto py-4">
                 <div className="space-y-4">
                   {state.items.map((item) => (
-                    <div key={item.product.id} className="flex items-center space-x-4 p-4 border rounded-lg">
+                    <div
+                      key={item.product.id}
+                      className="flex items-center space-x-4 p-4 border rounded-lg"
+                    >
                       <div className="relative h-16 w-16 flex-shrink-0">
                         <Image
                           src={item.product.image_url || "/placeholder.svg"}
@@ -80,8 +93,12 @@ export function CartDrawer() {
                       </div>
 
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-medium text-sm line-clamp-2">{item.product.name}</h4>
-                        <p className="text-sm text-muted-foreground">${item.product.price.toFixed(2)}</p>
+                        <h4 className="font-medium text-sm line-clamp-2">
+                          {item.product.name}
+                        </h4>
+                        <p className="text-sm text-muted-foreground">
+                          ${item.product.price.toFixed(2)}
+                        </p>
                       </div>
 
                       <div className="flex items-center space-x-2">
@@ -89,16 +106,22 @@ export function CartDrawer() {
                           variant="outline"
                           size="icon"
                           className="h-8 w-8 bg-transparent"
-                          onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                          onClick={() =>
+                            updateQuantity(item.product.id, item.quantity - 1)
+                          }
                         >
                           <Minus className="h-3 w-3" />
                         </Button>
-                        <span className="w-8 text-center text-sm">{item.quantity}</span>
+                        <span className="w-8 text-center text-sm">
+                          {item.quantity}
+                        </span>
                         <Button
                           variant="outline"
                           size="icon"
                           className="h-8 w-8 bg-transparent"
-                          onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
+                          onClick={() =>
+                            updateQuantity(item.product.id, item.quantity + 1)
+                          }
                         >
                           <Plus className="h-3 w-3" />
                         </Button>
@@ -124,10 +147,20 @@ export function CartDrawer() {
                 </div>
                 <Separator />
                 <div className="space-y-2">
-                  <Button className="w-full" size="lg" asChild onClick={() => setIsOpen(false)}>
+                  <Button
+                    className="w-full"
+                    size="lg"
+                    asChild
+                    onClick={() => setIsOpen(false)}
+                  >
                     <Link href="/checkout">Proceed to Checkout</Link>
                   </Button>
-                  <Button variant="outline" className="w-full bg-transparent" asChild onClick={() => setIsOpen(false)}>
+                  <Button
+                    variant="outline"
+                    className="w-full bg-transparent"
+                    asChild
+                    onClick={() => setIsOpen(false)}
+                  >
                     <Link href="/products">Continue Shopping</Link>
                   </Button>
                 </div>
@@ -137,5 +170,5 @@ export function CartDrawer() {
         </div>
       </SheetContent>
     </Sheet>
-  )
+  );
 }

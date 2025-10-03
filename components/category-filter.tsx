@@ -1,45 +1,54 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Slider } from "@/components/ui/slider"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface CategoryFilterProps {
-  categories: string[]
-  onFilterChange: (filters: FilterState) => void
+  categories: string[];
+  onFilterChange: (filters: FilterState) => void;
 }
 
 export interface FilterState {
-  category: string
-  priceRange: [number, number]
-  sortBy: string
+  category: string;
+  priceRange: [number, number];
+  sortBy: string;
 }
 
-export function CategoryFilter({ categories, onFilterChange }: CategoryFilterProps) {
+export function CategoryFilter({
+  categories,
+  onFilterChange,
+}: CategoryFilterProps) {
   const [filters, setFilters] = useState<FilterState>({
     category: "all",
     priceRange: [0, 500],
     sortBy: "name",
-  })
+  });
 
   const handleFilterChange = (newFilters: Partial<FilterState>) => {
-    const updatedFilters = { ...filters, ...newFilters }
-    setFilters(updatedFilters)
-    onFilterChange(updatedFilters)
-  }
+    const updatedFilters = { ...filters, ...newFilters };
+    setFilters(updatedFilters);
+    onFilterChange(updatedFilters);
+  };
 
   const clearFilters = () => {
     const defaultFilters: FilterState = {
       category: "all",
       priceRange: [0, 500],
       sortBy: "name",
-    }
-    setFilters(defaultFilters)
-    onFilterChange(defaultFilters)
-  }
+    };
+    setFilters(defaultFilters);
+    onFilterChange(defaultFilters);
+  };
 
   return (
     <Card className="w-full">
@@ -82,7 +91,9 @@ export function CategoryFilter({ categories, onFilterChange }: CategoryFilterPro
           <div className="px-2">
             <Slider
               value={filters.priceRange}
-              onValueChange={(value) => handleFilterChange({ priceRange: value as [number, number] })}
+              onValueChange={(value) =>
+                handleFilterChange({ priceRange: value as [number, number] })
+              }
               max={500}
               min={0}
               step={10}
@@ -98,7 +109,10 @@ export function CategoryFilter({ categories, onFilterChange }: CategoryFilterPro
         {/* Sort By */}
         <div className="space-y-3">
           <h4 className="font-medium">Sort By</h4>
-          <Select value={filters.sortBy} onValueChange={(value) => handleFilterChange({ sortBy: value })}>
+          <Select
+            value={filters.sortBy}
+            onValueChange={(value) => handleFilterChange({ sortBy: value })}
+          >
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
@@ -113,5 +127,5 @@ export function CategoryFilter({ categories, onFilterChange }: CategoryFilterPro
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

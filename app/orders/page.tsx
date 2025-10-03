@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { Header } from "@/components/header"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { useAuth } from "@/lib/auth-context"
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Header } from "@/components/header";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/lib/auth-context";
 
 export default function OrdersPage() {
-  const { state } = useAuth()
-  const router = useRouter()
+  const { state } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     if (!state.isLoading && !state.isAuthenticated) {
-      router.push("/")
+      router.push("/");
     }
-  }, [state.isLoading, state.isAuthenticated, router])
+  }, [state.isLoading, state.isAuthenticated, router]);
 
   if (state.isLoading) {
     return (
@@ -25,11 +25,11 @@ export default function OrdersPage() {
           <div className="text-center">Loading...</div>
         </div>
       </div>
-    )
+    );
   }
 
   if (!state.isAuthenticated) {
-    return null
+    return null;
   }
 
   // Mock orders data
@@ -39,7 +39,9 @@ export default function OrdersPage() {
       date: "2024-01-15",
       total: 299.99,
       status: "Delivered",
-      items: [{ name: "Premium Wireless Headphones", quantity: 1, price: 299.99 }],
+      items: [
+        { name: "Premium Wireless Headphones", quantity: 1, price: 299.99 },
+      ],
     },
     {
       id: "ORD-002",
@@ -51,7 +53,7 @@ export default function OrdersPage() {
         { name: "Eco-Friendly Water Bottle", quantity: 1, price: 34.99 },
       ],
     },
-  ]
+  ];
 
   return (
     <div className="min-h-screen">
@@ -64,7 +66,9 @@ export default function OrdersPage() {
             <Card>
               <CardContent className="text-center py-12">
                 <h3 className="text-lg font-semibold mb-2">No orders yet</h3>
-                <p className="text-muted-foreground">Start shopping to see your orders here!</p>
+                <p className="text-muted-foreground">
+                  Start shopping to see your orders here!
+                </p>
               </CardContent>
             </Card>
           ) : (
@@ -73,20 +77,37 @@ export default function OrdersPage() {
                 <Card key={order.id}>
                   <CardHeader>
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-lg">Order {order.id}</CardTitle>
-                      <Badge variant={order.status === "Delivered" ? "default" : "secondary"}>{order.status}</Badge>
+                      <CardTitle className="text-lg">
+                        Order {order.id}
+                      </CardTitle>
+                      <Badge
+                        variant={
+                          order.status === "Delivered" ? "default" : "secondary"
+                        }
+                      >
+                        {order.status}
+                      </Badge>
                     </div>
-                    <p className="text-sm text-muted-foreground">Placed on {order.date}</p>
+                    <p className="text-sm text-muted-foreground">
+                      Placed on {order.date}
+                    </p>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
                       {order.items.map((item, index) => (
-                        <div key={index} className="flex justify-between items-center">
+                        <div
+                          key={index}
+                          className="flex justify-between items-center"
+                        >
                           <div>
                             <p className="font-medium">{item.name}</p>
-                            <p className="text-sm text-muted-foreground">Quantity: {item.quantity}</p>
+                            <p className="text-sm text-muted-foreground">
+                              Quantity: {item.quantity}
+                            </p>
                           </div>
-                          <span className="font-medium">${(item.price * item.quantity).toFixed(2)}</span>
+                          <span className="font-medium">
+                            ${(item.price * item.quantity).toFixed(2)}
+                          </span>
                         </div>
                       ))}
                       <div className="border-t pt-3 flex justify-between items-center font-semibold">
@@ -102,5 +123,5 @@ export default function OrdersPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
