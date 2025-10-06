@@ -227,9 +227,14 @@ export async function getFeaturedProducts(): Promise<WooCommerceProduct[]> {
   // return mockProducts.filter((product) => product.featured);
 }
 
-export async function getProductById(id: number): Promise<Product | null> {
-  await new Promise((resolve) => setTimeout(resolve, 100));
-  return mockProducts.find((product) => product.id === id) || null;
+export async function getProductById(
+  id: number
+): Promise<WooCommerceProduct | null> {
+  // await new Promise((resolve) => setTimeout(resolve, 100));
+
+  const allProducts = await getProducts();
+
+  return allProducts.find((product) => product.id === id) || null;
 }
 
 export async function getProductsByCategory(
