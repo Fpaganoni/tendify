@@ -24,7 +24,14 @@ export default function ProductsPage() {
   useEffect(() => {
     const loadProducts = async () => {
       try {
-        const data = await getProducts();
+        const response = await fetch("/api/prodcuts");
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+
         setProducts(data);
         setFilteredProducts(data);
       } catch (error) {

@@ -239,16 +239,24 @@ export async function getProductById(
 
 export async function getProductsByCategory(
   category: string
-): Promise<Product[]> {
-  await new Promise((resolve) => setTimeout(resolve, 100));
-  return mockProducts.filter(
+): Promise<WooCommerceProduct[]> {
+  // await new Promise((resolve) => setTimeout(resolve, 100));
+
+  const allProducts = await getProducts();
+
+  return allProducts.filter(
     (product) => product.categories[0].name === category
   );
 }
 
-export async function searchProducts(query: string): Promise<Product[]> {
-  await new Promise((resolve) => setTimeout(resolve, 100));
-  return mockProducts.filter(
+export async function searchProducts(
+  query: string
+): Promise<WooCommerceProduct[]> {
+  // await new Promise((resolve) => setTimeout(resolve, 100));
+
+  const allProducts = await getProducts();
+
+  return allProducts.filter(
     (product) =>
       product.name.toLowerCase().includes(query.toLowerCase()) ||
       product.description.toLowerCase().includes(query.toLowerCase())
