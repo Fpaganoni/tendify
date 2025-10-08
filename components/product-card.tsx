@@ -11,9 +11,10 @@ import { Badge } from "@/components/ui/badge";
 import { AddToCartButton } from "./add-to-cart-button";
 import { Product } from "@/lib/types";
 import { stripHtml } from "../utils/stripHtml";
+import { WooCommerceProduct } from "@/lib/woocommerce-types";
 
 interface ProductCardProps {
-  product: Product;
+  product: WooCommerceProduct;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
@@ -62,7 +63,7 @@ export function ProductCard({ product }: ProductCardProps) {
           </p>
           <div className="flex items-center justify-between">
             <span className="text-2xl font-bold text-primary">
-              ${product.price}
+              ${parseFloat(product.price).toFixed(2)}
             </span>
             <Badge variant="outline" className="text-xs">
               {stripCategorie}

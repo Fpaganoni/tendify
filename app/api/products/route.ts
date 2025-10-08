@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { getProducts } from "@/lib/db";
 
 // Esta función se ejecuta en el servidor donde SÍ hay variables de entorno
-export async function GET(): Promise<NextResponse> {
+export async function GET() {
   try {
     const products = await getProducts();
     return NextResponse.json(products);

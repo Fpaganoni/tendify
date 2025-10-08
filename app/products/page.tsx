@@ -1,7 +1,6 @@
 "use client";
 
 import { WooCommerceProduct } from "@/lib/woocommerce-types";
-
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { Header } from "@/components/header";
@@ -9,7 +8,8 @@ import { Footer } from "@/components/footer";
 import { ProductGrid } from "@/components/product-grid";
 import { CategoryFilter, type FilterState } from "@/components/category-filter";
 import { ScrollAnimation } from "@/components/scroll-animations";
-import { getProducts } from "@/lib/db";
+import { stripHtml } from "@/utils/stripHtml";
+// import { getProducts } from "@/lib/db";
 import type { Product } from "@/lib/types";
 
 export default function ProductsPage() {
@@ -24,7 +24,7 @@ export default function ProductsPage() {
   useEffect(() => {
     const loadProducts = async () => {
       try {
-        const response = await fetch("/api/prodcuts");
+        const response = await fetch("/api/products");
 
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -85,10 +85,13 @@ export default function ProductsPage() {
 
     // Filter by price range
     filtered = filtered.filter((product) => {
-      const numberPrice = Number(product.price);
+      const numberPrice = parseFloat(product.price);
 
-      numberPrice >= filters.priceRange[0] &&
-        numberPrice <= filters.priceRange[1];
+      return (
+        !isNaN(numberPrice) &&
+        numberPrice >= filters.priceRange[0] &&
+        numberPrice <= filters.priceRange[1]
+      );
     });
 
     // Sort products
@@ -100,10 +103,10 @@ export default function ProductsPage() {
         filtered.sort((a, b) => b.name.localeCompare(a.name));
         break;
       case "price":
-        filtered.sort((a, b) => a.price - b.price);
+        filtered.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
         break;
       case "price-desc":
-        filtered.sort((a, b) => b.price - a.price);
+        filtered.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
         break;
       case "featured":
         filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
@@ -114,7 +117,11 @@ export default function ProductsPage() {
   };
 
   const categories = Array.from(
-    new Set(products.map((product) => product.category))
+    new Set(
+      products.map(
+        (product) => stripHtml(product.categories?.[0].name) || "Uncategorized"
+      )
+    )
   );
 
   if (loading) {

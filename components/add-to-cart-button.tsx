@@ -5,9 +5,10 @@ import { ShoppingCart, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 import type { Product } from "@/lib/types";
+import { WooCommerceProduct } from "@/lib/woocommerce-types";
 
 interface AddToCartButtonProps {
-  product: Product;
+  product: WooCommerceProduct;
   className?: string;
   size?: "default" | "sm" | "lg";
   variant?: "default" | "outline" | "ghost";
