@@ -62,7 +62,7 @@ export function ProductCard({ product }: ProductCardProps) {
             {stripDescription}
           </p>
           <div className="flex items-center justify-between">
-            <span className="text-2xl font-bold text-primary">
+            <span className="text-2xl font-bold text-secondary-foreground">
               ${parseFloat(product.price).toFixed(2)}
             </span>
             <Badge variant="outline" className="text-xs">

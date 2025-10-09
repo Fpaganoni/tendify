@@ -37,7 +37,7 @@ export function Header() {
           <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
             <span className="text-primary-foreground font-bold text-lg">E</span>
           </div>
-          <span className="font-bold text-xl">EliteStore</span>
+          <span className="font-bold text-xl">Trendify</span>
         </Link>
 
         {/* Desktop Navigation */}

@@ -93,48 +93,48 @@ import axios from "axios";
 //     // created_at: new Date().toISOString(),
 //     // updated_at: new Date().toISOString(),
 //   },
-//   // {
-//   //   id: 6,
-//   //   name: "Eco-Friendly Water Bottle",
-//   //   description:
-//   //     "Sustainable stainless steel water bottle that keeps drinks cold for 24 hours.",
-//   //   prices: { price: "34,99" },
-//   //   image_url:
-//   //     "https://ik.imagekit.io/p2ho5d9bi/Trendify/eco-friendly-water-bottle.png?updatedAt=1758028868886",
-//   //   category: "Lifestyle",
-//   //   stock_availability: { text: "In Stock", class: "in-stock" }
-//   //   featured: false,
-//   //   // created_at: new Date().toISOString(),
-//   //   // updated_at: new Date().toISOString(),
-//   // },
-//   // {
-//   //   id: 7,
-//   //   name: "Wireless Charging Pad",
-//   //   description:
-//   //     "Fast wireless charging pad compatible with all Qi-enabled devices.",
-//   //   prices: { price: "49,99" },
-//   //   image_url:
-//   //     "https://ik.imagekit.io/p2ho5d9bi/Trendify/wireless-charging-pad.png?updatedAt=1758028869942",
-//   //   category: "Electronics",
-//   //   stock_availability: { text: "In Stock", class: "in-stock" }
-//   //   featured: false,
-//   //   // created_at: new Date().toISOString(),
-//   //   // updated_at: new Date().toISOString(),
-//   // },
-//   // {
-//   //   id: 8,
-//   //   name: "Luxury Skincare Set",
-//   //   description:
-//   //     "Complete skincare routine with natural ingredients for healthy, glowing skin.",
-//   //   prices: { price: "129,99" },
-//   //   image_url:
-//   //     "https://ik.imagekit.io/p2ho5d9bi/Trendify/luxury-skincare-set.png?updatedAt=1758028869820",
-//   //   category: "Beauty",
-//   //   stock_availability: { text: "In Stock", class: "in-stock" }
-//   //   featured: true,
-//   //   // created_at: new Date().toISOString(),
-//   //   // updated_at: new Date().toISOString(),
-//   // },
+// {
+//   id: 6,
+//   name: "Eco-Friendly Water Bottle",
+//   description:
+//     "Sustainable stainless steel water bottle that keeps drinks cold for 24 hours.",
+//   prices: { price: "34,99" },
+//   image_url:
+//     "https://ik.imagekit.io/p2ho5d9bi/Trendify/eco-friendly-water-bottle.png?updatedAt=1758028868886",
+//   category: "Lifestyle",
+//   stock_availability: { text: "In Stock", class: "in-stock" }
+//   featured: false,
+//   // created_at: new Date().toISOString(),
+//   // updated_at: new Date().toISOString(),
+// },
+// {
+//   id: 7,
+//   name: "Wireless Charging Pad",
+//   description:
+//     "Fast wireless charging pad compatible with all Qi-enabled devices.",
+//   prices: { price: "49,99" },
+//   image_url:
+//     "https://ik.imagekit.io/p2ho5d9bi/Trendify/wireless-charging-pad.png?updatedAt=1758028869942",
+//   category: "Electronics",
+//   stock_availability: { text: "In Stock", class: "in-stock" }
+//   featured: false,
+//   // created_at: new Date().toISOString(),
+//   // updated_at: new Date().toISOString(),
+// },
+// {
+//   id: 8,
+//   name: "Luxury Skincare Set",
+//   description:
+//     "Complete skincare routine with natural ingredients for healthy, glowing skin.",
+//   prices: { price: "129,99" },
+//   image_url:
+//     "https://ik.imagekit.io/p2ho5d9bi/Trendify/luxury-skincare-set.png?updatedAt=1758028869820",
+//   category: "Beauty",
+//   stock_availability: { text: "In Stock", class: "in-stock" }
+//   featured: true,
+//   // created_at: new Date().toISOString(),
+//   // updated_at: new Date().toISOString(),
+// },
 // ];
 
 import { WooCommerceProduct } from "./woocommerce-types";
