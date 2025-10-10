@@ -34,8 +34,8 @@ export function Header() {
       <div className="container flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
-          <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-lg">E</span>
+          <div className="h-8 w-8 rounded-lg bg-destructive flex items-center justify-center">
+            <span className="text-primary-foreground font-bold text-lg">T</span>
           </div>
           <span className="font-bold text-xl">Trendify</span>
         </Link>
