@@ -127,7 +127,7 @@ export default function ProductsPage() {
     return (
       <div className="min-h-screen">
         <Header />
-        <div className="container px-4 py-16 min-h-screen mt-auto">
+        <div className="container px-4 py-16 min-h-screen mt-48">
           <Loading content="Loading Products..." />
         </div>
         <Footer />

@@ -12,20 +12,48 @@ import { AddToCartButton } from "./add-to-cart-button";
 import { Product } from "@/lib/types";
 import { stripHtml } from "../utils/stripHtml";
 import { WooCommerceProduct } from "@/lib/woocommerce-types";
+import { useFavorites } from "@/hooks/use-favorites";
+import { useState, useEffect } from "react";
 
 interface ProductCardProps {
   product: WooCommerceProduct;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const stripDescription = stripHtml(product.description || "");
+  const stripCategory = stripHtml(product.categories?.[0]?.name || "");
+  const { isFavorite, toggleFavorite } = useFavorites();
+
+  const [isProductFavorite, setIsProductFavorite] = useState(false);
+
+  useEffect(() => {
+    setIsProductFavorite(isFavorite(product.id));
+  }, [product.id, isFavorite]);
+
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
-    // TODO: Implement favorite functionality
-    console.log("Toggle favorite:", product.id);
-  };
+    e.stopPropagation();
 
-  const stripDescription = stripHtml(product.description || "");
-  const stripCategorie = stripHtml(product.categories?.[0]?.name || "");
+    // TODO: Implement favorite functionality
+
+    const productFav = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images?.[0]?.src || "/placeholder.svg",
+      featured: product.featured,
+      description: stripDescription,
+      stock: product.stock_quantity, // WooCommerceProduct does not have stock info in this context
+    };
+
+    const newState = toggleFavorite(productFav);
+    setIsProductFavorite(newState);
+
+    console.log(
+      newState ? "Added to favorites" : "Removed from favorites",
+      productFav
+    );
+  };
 
   return (
     <Card className="group overflow-hidden hover:shadow-lg transition-shadow duration-300">
@@ -45,10 +73,17 @@ export function ProductCard({ product }: ProductCardProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 hover:bg-background"
+            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 hover:bg-background hover:cursor-pointer"
+            aria-label={
+              isProductFavorite ? "Remove from favorites" : "Add to favorites"
+            }
             onClick={handleToggleFavorite}
           >
-            <Heart className="h-4 w-4" />
+            {isProductFavorite ? (
+              <Heart fill="#f0f0f0" className="h-4 w-4" />
+            ) : (
+              <Heart className="h-4 w-4" />
+            )}
           </Button>
         </div>
       </Link>
@@ -66,7 +101,7 @@ export function ProductCard({ product }: ProductCardProps) {
               ${parseFloat(product.price).toFixed(2)}
             </span>
             <Badge variant="outline" className="text-xs">
-              {stripCategorie}
+              {stripCategory}
             </Badge>
           </div>
         </Link>

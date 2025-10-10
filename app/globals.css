@@ -21,6 +21,7 @@
   --muted-foreground: oklch(
     0.556 0 0
   ); /* #6b7280 - proper contrast against white */
+  --spinner: hsl(211, 50%, 8%);
   --accent: oklch(0.646 0.222 280.116); /* #8b5cf6 */
   --accent-foreground: oklch(1 0 0); /* #ffffff */
   --destructive: oklch(0.577 0.245 27.325); /* #e11d48 */
@@ -52,6 +53,7 @@
   --background: oklch(0.205 0 0);
   --foreground: #f0f0f0;
   --card: #424242;
+  --spinner: #f0f0f0;
   --card-foreground: #f0f0f0;
   --popover: #1c1e21;
   --popover-foreground: #f0f0f0;
@@ -108,6 +110,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-spinner: var(--spinner);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
