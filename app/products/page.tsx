@@ -9,8 +9,7 @@ import { ProductGrid } from "@/components/product-grid";
 import { CategoryFilter, type FilterState } from "@/components/category-filter";
 import { ScrollAnimation } from "@/components/scroll-animations";
 import { stripHtml } from "@/utils/stripHtml";
-// import { getProducts } from "@/lib/db";
-import type { Product } from "@/lib/types";
+import Loading from "./loading";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<WooCommerceProduct[]>([]);
@@ -128,8 +127,8 @@ export default function ProductsPage() {
     return (
       <div className="min-h-screen">
         <Header />
-        <div className="container px-4 py-16">
-          <div className="text-center">Loading products...</div>
+        <div className="container px-4 py-16 min-h-screen mt-auto">
+          <Loading content="Loading Products..." />
         </div>
         <Footer />
       </div>

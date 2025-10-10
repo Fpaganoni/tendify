@@ -73,7 +73,10 @@ export function ProductCard({ product }: ProductCardProps) {
       </CardContent>
 
       <CardFooter className="p-4 pt-0">
-        <AddToCartButton product={product} className="w-full" />
+        <AddToCartButton
+          product={product}
+          className="w-full hover:cursor-pointer"
+        />
       </CardFooter>
     </Card>
   );
