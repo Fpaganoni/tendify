@@ -13,11 +13,14 @@ import { AuthDialog } from "./auth-dialog";
 import { UserMenu } from "./user-menu";
 import { ThemeToggle } from "./theme-toggle";
 import { useAuth } from "@/lib/auth-context";
+import { useFavorites } from "@/contexts/favorites-context";
+import { Heart } from "lucide-react";
 
 export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { state } = useAuth();
+  const { favoritesCount } = useFavorites();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,7 +44,6 @@ export function Header() {
           </div>
           <span className="font-bold text-xl">Trendify</span>
         </Link>
-
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
           <Link
@@ -76,6 +78,15 @@ export function Header() {
               Admin
             </Link>
           )}
+
+          <Link href="/favorites" className="relative p-2">
+            <Heart className="w-6 h-6  " fill="white" />
+            {favoritesCount >= 0 && (
+              <span className="absolute -top-[0.3rem] -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                {favoritesCount === 0 ? 0 : favoritesCount}
+              </span>
+            )}
+          </Link>
         </nav>
 
         {/* Search and Cart */}
