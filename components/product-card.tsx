@@ -9,11 +9,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AddToCartButton } from "./add-to-cart-button";
-import { Product } from "@/lib/types";
 import { stripHtml } from "../utils/stripHtml";
 import { WooCommerceProduct } from "@/lib/woocommerce-types";
-import { useFavorites } from "@/hooks/use-favorites";
-import { useState, useEffect } from "react";
+import { useFavorites } from "@/contexts/favorites-context";
 
 interface ProductCardProps {
   product: WooCommerceProduct;
@@ -22,13 +20,10 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   const stripDescription = stripHtml(product.description || "");
   const stripCategory = stripHtml(product.categories?.[0]?.name || "");
+
   const { isFavorite, toggleFavorite } = useFavorites();
 
-  const [isProductFavorite, setIsProductFavorite] = useState(false);
-
-  useEffect(() => {
-    setIsProductFavorite(isFavorite(product.id));
-  }, [product.id, isFavorite]);
+  const isProductFavorite = isFavorite(product.id);
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -46,13 +41,7 @@ export function ProductCard({ product }: ProductCardProps) {
       stock: product.stock_quantity, // WooCommerceProduct does not have stock info in this context
     };
 
-    const newState = toggleFavorite(productFav);
-    setIsProductFavorite(newState);
-
-    console.log(
-      newState ? "Added to favorites" : "Removed from favorites",
-      productFav
-    );
+    toggleFavorite(productFav);
   };
 
   return (

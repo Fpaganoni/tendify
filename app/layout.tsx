@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { CartProvider } from "@/lib/cart-context";
 import { AuthProvider } from "@/lib/auth-context";
 import { ThemeProvider } from "@/components/theme-provider";
+import { FavoritesProvider } from "@/contexts/favorites-context";
 import { Toaster } from "@/components/ui/toaster";
 import { Suspense } from "react";
 import "./globals.css";
@@ -32,10 +33,12 @@ export default function RootLayout({
         >
           <Suspense fallback={null}>
             <AuthProvider>
-              <CartProvider>
-                {children}
-                <Toaster />
-              </CartProvider>
+              <FavoritesProvider>
+                <CartProvider>
+                  {children}
+                  <Toaster />
+                </CartProvider>
+              </FavoritesProvider>
             </AuthProvider>
             <Analytics />
           </Suspense>
