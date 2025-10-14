@@ -18,7 +18,8 @@ const categories = [
     id: 1,
     name: "Electronics",
     description: "Latest gadgets and tech accessories",
-    image: "/smart-fitness-watch.png",
+    image:
+      "https://ik.imagekit.io/p2ho5d9bi/Trendify/electronics.jpg?updatedAt=1760432014187",
     productCount: 24,
     featured: true,
   },
@@ -26,7 +27,8 @@ const categories = [
     id: 2,
     name: "Fashion",
     description: "Trendy clothing and accessories",
-    image: "/organic-cotton-t-shirt.jpg",
+    image:
+      "https://ik.imagekit.io/p2ho5d9bi/Trendify/fashion.jpg?updatedAt=1760432017410",
     productCount: 18,
     featured: true,
   },
@@ -34,7 +36,8 @@ const categories = [
     id: 3,
     name: "Home & Living",
     description: "Furniture and home decor",
-    image: "/minimalist-desk-lamp.png",
+    image:
+      "https://ik.imagekit.io/p2ho5d9bi/Trendify/hoome-living.jpg?updatedAt=1760432013688",
     productCount: 15,
     featured: false,
   },
@@ -42,7 +45,8 @@ const categories = [
     id: 4,
     name: "Food & Beverages",
     description: "Gourmet food and premium drinks",
-    image: "/artisan-coffee-beans.jpg",
+    image:
+      "https://ik.imagekit.io/p2ho5d9bi/Trendify/food-beverage.jpg?updatedAt=1760432022716",
     productCount: 12,
     featured: false,
   },
@@ -50,7 +54,8 @@ const categories = [
     id: 5,
     name: "Sports & Fitness",
     description: "Equipment for active lifestyle",
-    image: "/smart-fitness-watch.png",
+    image:
+      "https://ik.imagekit.io/p2ho5d9bi/Trendify/fitness.jpg?updatedAt=1760432027616",
     productCount: 20,
     featured: true,
   },
@@ -58,7 +63,8 @@ const categories = [
     id: 6,
     name: "Books & Media",
     description: "Books, music, and entertainment",
-    image: "/books-and-media.png",
+    image:
+      "https://ik.imagekit.io/p2ho5d9bi/Trendify/books2.jpg?updatedAt=1760432016644",
     productCount: 8,
     featured: false,
   },

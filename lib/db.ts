@@ -139,8 +139,6 @@ import axios from "axios";
 
 import { WooCommerceProduct } from "./woocommerce-types";
 
-import type { Product } from "./types";
-
 // funcion debugger
 export async function getProducts(): Promise<WooCommerceProduct[]> {
   const WORDPRESS_URL = process.env.WORDPRESS_URL;
