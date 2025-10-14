@@ -1,6 +1,5 @@
 import { ProductCard } from "./product-card";
 import { ScrollAnimation } from "./scroll-animations";
-import type { Product } from "@/lib/types";
 import { WooCommerceProduct } from "@/lib/woocommerce-types";
 
 interface ProductGridProps {

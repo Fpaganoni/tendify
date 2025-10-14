@@ -85,7 +85,9 @@ export function CartDrawer() {
                     >
                       <div className="relative h-16 w-16 flex-shrink-0">
                         <Image
-                          src={item.product.image_url || "/placeholder.svg"}
+                          src={
+                            item.product.images?.[0].src || "/placeholder.svg"
+                          }
                           alt={item.product.name}
                           fill
                           className="object-cover rounded"
@@ -97,7 +99,7 @@ export function CartDrawer() {
                           {item.product.name}
                         </h4>
                         <p className="text-sm text-muted-foreground">
-                          ${item.product.price.toFixed(2)}
+                          ${parseFloat(item.product.price).toFixed(2)}
                         </p>
                       </div>
 
