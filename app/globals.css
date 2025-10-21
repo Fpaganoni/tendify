@@ -24,7 +24,7 @@
   --spinner: hsl(211, 50%, 8%);
   --accent: oklch(0.646 0.222 280.116); /* #8b5cf6 */
   --accent-foreground: oklch(1 0 0); /* #ffffff */
-  --destructive: oklch(0.577 0.245 27.325); /* #e11d48 */
+  --destructive: #e7000b; /* #e11d48 */
   --orange: #ff8c00;
   --destructive-foreground: oklch(1 0 0); /* #ffffff */
   --border: oklch(0.85 0 0); /* #d1d5db */

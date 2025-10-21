@@ -21,7 +21,7 @@ export default function FavoritesPage() {
   if (favState.isLoading) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <p>Cargando favoritos...</p>
+        <p>Loading Favorites...</p>
       </div>
     );
   }
@@ -33,12 +33,14 @@ export default function FavoritesPage() {
 
         <div className="container h-screen flex flex-col  justify-center mx-auto px-4 py-8 text-center">
           <Heart className="w-16 h-16 mx-auto text-gray-300 mb-4" />
-          <h2 className="text-2xl font-bold mb-2">No tienes favoritos aún</h2>
+          <h2 className="text-2xl font-bold mb-2">
+            You don't have favorites yet
+          </h2>
           <p className="text-gray-600 mb-6">
-            Empieza a agregar productos que te gusten para verlos aquí
+            Start adding products you like to see them here.
           </p>
-          <Link href="/productos" className="btn-primary">
-            Ver productos
+          <Link href="/products" className="btn-primary">
+            See Products
           </Link>
         </div>
         <Footer />
@@ -53,9 +55,9 @@ export default function FavoritesPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-3xl font-bold">Mis Favoritos</h1>
+            <h1 className="text-3xl font-bold">My Favorites</h1>
             <p className="text-gray-600">
-              {favoritesCount} {favoritesCount === 1 ? "producto" : "productos"}
+              {favoritesCount} {favoritesCount === 1 ? "product" : "products"}
               {authState.isAuthenticated && authState.user && (
                 <span className="ml-2 text-sm">
                   ({authState.user.first_name})
@@ -70,7 +72,7 @@ export default function FavoritesPage() {
               className="btn-secondary flex items-center gap-2"
             >
               <Trash2 className="w-4 h-4" />
-              Limpiar todo
+              Clean All
             </button>
           )}
         </div>
@@ -108,7 +110,7 @@ export default function FavoritesPage() {
                 href={`/producto/${product.id}`}
                 className="btn-primary w-full text-center"
               >
-                Ver producto
+                See Product
               </Link>
             </div>
           ))}

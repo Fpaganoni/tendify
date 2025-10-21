@@ -69,7 +69,7 @@ export function ProductCard({ product }: ProductCardProps) {
             onClick={handleToggleFavorite}
           >
             {isProductFavorite ? (
-              <Heart fill="#f0f0f0" className="h-4 w-4" />
+              <Heart fill="#EF4444" stroke="#EF4444" className="h-4 w-4" />
             ) : (
               <Heart className="h-4 w-4" />
             )}

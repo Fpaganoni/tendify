@@ -156,44 +156,46 @@ export default function CategoriesPage() {
               <h2 className="text-3xl font-bold text-center mb-12">
                 All Categories
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {allCategories.map((category, index) => (
-                  <ScrollAnimation key={category.id} delay={index * 0.05}>
-                    <Card className="hover:shadow-md transition-shadow duration-200">
-                      <CardContent className="p-6">
-                        <div className="flex items-center space-x-4">
-                          <div className="relative w-16 h-16 rounded-lg overflow-hidden">
-                            <Image
-                              src={category.image || "/placeholder.svg"}
-                              alt={category.name}
-                              fill
-                              className="object-cover"
-                            />
+              <div className="flex justify-center">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 ">
+                  {allCategories.map((category, index) => (
+                    <ScrollAnimation key={category.id} delay={index * 0.05}>
+                      <Card className="hover:shadow-md transition-shadow duration-200">
+                        <CardContent className="p-6">
+                          <div className="flex items-center space-x-4">
+                            <div className="relative w-16 h-16 rounded-lg overflow-hidden">
+                              <Image
+                                src={category.image || "/placeholder.svg"}
+                                alt={category.name}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                            <div className="flex-1">
+                              <h3 className="font-semibold text-lg">
+                                {category.name}
+                              </h3>
+                              <p className="text-sm text-muted-foreground">
+                                {category.productCount} products
+                              </p>
+                            </div>
                           </div>
-                          <div className="flex-1">
-                            <h3 className="font-semibold text-lg">
-                              {category.name}
-                            </h3>
-                            <p className="text-sm text-muted-foreground">
-                              {category.productCount} products
-                            </p>
-                          </div>
-                        </div>
-                        <Button
-                          asChild
-                          className="w-full mt-4 bg-transparent"
-                          variant="outline"
-                        >
-                          <Link
-                            href={`/products?category=${category.name.toLowerCase()}`}
+                          <Button
+                            asChild
+                            className="w-full mt-4 bg-transparent"
+                            variant="outline"
                           >
-                            Browse
-                          </Link>
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  </ScrollAnimation>
-                ))}
+                            <Link
+                              href={`/products?category=${category.name.toLowerCase()}`}
+                            >
+                              Browse
+                            </Link>
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </ScrollAnimation>
+                  ))}
+                </div>
               </div>
             </div>
           </section>
