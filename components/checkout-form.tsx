@@ -39,7 +39,11 @@ interface CheckoutFormData {
   cardName: string;
 }
 
-export function CheckoutForm() {
+interface CheckoutFormProps {
+  onProcessingChange?: (isProcessing: boolean) => void;
+}
+
+export function CheckoutForm({ onProcessingChange }: CheckoutFormProps) {
   const { state, dispatch } = useCart();
   const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -68,6 +72,7 @@ export function CheckoutForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsProcessing(true);
+    onProcessingChange?.(true);
 
     // Simulate payment processing
     await new Promise((resolve) => setTimeout(resolve, 2000));

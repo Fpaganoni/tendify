@@ -1,26 +1,28 @@
-"use client"
+"use client";
 
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { CheckoutProgress } from "@/components/checkout-progress"
-import { CheckoutForm } from "@/components/checkout-form"
-import { ScrollAnimation } from "@/components/scroll-animations"
-import { useCart } from "@/lib/cart-context"
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { CheckoutProgress } from "@/components/checkout-progress";
+import { CheckoutForm } from "@/components/checkout-form";
+import { ScrollAnimation } from "@/components/scroll-animations";
+import { useCart } from "@/lib/cart-context";
 
 export default function CheckoutPage() {
-  const { state } = useCart()
-  const router = useRouter()
+  const { state } = useCart();
+  const router = useRouter();
+  const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
-    if (state.items.length === 0) {
-      router.push("/products")
+    // Only redirect to products if cart is empty and we're not processing a checkout
+    if (state.items.length === 0 && !isProcessing) {
+      router.push("/products");
     }
-  }, [state.items.length, router])
+  }, [state.items.length, router, isProcessing]);
 
-  if (state.items.length === 0) {
-    return null
+  if (state.items.length === 0 && !isProcessing) {
+    return null;
   }
 
   return (
@@ -35,11 +37,11 @@ export default function CheckoutPage() {
             <CheckoutProgress currentStep={2} />
           </ScrollAnimation>
           <ScrollAnimation animation="fadeInUp" delay={400}>
-            <CheckoutForm />
+            <CheckoutForm onProcessingChange={setIsProcessing} />
           </ScrollAnimation>
         </div>
       </div>
       <Footer />
     </div>
-  )
+  );
 }
