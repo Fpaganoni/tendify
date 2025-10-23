@@ -101,7 +101,9 @@ export function CheckoutForm() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label htmlFor="email">Email Address</Label>
+                <Label htmlFor="email" className="mb-2">
+                  Email Address
+                </Label>
                 <Input
                   id="email"
                   type="email"
@@ -112,7 +114,9 @@ export function CheckoutForm() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="firstName">First Name</Label>
+                  <Label htmlFor="firstName" className="mb-2">
+                    First Name
+                  </Label>
                   <Input
                     id="firstName"
                     value={formData.firstName}
@@ -123,7 +127,9 @@ export function CheckoutForm() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="lastName">Last Name</Label>
+                  <Label htmlFor="lastName" className="mb-2">
+                    Last Name
+                  </Label>
                   <Input
                     id="lastName"
                     value={formData.lastName}
@@ -135,7 +141,9 @@ export function CheckoutForm() {
                 </div>
               </div>
               <div>
-                <Label htmlFor="phone">Phone Number</Label>
+                <Label htmlFor="phone" className="mb-2">
+                  Phone Number
+                </Label>
                 <Input
                   id="phone"
                   type="tel"
@@ -157,17 +165,23 @@ export function CheckoutForm() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label htmlFor="address">Street Address</Label>
+                <Label htmlFor="address" className="mb-2">
+                  Street Address
+                </Label>
                 <Textarea
                   id="address"
+                  maxLength={100}
                   value={formData.address}
                   onChange={(e) => handleInputChange("address", e.target.value)}
                   required
+                  className="max-h-32"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="city">City</Label>
+                  <Label htmlFor="city" className="mb-2">
+                    City
+                  </Label>
                   <Input
                     id="city"
                     value={formData.city}
@@ -176,7 +190,9 @@ export function CheckoutForm() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="state">State</Label>
+                  <Label htmlFor="state" className="mb-2">
+                    State
+                  </Label>
                   <Input
                     id="state"
                     value={formData.state}
@@ -187,7 +203,9 @@ export function CheckoutForm() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="zipCode">ZIP Code</Label>
+                  <Label htmlFor="zipCode" className="mb-2">
+                    ZIP Code
+                  </Label>
                   <Input
                     id="zipCode"
                     value={formData.zipCode}
@@ -198,7 +216,9 @@ export function CheckoutForm() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="country">Country</Label>
+                  <Label htmlFor="country" className="mb-2">
+                    Country
+                  </Label>
                   <Select
                     value={formData.country}
                     onValueChange={(value) =>
@@ -287,7 +307,9 @@ export function CheckoutForm() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label htmlFor="cardName">Cardholder Name</Label>
+                <Label htmlFor="cardName" className="mb-2">
+                  Cardholder Name
+                </Label>
                 <Input
                   id="cardName"
                   value={formData.cardName}
@@ -298,7 +320,9 @@ export function CheckoutForm() {
                 />
               </div>
               <div>
-                <Label htmlFor="cardNumber">Card Number</Label>
+                <Label htmlFor="cardNumber" className="mb-2">
+                  Card Number
+                </Label>
                 <Input
                   id="cardNumber"
                   placeholder="1234 5678 9012 3456"
@@ -311,7 +335,9 @@ export function CheckoutForm() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="expiryDate">Expiry Date</Label>
+                  <Label htmlFor="expiryDate" className="mb-2">
+                    Expiry Date
+                  </Label>
                   <Input
                     id="expiryDate"
                     placeholder="MM/YY"
@@ -323,7 +349,9 @@ export function CheckoutForm() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="cvv">CVV</Label>
+                  <Label htmlFor="cvv" className="mb-2">
+                    CVV
+                  </Label>
                   <Input
                     id="cvv"
                     placeholder="123"
@@ -360,7 +388,10 @@ export function CheckoutForm() {
                       </p>
                     </div>
                     <span className="font-medium">
-                      ${(item.product.price * item.quantity).toFixed(2)}
+                      $
+                      {(parseFloat(item.product.price) * item.quantity).toFixed(
+                        2
+                      )}
                     </span>
                   </div>
                 ))}

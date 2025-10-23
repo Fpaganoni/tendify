@@ -26,6 +26,7 @@
   --accent-foreground: oklch(1 0 0); /* #ffffff */
   --destructive: #e7000b; /* #e11d48 */
   --orange: #ff8c00;
+  --success-accent: #00c853;
   --destructive-foreground: oklch(1 0 0); /* #ffffff */
   --border: oklch(0.85 0 0); /* #d1d5db */
   --input: oklch(0.97 0 0); /* #f1f5f9 */
@@ -67,6 +68,7 @@
   --accent-foreground: #f0f0f0;
   --destructive: #ff8c00;
   --orange: #ff8c00;
+  --success-accent: #00c853;
   --destructive-foreground: oklch(0.637 0.237 25.331);
   --border: oklch(0.269 0 0);
   --input: oklch(0.269 0 0);
@@ -106,6 +108,7 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-orange: var(--orange);
+  --color-success-accent: var(--success-accent);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
