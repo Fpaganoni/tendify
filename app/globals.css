@@ -146,7 +146,123 @@
 @layer utilities {
   .animate-in {
     opacity: 1 !important;
-    transform: translate3d(0, 0, 0) scale(1) !important;
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg) !important;
+  }
+
+  /* Animaciones específicas para diferentes efectos */
+  .animate-in.bounce-in {
+    animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .animate-in.rotate-in {
+    animation: rotateIn 0.6s ease-out;
+  }
+
+  .animate-in.flip-in {
+    animation: flipIn 0.7s ease-out;
+  }
+
+  .animate-in.zoom-in {
+    animation: zoomIn 0.5s ease-out;
+  }
+
+  /* Keyframes para animaciones especiales */
+  @keyframes bounceIn {
+    0% {
+      delay: 0.2s;
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    70% {
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes rotateIn {
+    0% {
+      opacity: 0;
+      transform: rotate(-200deg) scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+  }
+
+  @keyframes flipIn {
+    0% {
+      opacity: 0;
+      transform: perspective(400px) rotateY(90deg);
+    }
+    40% {
+      transform: perspective(400px) rotateY(-20deg);
+    }
+    60% {
+      transform: perspective(400px) rotateY(10deg);
+    }
+    80% {
+      transform: perspective(400px) rotateY(-5deg);
+    }
+    100% {
+      opacity: 1;
+      transform: perspective(400px) rotateY(0deg);
+    }
+  }
+
+  @keyframes zoomIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* SLIDEIN PERSONALIZADO*/
+  @keyframes slideIn {
+    0% {
+      transform: translateX(-100px);
+      opacity: 0;
+    }
+    60% {
+      transform: translateX(100px);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  .animate-slide-in {
+    animation: slideIn 0.8s ease-out forwards;
+  }
+
+  /* BOUNCEUP PERSONALIZADO*/
+  @keyframes bounceUp {
+    0% {
+      transform: translateY(100px) scale(0.8);
+      opacity: 0;
+    }
+    60% {
+      transform: translateY(-50px) scale(1.05);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .animate-bounce-up {
+    animation: bounceUp 0.8s ease-out forwards;
   }
 
   /* Smooth scrolling for better UX */

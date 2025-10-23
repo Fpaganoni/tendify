@@ -51,7 +51,7 @@ export function CategoryFilter({
   };
 
   return (
-    <Card className="w-full pl-4">
+    <Card className="w-full pl-4 relative  animate-slide-in">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           Filters
