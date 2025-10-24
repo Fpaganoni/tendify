@@ -90,15 +90,17 @@ export function AuthDialog() {
           <DialogTitle>Account</DialogTitle>
         </DialogHeader>
         <Tabs defaultValue="login" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-2 my-2">
             <TabsTrigger value="login">Login</TabsTrigger>
             <TabsTrigger value="register">Register</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="login" className="space-y-4">
+          <TabsContent value="login" className="space-y-6">
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
-                <Label htmlFor="login-email">Email</Label>
+                <Label htmlFor="login-email" className="mb-2">
+                  Email
+                </Label>
                 <Input
                   id="login-email"
                   type="email"
@@ -110,7 +112,9 @@ export function AuthDialog() {
                 />
               </div>
               <div>
-                <Label htmlFor="login-password">Password</Label>
+                <Label htmlFor="login-password" className="mb-2">
+                  Password
+                </Label>
                 <Input
                   id="login-password"
                   type="password"
@@ -139,7 +143,9 @@ export function AuthDialog() {
             <form onSubmit={handleRegister} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="register-firstName">First Name</Label>
+                  <Label htmlFor="register-firstName" className="mb-2">
+                    First Name
+                  </Label>
                   <Input
                     id="register-firstName"
                     value={registerForm.firstName}
@@ -153,7 +159,9 @@ export function AuthDialog() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="register-lastName">Last Name</Label>
+                  <Label htmlFor="register-lastName" className="mb-2">
+                    Last Name
+                  </Label>
                   <Input
                     id="register-lastName"
                     value={registerForm.lastName}
@@ -168,7 +176,9 @@ export function AuthDialog() {
                 </div>
               </div>
               <div>
-                <Label htmlFor="register-email">Email</Label>
+                <Label htmlFor="register-email" className="mb-2">
+                  Email
+                </Label>
                 <Input
                   id="register-email"
                   type="email"
@@ -180,7 +190,9 @@ export function AuthDialog() {
                 />
               </div>
               <div>
-                <Label htmlFor="register-password">Password</Label>
+                <Label htmlFor="register-password" className="mb-2">
+                  Password
+                </Label>
                 <Input
                   id="register-password"
                   type="password"
