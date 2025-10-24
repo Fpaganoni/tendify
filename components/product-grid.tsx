@@ -30,7 +30,11 @@ export function ProductGrid({ products, title }: ProductGridProps) {
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 ">
         {products.map((product, index) => (
-          <ScrollAnimation key={product.id} className="bounceIn">
+          <ScrollAnimation
+            key={product.id}
+            className="bounceIn"
+            delay={index * 200}
+          >
             <ProductCard product={product} />
           </ScrollAnimation>
         ))}

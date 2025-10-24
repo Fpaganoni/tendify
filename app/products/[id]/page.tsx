@@ -1,26 +1,94 @@
-import { notFound } from "next/navigation";
+"use client";
+
+import { Header } from "@/components/header";
 import Image from "next/image";
 import { Heart, Star, Truck, Shield, RotateCcw } from "lucide-react";
-import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { AddToCartButton } from "@/components/add-to-cart-button";
-import { getProductById } from "@/lib/db";
+import { notFound } from "next/navigation";
 
-interface ProductPageProps {
+import { getProductById } from "@/lib/db";
+import { stripHtml } from "@/utils/stripHtml";
+import { useFavorites } from "@/contexts/favorites-context";
+import { useEffect, useState } from "react";
+import { WooCommerceProduct } from "@/lib/woocommerce-types";
+import { Loader } from "@/components/ui/loader";
+
+export interface ProductPageProps {
   params: {
     id: string;
   };
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
-  const product = await getProductById(Number.parseInt(params.id));
+export default function ProductPage({ params }: ProductPageProps) {
+  const [product, setProduct] = useState<WooCommerceProduct | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const { isFavorite, toggleFavorite } = useFavorites();
 
-  if (!product) {
+  useEffect(() => {
+    const loadProduct = async () => {
+      try {
+        setLoading(true);
+        console.log("Loading product with ID:", params.id);
+
+        const response = await fetch(`/api/products/${params.id}`);
+        console.log("Fetched all products:", response);
+
+        if (!response.ok) {
+          throw new Error("Products not found");
+        }
+
+        const fetchProducts = await response.json();
+        console.log("Fetched product data:", fetchProducts);
+
+        if (!fetchProducts) {
+          console.log("Product not found, redirecting to 404");
+          notFound();
+        }
+
+        setProduct(fetchProducts);
+      } catch (error) {
+        console.error("Error loading product:", error);
+        setError("Error loading product");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProduct();
+  }, [params.id]);
+
+  if (loading) {
+    return <Loader content="Loading Product Details..." />;
+  }
+
+  if (error || !product) {
     notFound();
   }
+
+  const idProductFavorite = isFavorite(product.id);
+  const stripDescription = stripHtml(product.description);
+
+  const handleToggleFavorites = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const productFav = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images?.[0]?.src || "/placeholder.svg",
+      featured: product.featured,
+      description: stripDescription,
+      stock: product.stock_quantity, // WooCommerceProduct does not have stock info in this context
+    };
+
+    toggleFavorite(productFav);
+  };
 
   return (
     <div className="min-h-screen">
@@ -71,18 +139,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 ${product.price}
               </p>
             </div>
-
             <Separator />
-
             <div>
               <h3 className="font-semibold mb-2">Description</h3>
               <p className="text-muted-foreground leading-relaxed">
-                {product.description}
+                {stripDescription}
               </p>
             </div>
-
             <Separator />
-
             {/* Stock Status */}
             <div className="flex items-center space-x-2">
               <div
@@ -96,24 +160,40 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   : "Out of stock"}
               </span>
             </div>
-
             {/* Action Buttons */}
             <div className="space-y-4">
               <AddToCartButton
                 product={product}
                 size="lg"
-                className="w-full text-lg py-6"
+                className="w-full text-lg py-6 cursor-pointer"
               />
-              <Button
-                variant="outline"
-                size="lg"
-                className="w-full bg-transparent"
-              >
-                <Heart className="h-5 w-5 mr-2" />
-                Add to Wishlist
-              </Button>
-            </div>
 
+              {idProductFavorite ? (
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="w-full bg-transparent cursor-pointer"
+                  onClick={handleToggleFavorites}
+                >
+                  <Heart
+                    className="h-5 w-5 mr-2"
+                    fill="#EF4444"
+                    stroke="#EF4444"
+                  />
+                  Added to Favorites
+                </Button>
+              ) : (
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="w-full bg-transparent cursor-pointer"
+                  onClick={handleToggleFavorites}
+                >
+                  <Heart className="h-5 w-5 mr-2" />
+                  Add to Favorites
+                </Button>
+              )}
+            </div>
             {/* Features */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <Card>

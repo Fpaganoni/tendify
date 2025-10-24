@@ -183,53 +183,14 @@ export async function getProducts(): Promise<WooCommerceProduct[]> {
   }
 }
 
-// export async function getProducts(): Promise<WooCommerceProduct[]> {
-//   const WORDPRESS_URL = process.env.WORDPRESS_URL;
-//   const CONSUMER_KEY = process.env.WOOCOMMERCE_CONSUMER_KEY;
-//   const CONSUMER_SECRET = process.env.WOOCOMMERCE_CONSUMER_SECRET;
-
-//   if (!WORDPRESS_URL || !CONSUMER_KEY || !CONSUMER_SECRET) {
-//     throw new Error(
-//       "Missing WooCommerce API credentials in environment variables"
-//     );
-//   }
-
-//   try {
-//     const resolve = await axios.get(`${WORDPRESS_URL}/wp-json/wc/v3/products`, {
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       auth: {
-//         username: CONSUMER_KEY,
-//         password: CONSUMER_SECRET,
-//       },
-//     });
-
-//     if (!resolve) {
-//       throw new Error("No response from WooCommerce API");
-//     }
-
-//     console.log("Products fetched from WooCommerce:", resolve.data);
-//     return resolve.data;
-//   } catch (error: unknown) {
-//     console.log("Error fetching products:", error);
-//     throw new Error("Error fetching products from WooCommerce API");
-//   }
-// }
-
 export async function getFeaturedProducts(): Promise<WooCommerceProduct[]> {
   const allProducts = await getProducts();
   return allProducts.filter((product) => product.categories?.[0].name);
-
-  // await new Promise((resolve) => setTimeout(resolve, 100));
-  // return mockProducts.filter((product) => product.featured);
 }
 
 export async function getProductById(
   id: number
 ): Promise<WooCommerceProduct | null> {
-  // await new Promise((resolve) => setTimeout(resolve, 100));
-
   const allProducts = await getProducts();
 
   return allProducts.find((product) => product.id === id) || null;
@@ -238,8 +199,6 @@ export async function getProductById(
 export async function getProductsByCategory(
   category: string
 ): Promise<WooCommerceProduct[]> {
-  // await new Promise((resolve) => setTimeout(resolve, 100));
-
   const allProducts = await getProducts();
 
   return allProducts.filter(
@@ -250,8 +209,6 @@ export async function getProductsByCategory(
 export async function searchProducts(
   query: string
 ): Promise<WooCommerceProduct[]> {
-  // await new Promise((resolve) => setTimeout(resolve, 100));
-
   const allProducts = await getProducts();
 
   return allProducts.filter(
