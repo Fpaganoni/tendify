@@ -42,7 +42,7 @@ export function AdminProductTable({ products }: AdminProductTableProps) {
   };
 
   return (
-    <Card>
+    <Card className="w-full ">
       <CardHeader>
         <CardTitle>Products</CardTitle>
       </CardHeader>
@@ -89,8 +89,8 @@ export function AdminProductTable({ products }: AdminProductTableProps) {
                   <span
                     className={
                       product.stock_availability.text === "In Stock"
-                        ? "text-green-600"
-                        : "text-red-600"
+                        ? "text-green-500"
+                        : "text-red-500"
                     }
                   >
                     {product.stock_availability.text === "In Stock"

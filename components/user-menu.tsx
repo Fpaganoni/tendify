@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useAuth } from "@/lib/auth-context";
+import Link from "next/link";
 
 export function UserMenu() {
   const { state, logout } = useAuth();
@@ -46,19 +47,19 @@ export function UserMenu() {
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <User className="mr-2 h-4 w-4" />
-          <span>Profile</span>
+          <Link href="/user/profile">Profile</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Package className="mr-2 h-4 w-4" />
-          <span>Orders</span>
+          <Link href="/user/orders">Orders</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Settings className="mr-2 h-4 w-4" />
-          <span>Settings</span>
+          <Link href="/user/settings">Settings</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={logout}>
-          <LogOut className="mr-2 h-4 w-4" />
+        <DropdownMenuItem onClick={logout} className="cursor-pointer">
+          <LogOut className="mr-2 h-4 w-4 " />
           <span>Log out</span>
         </DropdownMenuItem>
       </DropdownMenuContent>

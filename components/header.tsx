@@ -15,7 +15,6 @@ import { ThemeToggle } from "./theme-toggle";
 import { useAuth } from "@/lib/auth-context";
 import { useFavorites } from "@/contexts/favorites-context";
 import { Heart } from "lucide-react";
-import { Separator } from "@radix-ui/react-separator";
 
 export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -84,7 +83,7 @@ export function Header() {
             <Heart className="w-6 h-6  " fill="white" />
             {favoritesCount >= 0 && (
               <span className="absolute -top-[0.3rem] -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-                {favoritesCount === 0 ? 0 : favoritesCount}
+                {favoritesCount}
               </span>
             )}
           </Link>
