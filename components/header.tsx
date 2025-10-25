@@ -15,6 +15,7 @@ import { ThemeToggle } from "./theme-toggle";
 import { useAuth } from "@/lib/auth-context";
 import { useFavorites } from "@/contexts/favorites-context";
 import { Heart } from "lucide-react";
+import { Separator } from "@radix-ui/react-separator";
 
 export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -130,25 +131,28 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-              <nav className="flex flex-col space-y-4 mt-6">
+              <nav className="flex flex-col space-y-4 mt-6 pl-6 pt-4">
                 <Link
                   href="/products"
                   className="text-lg font-medium hover:text-primary transition-colors"
                 >
                   Products
                 </Link>
+
                 <Link
                   href="/categories"
                   className="text-lg font-medium hover:text-primary transition-colors"
                 >
                   Categories
                 </Link>
+
                 <Link
                   href="/about"
                   className="text-lg font-medium hover:text-primary transition-colors"
                 >
                   About
                 </Link>
+
                 <Link
                   href="/contact"
                   className="text-lg font-medium hover:text-primary transition-colors"

@@ -20,10 +20,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { Product } from "@/lib/types";
+import type { ProductMock } from "@/lib/mock-types";
 
 interface AdminProductTableProps {
-  products: Product[];
+  products: ProductMock[];
 }
 
 export function AdminProductTable({ products }: AdminProductTableProps) {
@@ -65,7 +65,7 @@ export function AdminProductTable({ products }: AdminProductTableProps) {
                   <div className="flex items-center space-x-3">
                     <div className="relative h-10 w-10 rounded-md overflow-hidden">
                       <Image
-                        src={product.image_url || "/placeholder.svg"}
+                        src={product.images[0].src || "/placeholder.svg"}
                         alt={product.name}
                         fill
                         className="object-cover"
@@ -80,20 +80,22 @@ export function AdminProductTable({ products }: AdminProductTableProps) {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <Badge variant="outline">{product.category}</Badge>
+                  <Badge variant="outline">{product.categories[0].name}</Badge>
                 </TableCell>
                 <TableCell className="font-medium">
-                  ${product.price.toFixed(2)}
+                  ${parseFloat(product.prices.price).toFixed(2)}
                 </TableCell>
                 <TableCell>
                   <span
                     className={
-                      product.stock_quantity > 0
+                      product.stock_availability.text === "In Stock"
                         ? "text-green-600"
                         : "text-red-600"
                     }
                   >
-                    {product.stock_quantity}
+                    {product.stock_availability.text === "In Stock"
+                      ? "In Stock"
+                      : "Out of Stock"}
                   </span>
                 </TableCell>
                 <TableCell>

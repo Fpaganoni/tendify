@@ -45,7 +45,7 @@ export function AuthDialog() {
         title: "Login failed",
         description:
           "Invalid email or password. Try admin@example.com / password",
-        variant: "destructive",
+        variant: "default",
       });
     }
   };
@@ -98,7 +98,7 @@ export function AuthDialog() {
           <TabsContent value="login" className="space-y-6">
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
-                <Label htmlFor="login-email" className="mb-2">
+                <Label htmlFor="login-email" className="mb-1">
                   Email
                 </Label>
                 <Input
@@ -112,7 +112,7 @@ export function AuthDialog() {
                 />
               </div>
               <div>
-                <Label htmlFor="login-password" className="mb-2">
+                <Label htmlFor="login-password" className="mb-1">
                   Password
                 </Label>
                 <Input
@@ -143,7 +143,7 @@ export function AuthDialog() {
             <form onSubmit={handleRegister} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="register-firstName" className="mb-2">
+                  <Label htmlFor="register-firstName" className="mb-1">
                     First Name
                   </Label>
                   <Input
@@ -159,7 +159,7 @@ export function AuthDialog() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="register-lastName" className="mb-2">
+                  <Label htmlFor="register-lastName" className="mb-1">
                     Last Name
                   </Label>
                   <Input
@@ -176,7 +176,7 @@ export function AuthDialog() {
                 </div>
               </div>
               <div>
-                <Label htmlFor="register-email" className="mb-2">
+                <Label htmlFor="register-email" className="mb-1">
                   Email
                 </Label>
                 <Input
@@ -190,7 +190,7 @@ export function AuthDialog() {
                 />
               </div>
               <div>
-                <Label htmlFor="register-password" className="mb-2">
+                <Label htmlFor="register-password" className="mb-1">
                   Password
                 </Label>
                 <Input
