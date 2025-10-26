@@ -2,6 +2,7 @@
 // In production, replace with actual database queries
 import axios from "axios";
 import { WooCommerceProduct } from "./woocommerce-types";
+import { mockProducts } from "../helpers/mock-products";
 
 // funcion debugger
 export async function getProducts(): Promise<WooCommerceProduct[]> {
@@ -37,6 +38,10 @@ export async function getProducts(): Promise<WooCommerceProduct[]> {
 
     console.log("✅ Response status:", response.status);
     console.log("📦 Products found:", response.data?.length || 0);
+
+    if (!response) {
+      return mockProducts;
+    }
 
     return response.data;
   } catch (error: any) {
