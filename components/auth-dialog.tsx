@@ -3,7 +3,7 @@
 import type React from "react";
 
 import { useState } from "react";
-import { User, LogIn, UserPlus } from "lucide-react";
+import { User, LogIn, UserPlus, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,6 +19,7 @@ import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/hooks/use-toast";
 
 export function AuthDialog() {
+  const [showPassword, setShowPassword] = useState(false);
   const { state, login, register } = useAuth();
   const { toast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
@@ -35,17 +36,17 @@ export function AuthDialog() {
     const success = await login(loginForm.email, loginForm.password);
     if (success) {
       toast({
-        title: "Welcome back!",
+        title: `Welcome back!`,
         description: "You have been successfully logged in.",
+        className: "bg-success-accent font-bold text-primary",
       });
       setIsOpen(false);
       setLoginForm({ email: "", password: "" });
     } else {
       toast({
         title: "Login failed",
-        description:
-          "Invalid email or password. Try admin@example.com / password",
-        variant: "default",
+        description: "Invalid email or password. ¿Are you already registered?",
+        className: "bg-destructive font-bold text-primary",
       });
     }
   };
@@ -62,6 +63,7 @@ export function AuthDialog() {
       toast({
         title: "Account created!",
         description: "Your account has been successfully created.",
+        className: "bg-success-accent font-bold text-primary",
       });
       setIsOpen(false);
       setRegisterForm({ email: "", password: "", firstName: "", lastName: "" });
@@ -69,9 +71,13 @@ export function AuthDialog() {
       toast({
         title: "Registration failed",
         description: "An account with this email already exists.",
-        variant: "destructive",
+        className: "bg-destructive font-bold text-primary",
       });
     }
+  };
+
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
   };
 
   if (state.isAuthenticated) {
@@ -91,8 +97,12 @@ export function AuthDialog() {
         </DialogHeader>
         <Tabs defaultValue="login" className="w-full">
           <TabsList className="grid w-full grid-cols-2 my-2">
-            <TabsTrigger value="login">Login</TabsTrigger>
-            <TabsTrigger value="register">Register</TabsTrigger>
+            <TabsTrigger value="login" className="cursor-pointer ">
+              Login
+            </TabsTrigger>
+            <TabsTrigger value="register" className="cursor-pointer ">
+              Register
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="login" className="space-y-6">
@@ -117,17 +127,29 @@ export function AuthDialog() {
                 </Label>
                 <Input
                   id="login-password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={loginForm.password}
                   onChange={(e) =>
                     setLoginForm({ ...loginForm, password: e.target.value })
                   }
                   required
-                />
+                >
+                  {showPassword ? (
+                    <Eye
+                      onClick={handleTogglePassword}
+                      className="cursor-pointer"
+                    />
+                  ) : (
+                    <EyeOff
+                      onClick={handleTogglePassword}
+                      className="cursor-pointer"
+                    />
+                  )}
+                </Input>
               </div>
               <Button
                 type="submit"
-                className="w-full"
+                className="w-full cursor-pointer"
                 disabled={state.isLoading}
               >
                 <LogIn className="h-4 w-4 mr-2" />
@@ -195,7 +217,7 @@ export function AuthDialog() {
                 </Label>
                 <Input
                   id="register-password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={registerForm.password}
                   onChange={(e) =>
                     setRegisterForm({
@@ -204,7 +226,19 @@ export function AuthDialog() {
                     })
                   }
                   required
-                />
+                >
+                  {showPassword ? (
+                    <Eye
+                      onClick={handleTogglePassword}
+                      className="cursor-pointer"
+                    />
+                  ) : (
+                    <EyeOff
+                      onClick={handleTogglePassword}
+                      className="cursor-pointer"
+                    />
+                  )}
+                </Input>
               </div>
               <Button
                 type="submit"

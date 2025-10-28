@@ -1,5 +1,3 @@
-import { WooCommerceProduct } from "./woocommerce-types";
-
 type Categories = {
   id: number;
   name: string;
@@ -55,16 +53,3 @@ export interface OrderItem {
   price: number;
   product: Product;
 }
-
-// // Guard type para verificar si un producto está en stock
-// export function isProductInStock(product: WooCommerceProduct): boolean {
-//   return product.is_in_stock && product.is_purchasable;
-// }
-
-// // Guard type para verificar si un producto está en oferta
-// export function isProductOnSale(product: WooCommerceProduct): boolean {
-//   return (
-//     product.on_sale &&
-//     product.prices.sale_price !== product.prices.regular_price
-//   );
-// }
