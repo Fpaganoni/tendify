@@ -38,7 +38,7 @@ export function AuthDialog() {
       toast({
         title: `Welcome back!`,
         description: "You have been successfully logged in.",
-        className: "bg-success-accent font-bold text-primary",
+        className: "bg-success-accent font-bold text-pure-white",
       });
       setIsOpen(false);
       setLoginForm({ email: "", password: "" });
@@ -46,7 +46,7 @@ export function AuthDialog() {
       toast({
         title: "Login failed",
         description: "Invalid email or password. ¿Are you already registered?",
-        className: "bg-destructive font-bold text-primary",
+        className: "bg-destructive font-bold text-pure-white",
       });
     }
   };
@@ -63,7 +63,7 @@ export function AuthDialog() {
       toast({
         title: "Account created!",
         description: "Your account has been successfully created.",
-        className: "bg-success-accent font-bold text-primary",
+        className: "bg-success-accent font-bold text-pure-white",
       });
       setIsOpen(false);
       setRegisterForm({ email: "", password: "", firstName: "", lastName: "" });
@@ -71,7 +71,7 @@ export function AuthDialog() {
       toast({
         title: "Registration failed",
         description: "An account with this email already exists.",
-        className: "bg-destructive font-bold text-primary",
+        className: "bg-destructive font-bold text-pure-white",
       });
     }
   };

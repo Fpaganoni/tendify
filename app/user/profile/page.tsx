@@ -12,6 +12,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { useAuth } from "@/lib/auth-context";
+import { format } from "date-fns";
 
 export default function UserProfilePage() {
   const { state } = useAuth();
@@ -19,12 +20,24 @@ export default function UserProfilePage() {
   if (!state.isAuthenticated) {
     return null;
   }
+  const createDate = state.user?.created_at;
+  const updateDate = state.user?.updated_at;
+
+  const createDateFormated = format(
+    new Date(createDate || ""),
+    "dd-MM-yyyy HH:mm"
+  );
+
+  const updateDateFormated = format(
+    new Date(updateDate || ""),
+    "dd-MM-yyyy HH:mm"
+  );
 
   return (
     <div className="min-h-screen">
       <Header />
       <div className="h-fit flex justify-center ">
-        <Card className="m-8 py-8 px-6 w-2xl h-fit">
+        <Card className="m-8 py-8 px-2 md:px-6 w-2xl h-fit">
           <CardHeader>
             <CardTitle>
               {state.user?.first_name} {state.user?.last_name}
@@ -36,24 +49,29 @@ export default function UserProfilePage() {
               </button>
             </CardAction>
           </CardHeader>
-          <CardContent className="flex flex-col gap-2">
+          <CardContent className="flex flex-col gap-3">
             <span className="font-bold">
-              Your ID: <p className="font-normal">{state.user?.id}</p>
+              Your ID:{" "}
+              <p className="font-normal text-sm pl-3">{state.user?.id}</p>
             </span>
             <span className="font-bold">
-              Email: <p className="font-normal">{state.user?.email}</p>
+              Email:{" "}
+              <p className="font-normal text-sm pl-3">{state.user?.email}</p>
             </span>
             <span className="font-bold">
-              Rol: <p className="font-normal">{state.user?.role}</p>
+              Rol:{" "}
+              <p className="font-normal text-sm pl-3">{state.user?.role}</p>
             </span>
             <span className="font-bold">
               Created on:
-              <p className="font-normal">{state.user?.created_at}</p>
+              <p className="font-normal text-sm pl-3">
+                {createDateFormated}hs.
+              </p>
             </span>
             <span className="font-bold">
               Last updated:
-              <p className="font-normal">
-                {state.user?.updated_at ? state.user.updated_at : null}
+              <p className="font-normal text-sm pl-3">
+                {updateDateFormated}hs.
               </p>
             </span>
           </CardContent>
