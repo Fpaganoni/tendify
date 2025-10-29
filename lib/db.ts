@@ -15,7 +15,8 @@ export async function getProducts(): Promise<WooCommerceProduct[]> {
   console.log("Password exists:", !!WP_APP_PASSWORD);
 
   if (!WORDPRESS_URL || !WP_USERNAME || !WP_APP_PASSWORD) {
-    throw new Error("Missing required environment variables");
+    console.warn("⚠️ Missing environment variables, falling back to mock data");
+    return mockProducts;
   }
 
   try {
@@ -45,10 +46,11 @@ export async function getProducts(): Promise<WooCommerceProduct[]> {
 
     return response.data;
   } catch (error: any) {
-    console.log("❌ Error details:", error.response?.data);
-    throw new Error(
-      `WooCommerce API Error: ${JSON.stringify(error.response?.data)}`
+    console.log(
+      "❌ Error accessing WooCommerce API, falling back to mock data"
     );
+    console.log("Error details:", error.response?.data);
+    return mockProducts;
   }
 }
 
