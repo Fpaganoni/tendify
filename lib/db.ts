@@ -5,8 +5,8 @@ import { WooCommerceProduct } from "./woocommerce-types";
 import { mockProducts } from "../helpers/mock-products";
 
 export async function getProducts(): Promise<WooCommerceProduct[]> {
-  // Durante el build de Next.js, usar siempre los mocks
-  if (process.env.NEXT_PHASE === "phase-production-build") {
+  // Si USE_MOCKS está configurado como "true", siempre usar datos mock
+  if (process.env.USE_MOCKS === "true") {
     return mockProducts;
   }
 
