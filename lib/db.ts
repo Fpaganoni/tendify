@@ -88,3 +88,6 @@ export async function searchProducts(
       product.description.toLowerCase().includes(query.toLowerCase())
   );
 }
+
+// Re-export mockProducts so other modules can import mocks from `@/lib/db`
+export { mockProducts };
