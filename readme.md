@@ -1,17 +1,20 @@
 <h1 align="center">💼 Modern Portfolio Website</h1>
 
-<p align="center">
-  <b>A sleek and responsive personal portfolio website built with cutting-edge web technologies.</b><br/>
-  Showcasing a modern, performant, and accessible web application that demonstrates professional web development skills.
-</p>
-
----
-
 <h2 align="center">🌐 Live Demo</h2>
 
 <p align="center">
   🔗 <a href="https://tendify-two.vercel.app/" target="_blank"><b>View Live Project</b></a>
 </p>
+
+---
+
+<h2>🚀 Overview</h2>
+
+<p>This project is a comprehensive full-stack e-commerce platform that handles everything from product display to order fulfillment.  
+It features a fully functional shopping cart, secure payment integration, and an inventory management system.  
+The user interface, built with <b>React</b> and <b>Tailwind CSS</b>, ensures a modern and responsive experience.  
+On the backend, <b>Next.js</b>, <b>Express.js</b>, and <b>Node.js</b> provide robust performance, while <b>PostgreSQL</b> ensures reliable data persistence.  
+TypeScript adds static type safety across both the frontend and backend, improving maintainability and scalability.</p>
 
 ---
 
