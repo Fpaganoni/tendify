@@ -48,32 +48,57 @@ export function Header() {
         <nav className="hidden md:flex items-center space-x-6">
           <Link
             href="/products"
-            className="text-sm font-medium hover:text-primary transition-colors"
+            className="text-sm font-medium hover:text-primary bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat bg-bottom
+            [background-size:0%_2px]
+            transition-all duration-300 ease-[cubic-bezier(.2,.9,.2,1)]
+            hover:[background-size:80%_2px]
+            focus:[background-size:80%_2px]
+            motion-reduce:transition-none hover:pb-1"
           >
             Products
           </Link>
           <Link
             href="/categories"
-            className="text-sm font-medium hover:text-primary transition-colors"
+            className="text-sm font-medium hover:text-primary bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat bg-bottom
+            [background-size:0%_2px]
+            transition-all duration-300 ease-[cubic-bezier(.2,.9,.2,1)]
+            hover:[background-size:80%_2px]
+            focus:[background-size:80%_2px]
+            motion-reduce:transition-none hover:pb-1"
           >
             Categories
           </Link>
           <Link
             href="/about"
-            className="text-sm font-medium hover:text-primary transition-colors"
+            className="text-sm font-medium hover:text-primary bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat bg-bottom
+            [background-size:0%_2px]
+            transition-all duration-300 ease-[cubic-bezier(.2,.9,.2,1)]
+            hover:[background-size:80%_2px]
+            focus:[background-size:80%_2px]
+            motion-reduce:transition-none hover:pb-1"
           >
             About
           </Link>
           <Link
             href="/contact"
-            className="text-sm font-medium hover:text-primary transition-colors"
+            className="text-sm font-medium hover:text-primary bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat bg-bottom
+            [background-size:0%_2px]
+            transition-all duration-300 ease-[cubic-bezier(.2,.9,.2,1)]
+            hover:[background-size:80%_2px]
+            focus:[background-size:80%_2px]
+            motion-reduce:transition-none hover:pb-1"
           >
             Contact
           </Link>
           {state.user?.role === "admin" && (
             <Link
               href="/admin"
-              className="text-sm font-medium hover:text-primary transition-colors"
+              className="text-sm font-medium hover:text-primary bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat bg-bottom
+            [background-size:0%_2px]
+            transition-all duration-300 ease-[cubic-bezier(.2,.9,.2,1)]
+            hover:[background-size:80%_2px]
+            focus:[background-size:80%_2px]
+            motion-reduce:transition-none hover:pb-1"
             >
               Admin
             </Link>

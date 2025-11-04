@@ -60,7 +60,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 hover:bg-background hover:cursor-pointer"
+            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 hover:bg-muted-foreground hover:cursor-pointer"
             aria-label={
               isProductFavorite ? "Remove from favorites" : "Add to favorites"
             }
@@ -69,7 +69,7 @@ export function ProductCard({ product }: ProductCardProps) {
             {isProductFavorite ? (
               <Heart fill="#EF4444" stroke="#EF4444" className="h-4 w-4" />
             ) : (
-              <Heart className="h-4 w-4" />
+              <Heart className="h-4 w-4 " />
             )}
           </Button>
         </div>

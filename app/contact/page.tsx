@@ -100,6 +100,7 @@ export default function ContactPage() {
     toast({
       title: "Message sent successfully!",
       description: "We'll get back to you within 24 hours.",
+      className: "bg-success-accent text-white",
     });
 
     setFormData({ name: "", email: "", subject: "", message: "" });
@@ -154,7 +155,7 @@ export default function ContactPage() {
                   works best for you.
                 </p>
               </div>
-              <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-10">
                 {supportOptions.map((option, index) => (
                   <ScrollAnimation key={option.title} delay={index * 0.1}>
                     <Card className="text-center hover:shadow-lg transition-shadow duration-300">
@@ -191,13 +192,15 @@ export default function ContactPage() {
 
         {/* Contact Form & Info */}
         <ScrollAnimation>
-          <section className="py-16 bg-muted/30">
-            <div className="container px-4">
+          <section className="py-16 bg-muted/30  ">
+            <div className="container px-4 mb-10 mt-5">
               <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
                 {/* Contact Form */}
                 <div>
-                  <h2 className="text-3xl font-bold mb-6">Send Us a Message</h2>
-                  <Card>
+                  <h2 className="text-3xl font-bold mb-18">
+                    Send Us a Message
+                  </h2>
+                  <Card className="sticky top-10">
                     <CardContent className="p-6">
                       <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid md:grid-cols-2 gap-4">
@@ -245,7 +248,7 @@ export default function ContactPage() {
                             onChange={handleChange}
                             required
                             rows={6}
-                            className="mt-1"
+                            className="mt-1 max-h-48"
                             placeholder="Tell us how we can help you..."
                           />
                         </div>
