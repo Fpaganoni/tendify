@@ -134,7 +134,7 @@ export function Header() {
           <Button
             variant="ghost"
             size="icon"
-            className="sm:hidden"
+            className="sm:hidden me-0 md:me-4"
             onClick={() => setIsSearchOpen(!isSearchOpen)}
           >
             <Search className="h-5 w-5" />
@@ -191,6 +191,14 @@ export function Header() {
                     Admin
                   </Link>
                 )}
+                <Link href="/favorites" className="relative p-2">
+                  <Heart className="w-6 h-6  " fill="white" />
+                  {favoritesCount >= 0 && (
+                    <span className="absolute -top-[0.3rem] left-7 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                      {favoritesCount}
+                    </span>
+                  )}
+                </Link>
               </nav>
             </SheetContent>
           </Sheet>
