@@ -2,15 +2,7 @@
 
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardAction,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+
 import { useAuth } from "@/lib/auth-context";
 import { format } from "date-fns";
 import {
@@ -62,19 +54,19 @@ export default function UserProfilePage() {
       icon: Package,
       label: "Total Orders",
       value: "24",
-      color: "from-blue-500 to-blue-600",
+      color: "var(--color-gradient-blue)",
     },
     {
       icon: Heart,
       label: "Wishlist Items",
       value: "12",
-      color: "from-pink-500 to-pink-600",
+      color: "var(--color-gradient-pink)",
     },
     {
       icon: Star,
       label: "Reviews",
       value: "18",
-      color: "from-orange-500 to-orange-600",
+      color: "var(--color-gradient-orange)",
     },
   ];
 
@@ -116,7 +108,7 @@ export default function UserProfilePage() {
     <div className="min-h-screen">
       <Header />
 
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white p-6">
+      <div className="min-h-screen bg-gradient text-white p-6">
         <div className="max-w-6xl mx-auto">
           {/* Header con Banner y Avatar */}
           <div className="relative mb-8">
@@ -179,7 +171,8 @@ export default function UserProfilePage() {
                 >
                   <div className="flex items-center gap-4">
                     <div
-                      className={`w-12 h-12 bg-gradient-to-br ${stat.color} rounded-lg flex items-center justify-center`}
+                      style={{ backgroundImage: stat.color }}
+                      className="w-12 h-12 rounded-lg flex items-center justify-center text-white"
                     >
                       <Icon size={24} />
                     </div>
@@ -377,52 +370,6 @@ export default function UserProfilePage() {
         </div>
       </div>
 
-      {/* <div className="h-fit flex justify-center ">
-        <Card className="m-8 py-8 px-2 md:px-6 w-2xl h-fit">
-          <CardHeader>
-            <CardTitle>
-              {state.user?.first_name} {state.user?.last_name}
-            </CardTitle>
-            <CardDescription>Manage your profile settings</CardDescription>
-            <CardAction>
-              <button className="btn btn-primary px-3 py-1 cursor-pointer border-2 border-[orange] hover:shadow shadow-[orange] transition-shadow duration-300 ">
-                Edit
-              </button>
-            </CardAction>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-3">
-            <span className="font-bold">
-              Your ID:{" "}
-              <p className="font-normal text-sm pl-3">{state.user?.id}</p>
-            </span>
-            <span className="font-bold">
-              Email:{" "}
-              <p className="font-normal text-sm pl-3">{state.user?.email}</p>
-            </span>
-            <span className="font-bold">
-              Rol:{" "}
-              <p className="font-normal text-sm pl-3">{state.user?.role}</p>
-            </span>
-            <span className="font-bold">
-              Created on:
-              <p className="font-normal text-sm pl-3">
-                {createDateFormated}hs.
-              </p>
-            </span>
-            <span className="font-bold">
-              Last updated:
-              <p className="font-normal text-sm pl-3">
-                {updateDateFormated}hs.
-              </p>
-            </span>
-          </CardContent>
-          <CardFooter>
-            <p>
-              <i>All your user information is save.</i>
-            </p>
-          </CardFooter>
-        </Card>
-      </div> */}
       <Footer />
     </div>
   );

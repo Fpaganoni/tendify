@@ -110,7 +110,7 @@ export default function FavoritesPage() {
               )}
 
               <Link
-                href={`/producto/${product.id}`}
+                href={`/product/${product.id}`}
                 className="btn-primary w-full text-center hover:font-bold transition-all duration-200"
               >
                 See Product

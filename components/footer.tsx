@@ -10,7 +10,7 @@ import {
 
 export function Footer() {
   return (
-    <footer className="bg-gradient text-slate-300 mt-20">
+    <footer className="bg-gradient text-slate-300 pt-16 pl-10">
       <div className="container px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand Section */}
