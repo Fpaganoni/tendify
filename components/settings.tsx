@@ -30,19 +30,19 @@ const Settings: React.FC<SettingsProps> = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient text-white p-6">
+    <div className="min-h-screen bg-background text-primary p-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Settings</h1>
-          <p className="text-gray-400">
+          <p className="text-primary/80">
             Manage your account settings and preferences
           </p>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Sidebar */}
-          <div className="lg:w-64 bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-xl p-4 border border-gray-700 h-fit">
+          <div className="lg:w-64 bg-muted bg-opacity-50 backdrop-blur-lg rounded-xl p-4  ring-1 ring-primary h-fit">
             <nav className="space-y-2">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
@@ -50,10 +50,10 @@ const Settings: React.FC<SettingsProps> = () => {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all cursor-pointer ${
                       activeTab === tab.id
-                        ? "bg-orange-500 text-white"
-                        : "text-gray-400 hover:bg-gray-700 hover:text-white"
+                        ? "bg-orange text-white"
+                        : "text-primary hover:bg-contrast-gradient"
                     }`}
                   >
                     <Icon size={20} />
@@ -65,57 +65,57 @@ const Settings: React.FC<SettingsProps> = () => {
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-xl p-6 border border-gray-700">
+          <div className="flex-1 bg-muted bg-opacity-50 backdrop-blur-lg rounded-xl p-6 ring-1 ring-primary">
             {activeTab === "account" && (
               <div className="space-y-6">
                 <h2 className="text-2xl font-bold mb-6">Account Information</h2>
 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-primary/80 mb-2">
                       Full Name
                     </label>
                     <input
                       type="text"
                       defaultValue="John Doe"
-                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      className="w-full bg-background ring-1 ring-primary rounded-lg px-4 py-3 text-primary/80 focus:outline-none focus:ring-2 focus:ring-orange"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-primary mb-2">
                       Email Address
                     </label>
                     <input
                       type="email"
                       defaultValue="user@example.com"
-                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      className="w-full bg-background ring-1 ring-primary rounded-lg px-4 py-3 text-primary/80 focus:outline-none focus:ring-2 focus:ring-orange"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-primary mb-2">
                       Phone Number
                     </label>
                     <input
                       type="tel"
                       defaultValue="+1 (555) 123-4567"
-                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      className="w-full bg-background ring-1 ring-primary rounded-lg px-4 py-3 text-primary/80 focus:outline-none focus:ring-2 focus:ring-orange"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-primary mb-2">
                       Bio
                     </label>
                     <textarea
                       rows={4}
                       placeholder="Tell us about yourself..."
-                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      className="w-full bg-background ring-1 ring-primary rounded-lg px-4 py-3 text-primary/80 focus:outline-none focus:ring-2 focus:ring-orange max-h-36"
                     />
                   </div>
 
-                  <button className="bg-orange-500 hover:bg-orange-600 text-white font-medium px-6 py-3 rounded-lg transition-colors">
+                  <button className="bg-orange hover:bg-orange/80 text-primary cursor-pointer font-medium px-6 py-3 rounded-lg transition-colors">
                     Save Changes
                   </button>
                 </div>
@@ -128,51 +128,51 @@ const Settings: React.FC<SettingsProps> = () => {
 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-primary mb-2">
                       Current Password
                     </label>
                     <input
                       type="password"
                       placeholder="Enter current password"
-                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      className="w-full bg-background ring-1 ring-primary rounded-lg px-4 py-3 text-primary/80 focus:outline-none focus:ring-2 focus:ring-orange"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-primary mb-2">
                       New Password
                     </label>
                     <input
                       type="password"
                       placeholder="Enter new password"
-                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      className="w-full bg-background ring-1 ring-primary rounded-lg px-4 py-3 text-primary/80 focus:outline-none focus:ring-2 focus:ring-orange"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-primary mb-2">
                       Confirm New Password
                     </label>
                     <input
                       type="password"
                       placeholder="Confirm new password"
-                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      className="w-full bg-background ring-1 ring-primary rounded-lg px-4 py-3 text-primary/80 focus:outline-none focus:ring-2 focus:ring-orange"
                     />
                   </div>
 
-                  <div className="pt-4 border-t border-gray-700">
+                  <div className="pt-4 border-t border-primary/80">
                     <h3 className="font-semibold mb-3">
                       Two-Factor Authentication
                     </h3>
-                    <p className="text-gray-400 text-sm mb-4">
+                    <p className="text-primary/80 text-sm mb-4">
                       Add an extra layer of security to your account
                     </p>
-                    <button className="bg-gray-700 hover:bg-gray-600 text-white font-medium px-6 py-3 rounded-lg transition-colors">
+                    <button className="bg-background hover:bg-contrast-gradient text-primary font-medium px-6 py-3 rounded-lg transition-colors cursor-pointer">
                       Enable 2FA
                     </button>
                   </div>
 
-                  <button className="bg-orange-500 hover:bg-orange-600 text-white font-medium px-6 py-3 rounded-lg transition-colors">
+                  <button className="bg-orange hover:bg-orange/80 text-primary font-medium px-6 py-3 rounded-lg transition-colors cursor-pointer">
                     Update Password
                   </button>
                 </div>
