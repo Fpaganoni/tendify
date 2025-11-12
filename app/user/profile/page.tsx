@@ -46,7 +46,7 @@ export default function UserProfilePage() {
     phone: "+1 (555) 123-4567",
     location: "New York, USA",
     bio: "Tech enthusiast and avid shopper. Love discovering new products and trends!",
-    joinDate: "January 2024",
+    joinDate: createDateFormated,
   });
 
   const stats = [
@@ -108,23 +108,23 @@ export default function UserProfilePage() {
     <div className="min-h-screen">
       <Header />
 
-      <div className="min-h-screen bg-gradient text-white p-6">
+      <div className="min-h-screen bg-background text-primary p-6">
         <div className="max-w-6xl mx-auto">
           {/* Header con Banner y Avatar */}
           <div className="relative mb-8">
             {/* Avatar y Botones */}
             <div className=" flex items-end gap-6">
               <div className="relative">
-                <div className="w-32 h-32 rounded-full border-4 border-gray-900 bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-4xl font-bold">
+                <div className="w-32 h-32 rounded-full border-4 border-contrast-gradient bg-gradient-to-br from-orange/30 to-orange/90 flex items-center justify-center text-4xl font-bold">
                   JD
                 </div>
-                <button className="absolute bottom-0 right-0 p-2 bg-orange-500 rounded-full hover:bg-orange-600 transition-colors">
+                <button className="absolute bottom-0 right-0 p-2 bg-orange/75 rounded-full hover:bg-orange transition-colors cursor-pointer">
                   <Camera size={16} />
                 </button>
               </div>
               <div className="mb-4">
                 <h1 className="text-3xl font-bold">{profileData.name}</h1>
-                <p className="text-gray-400">
+                <p className="text-primary/80">
                   Member since {profileData.joinDate}
                 </p>
               </div>
@@ -134,7 +134,7 @@ export default function UserProfilePage() {
               {!isEditing ? (
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="flex items-center gap-2 bg-gray-800 bg-opacity-70 backdrop-blur-lg hover:bg-opacity-90 px-4 py-2 rounded-lg transition-all"
+                  className="flex items-center gap-2 bg-muted   hover:bg-muted/70 px-4 py-2 rounded-lg transition-all cursor-pointer"
                 >
                   <Edit2 size={18} />
                   Edit Profile
@@ -143,14 +143,14 @@ export default function UserProfilePage() {
                 <div className="flex gap-2">
                   <button
                     onClick={handleSave}
-                    className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-lg transition-colors"
+                    className="flex items-center gap-2 bg-orange/80 hover:bg-orange px-4 py-2 rounded-lg transition-colors cursor-pointer"
                   >
                     <Save size={18} />
                     Save
                   </button>
                   <button
                     onClick={handleCancel}
-                    className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg transition-colors"
+                    className="flex items-center gap-2 bg-muted/80 hover:bg-muted px-4 py-2 rounded-lg transition-colors cursor-pointer"
                   >
                     <X size={18} />
                     Cancel
@@ -167,17 +167,17 @@ export default function UserProfilePage() {
               return (
                 <div
                   key={index}
-                  className="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-xl p-6 border border-gray-700"
+                  className="bg-muted rounded-xl p-6 ring-1 ring-primary"
                 >
                   <div className="flex items-center gap-4">
                     <div
                       style={{ backgroundImage: stat.color }}
-                      className="w-12 h-12 rounded-lg flex items-center justify-center text-white"
+                      className="w-12 h-12 rounded-lg flex items-center justify-center text-primary"
                     >
-                      <Icon size={24} />
+                      <Icon size={24} className="text-white" />
                     </div>
                     <div>
-                      <p className="text-gray-400 text-sm">{stat.label}</p>
+                      <p className="text-primary/80 text-sm">{stat.label}</p>
                       <p className="text-2xl font-bold">{stat.value}</p>
                     </div>
                   </div>
@@ -189,14 +189,14 @@ export default function UserProfilePage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Información Personal */}
             <div className="lg:col-span-1 space-y-6">
-              <div className="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-xl p-6 border border-gray-700">
+              <div className="bg-muted  rounded-xl p-6 ring-1 ring-primary">
                 <h2 className="text-xl font-bold mb-4">Personal Information</h2>
 
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
-                    <Mail className="text-orange-500 mt-1" size={20} />
+                    <Mail className="text-orange mt-1" size={20} />
                     <div className="flex-1">
-                      <p className="text-gray-400 text-sm">Email</p>
+                      <p className="text-primary/80 text-sm">Email</p>
                       {isEditing ? (
                         <input
                           type="email"
@@ -207,7 +207,7 @@ export default function UserProfilePage() {
                               email: e.target.value,
                             })
                           }
-                          className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 mt-1 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                          className="w-full bg-background  rounded px-3 py-1 mt-1 text-primary focus:outline-none focus:ring-2 focus:ring-orange"
                         />
                       ) : (
                         <p className="font-medium">{profileData.email}</p>
@@ -216,9 +216,9 @@ export default function UserProfilePage() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Phone className="text-orange-500 mt-1" size={20} />
+                    <Phone className="text-orange mt-1" size={20} />
                     <div className="flex-1">
-                      <p className="text-gray-400 text-sm">Phone</p>
+                      <p className="text-primary/80 text-sm">Phone</p>
                       {isEditing ? (
                         <input
                           type="tel"
@@ -229,7 +229,7 @@ export default function UserProfilePage() {
                               phone: e.target.value,
                             })
                           }
-                          className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 mt-1 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                          className="w-full bg-background rounded px-3 py-1 mt-1 text-primary focus:outline-none focus:ring-2 focus:ring-orange"
                         />
                       ) : (
                         <p className="font-medium">{profileData.phone}</p>
@@ -238,9 +238,9 @@ export default function UserProfilePage() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <MapPin className="text-orange-500 mt-1" size={20} />
+                    <MapPin className="text-orange mt-1" size={20} />
                     <div className="flex-1">
-                      <p className="text-gray-400 text-sm">Location</p>
+                      <p className="text-primary/80 text-sm">Location</p>
                       {isEditing ? (
                         <input
                           type="text"
@@ -251,7 +251,7 @@ export default function UserProfilePage() {
                               location: e.target.value,
                             })
                           }
-                          className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 mt-1 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                          className="w-full bg-background rounded px-3 py-1 mt-1 text-primary focus:outline-none focus:ring-2 focus:ring-orange"
                         />
                       ) : (
                         <p className="font-medium">{profileData.location}</p>
@@ -260,9 +260,9 @@ export default function UserProfilePage() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Calendar className="text-orange-500 mt-1" size={20} />
+                    <Calendar className="text-orange mt-1" size={20} />
                     <div className="flex-1">
-                      <p className="text-gray-400 text-sm">Member Since</p>
+                      <p className="text-primary/80 text-sm">Member Since</p>
                       <p className="font-medium">{profileData.joinDate}</p>
                     </div>
                   </div>
@@ -270,7 +270,7 @@ export default function UserProfilePage() {
               </div>
 
               {/* Bio */}
-              <div className="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-xl p-6 border border-gray-700">
+              <div className="bg-muted rounded-xl p-6 ring-1 ring-primary">
                 <h2 className="text-xl font-bold mb-4">About Me</h2>
                 {isEditing ? (
                   <textarea
@@ -279,49 +279,51 @@ export default function UserProfilePage() {
                       setProfileData({ ...profileData, bio: e.target.value })
                     }
                     rows={4}
-                    className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full bg-background rounded-lg px-4 py-3 text-primary focus:outline-none focus:ring-2 focus:ring-orange max-h-36"
                   />
                 ) : (
-                  <p className="text-gray-300">{profileData.bio}</p>
+                  <p className="text-primey/80">{profileData.bio}</p>
                 )}
               </div>
             </div>
 
             {/* Recent Orders */}
             <div className="lg:col-span-2">
-              <div className="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-xl p-6 border border-gray-700">
+              <div className="bg-muted rounded-xl p-6 ring-1 ring-primary">
                 <h2 className="text-xl font-bold mb-6">Recent Orders</h2>
 
                 <div className="space-y-4">
                   {recentOrders.map((order) => (
                     <div
                       key={order.id}
-                      className="bg-gray-700 bg-opacity-50 rounded-lg p-4 hover:bg-opacity-70 transition-all"
+                      className="bg-background rounded-lg p-4  transition-all"
                     >
                       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-2">
-                            <span className="text-orange-500 font-semibold">
+                            <span className="text-orange font-semibold">
                               #{order.id}
                             </span>
                             <span
                               className={`text-xs px-2 py-1 rounded-full ${
                                 order.status === "Delivered"
-                                  ? "bg-green-500 bg-opacity-20 text-green-400"
-                                  : "bg-blue-500 bg-opacity-20 text-blue-400"
+                                  ? "bg-green-check text-primary"
+                                  : "bg-alert text-primary"
                               }`}
                             >
                               {order.status}
                             </span>
                           </div>
                           <p className="font-medium mb-1">{order.product}</p>
-                          <p className="text-gray-400 text-sm">{order.date}</p>
+                          <p className="text-primary/80 text-sm">
+                            {order.date}
+                          </p>
                         </div>
                         <div className="flex items-center gap-4">
-                          <p className="text-xl font-bold text-orange-500">
+                          <p className="text-xl font-bold text-orange">
                             {order.amount}
                           </p>
-                          <button className="bg-gray-600 hover:bg-gray-500 px-4 py-2 rounded-lg text-sm transition-colors">
+                          <button className="bg-muted/80 hover:bg-muted cursor-pointer px-4 py-2 rounded-lg text-sm transition-colors">
                             View Details
                           </button>
                         </div>
@@ -330,37 +332,37 @@ export default function UserProfilePage() {
                   ))}
                 </div>
 
-                <button className="w-full mt-6 bg-gray-700 hover:bg-gray-600 text-white font-medium px-6 py-3 rounded-lg transition-colors">
+                <button className="w-full mt-6 bg-background hover:bg-background/80 text-primary font-medium px-6 py-3 rounded-lg transition-colors cursor-pointer">
                   View All Orders
                 </button>
               </div>
 
               {/* Activity Section */}
-              <div className="mt-6 bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-xl p-6 border border-gray-700">
+              <div className="mt-6 bg-muted rounded-xl p-6 ring-1 ring-primary">
                 <h2 className="text-xl font-bold mb-6">Recent Activity</h2>
 
                 <div className="space-y-4">
                   <div className="flex items-start gap-4">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full mt-2"></div>
+                    <div className="w-2 h-2 bg-orange rounded-full mt-2"></div>
                     <div className="flex-1">
                       <p className="font-medium">
                         Reviewed "Minimalist Desk Lamp"
                       </p>
-                      <p className="text-gray-400 text-sm">2 days ago</p>
+                      <p className="text-primary/80 text-sm">2 days ago</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full mt-2"></div>
+                    <div className="w-2 h-2 bg-orange rounded-full mt-2"></div>
                     <div className="flex-1">
                       <p className="font-medium">Added 3 items to wishlist</p>
-                      <p className="text-gray-400 text-sm">5 days ago</p>
+                      <p className="text-primary/80 text-sm">5 days ago</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full mt-2"></div>
+                    <div className="w-2 h-2 bg-orange rounded-full mt-2"></div>
                     <div className="flex-1">
                       <p className="font-medium">Updated profile information</p>
-                      <p className="text-gray-400 text-sm">1 week ago</p>
+                      <p className="text-primary/80 text-sm">1 week ago</p>
                     </div>
                   </div>
                 </div>
