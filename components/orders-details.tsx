@@ -101,7 +101,7 @@ export function OrdersDetails() {
   });
 
   return (
-    <div className="min-h-screen bg-background text-primary p-6">
+    <main className="min-h-screen bg-background text-primary px-6 pb-32 pt-16">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -191,78 +191,97 @@ export function OrdersDetails() {
         </div>
 
         {/* Orders Table */}
-        <div className="bg-muted bg-opacity-50 backdrop-blur-lg ring-1 ring-primary rounded-xl overflow-hidden">
-          {/* Table Header */}
-          <div className="bg-orange px-6 py-4">
-            <div className="grid grid-cols-12 gap-4 font-semibold">
-              <div className="col-span-1">Order ID</div>
-              <div className="col-span-2">Date</div>
-              <div className="col-span-4">Product</div>
-              <div className="col-span-1 text-center">Quantity</div>
-              <div className="col-span-2 text-center">Status</div>
-              <div className="col-span-1 text-right">Total</div>
-              <div className="col-span-1"></div>
-            </div>
-          </div>
 
-          {/* Table Body */}
-          <div className="divide-y divide-primary/70">
-            {filteredOrders.length > 0 ? (
-              filteredOrders.map((order) => (
-                <div
-                  key={order.id}
-                  className="px-6 py-4 hover:bg-contrast-gradient hover:bg-opacity-30 transition-colors"
-                >
-                  <div className="grid grid-cols-12 gap-4 items-center">
-                    <div className="col-span-1 font-semibold text-primary/70">
-                      {order.id}
-                    </div>
-                    <div className="col-span-2 text-primary/85">
-                      {order.date}
-                    </div>
-                    <div className="col-span-4 font-medium">
-                      {order.product}
-                    </div>
-                    <div className="col-span-1 text-center">
-                      {order.quantity}
-                    </div>
-                    <div className="col-span-2 flex justify-center">
-                      <span
-                        className={`flex items-center gap-2 px-3 py-1 rounded-full text-primary text-sm ring-1 ring-primary ${getStatusColor(
-                          order.status
-                        )}`}
-                      >
-                        {getStatusIcon(order.status)}
-                        {order.status}
-                      </span>
-                    </div>
-                    <div className="col-span-1 text-right font-bold text-primary">
-                      {order.total}
-                    </div>
-                    <div className="col-span-1 flex justify-end">
-                      <button className="p-2 text-muted bg-primary hover:bg-primary/80  rounded-lg transition-colors cursor-pointer">
-                        <Eye size={18} />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="px-6 py-12 text-center">
-                <Package className="mx-auto mb-4 text-gray-600" size={48} />
-                <p className="text-gray-400 text-lg">No orders found</p>
-                <p className="text-gray-500 text-sm mt-2">
-                  Try adjusting your search or filters
-                </p>
-              </div>
-            )}
+        <div className="bg-muted bg-opacity-50 backdrop-blur-lg ring-1 ring-primary rounded-xl overflow-hidden">
+          {/* Table with horizontal scroll */}
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[800px]">
+              {/* Table Header */}
+              <thead className="bg-orange">
+                <tr>
+                  <th className="px-6 py-4 text-left font-semibold">
+                    Order ID
+                  </th>
+                  <th className="px-6 py-4 text-left font-semibold">Date</th>
+                  <th className="px-6 py-4 text-left font-semibold">Product</th>
+                  <th className="px-6 py-4 text-center font-semibold">
+                    Quantity
+                  </th>
+                  <th className="px-6 py-4 text-center font-semibold">
+                    Status
+                  </th>
+                  <th className="px-6 py-4 text-right font-semibold">Total</th>
+                  <th className="px-6 py-4"></th>
+                </tr>
+              </thead>
+
+              {/* Table Body */}
+              <tbody className="divide-y divide-primary/70">
+                {filteredOrders.length > 0 ? (
+                  filteredOrders.map((order) => (
+                    <tr
+                      key={order.id}
+                      className="hover:bg-contrast-gradient hover:bg-opacity-30 transition-colors"
+                    >
+                      <td className="px-6 py-4 font-semibold text-primary/70">
+                        {order.id}
+                      </td>
+                      <td className="px-6 py-4 text-primary/85">
+                        {order.date}
+                      </td>
+                      <td className="px-6 py-4 font-medium">{order.product}</td>
+                      <td className="px-6 py-4 text-center">
+                        {order.quantity}
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex justify-center">
+                          <span
+                            className={`flex items-center gap-2 px-3 py-1 rounded-full text-primary text-sm ring-1 ring-primary ${getStatusColor(
+                              order.status
+                            )}`}
+                          >
+                            {getStatusIcon(order.status)}
+                            {order.status}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-right font-bold text-primary">
+                        {order.total}
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex justify-end">
+                          <button className="p-2 text-muted bg-primary hover:bg-primary/80 rounded-lg transition-colors cursor-pointer">
+                            <Eye size={18} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={7} className="px-6 py-12 text-center">
+                      <div>
+                        <Package
+                          className="mx-auto mb-4 text-gray-600"
+                          size={48}
+                        />
+                        <p className="text-gray-400 text-lg">No orders found</p>
+                        <p className="text-gray-500 text-sm mt-2">
+                          Try adjusting your search or filters
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
 
         {/* Pagination */}
         {filteredOrders.length > 0 && (
           <div className="mt-6 flex items-center justify-between">
-            <p className="text-primary/80 text-sm pl-6">
+            <p className="text-primary/80 text-sm lg:pl-6">
               Showing {filteredOrders.length} of {orders.length} orders
             </p>
             <div className="flex gap-2">
@@ -282,6 +301,6 @@ export function OrdersDetails() {
           </div>
         )}
       </div>
-    </div>
+    </main>
   );
 }

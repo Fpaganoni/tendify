@@ -12,6 +12,8 @@ import {
   Sun,
 } from "lucide-react";
 
+import { ThemeToggle } from "./theme-toggle";
+
 interface SettingsProps {}
 
 const Settings: React.FC<SettingsProps> = () => {
@@ -30,7 +32,7 @@ const Settings: React.FC<SettingsProps> = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-primary p-6">
+    <main className="min-h-screen bg-background text-primary px-6 pt-16 pb-32 ">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -321,18 +323,7 @@ const Settings: React.FC<SettingsProps> = () => {
                         </p>
                       </div>
                     </div>
-                    <button
-                      onClick={() => setDarkMode(!darkMode)}
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${
-                        darkMode ? "bg-orange" : "bg-muted"
-                      }`}
-                    >
-                      <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                          darkMode ? "translate-x-6" : "translate-x-1"
-                        }`}
-                      />
-                    </button>
+                    <ThemeToggle />
                   </div>
 
                   <div className="p-4 bg-background rounded-lg">
@@ -364,7 +355,7 @@ const Settings: React.FC<SettingsProps> = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

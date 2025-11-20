@@ -52,7 +52,7 @@ export default function FavoritesPage() {
     <div className="min-h-screen">
       <Header />
 
-      <div className="container mx-auto px-4 py-8 xl:px-24">
+      <main className="container mx-auto pt-16 pb-32 py-8 xl:px-24">
         <div className="flex justify-between items-center mb-6 ">
           <div>
             <h1 className="text-3xl font-bold">My Favorites</h1>
@@ -81,7 +81,7 @@ export default function FavoritesPage() {
           {favState.favorites.map((product) => (
             <div
               key={product.id}
-              className="border rounded-lg p-4 relative hover:shadow-lg transition-shadow duration-200 shadow-[#1f2937]"
+              className="border rounded-lg p-4 relative hover:shadow-md transition-shadow duration-200 shadow-muted [#1f2937]"
             >
               <button
                 onClick={() => toggleFavorite(product)}
@@ -110,7 +110,7 @@ export default function FavoritesPage() {
               )}
 
               <Link
-                href={`/product/${product.id}`}
+                href={`/products/${product.id}`}
                 className="btn-primary w-full text-center hover:font-bold transition-all duration-200"
               >
                 See Product
@@ -118,7 +118,7 @@ export default function FavoritesPage() {
             </div>
           ))}
         </div>
-      </div>
+      </main>
       <Footer />
     </div>
   );

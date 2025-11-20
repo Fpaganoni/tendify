@@ -35,7 +35,11 @@ export function CartDrawer() {
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative me-0 md:me-4">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="relative me-0 md:me-4 cursor-pointer"
+        >
           <ShoppingCart className="h-5 w-5" />
           {state.itemCount > 0 && (
             <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs ">
