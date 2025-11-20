@@ -120,7 +120,7 @@ export function Footer() {
             <div className="space-y-3 text-sm">
               <div className="flex items-center space-x-3">
                 <Mail size={16} />
-                <span>support@elitestore.com</span>
+                <span>support@trendifyStore.com</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone size={16} />
@@ -136,7 +136,7 @@ export function Footer() {
 
         <div className="border-t border-slate-800 mt-12 pt-8 text-center text-sm">
           <p>
-            &copy; 2024 EliteStore. All rights reserved. | Privacy Policy |
+            &copy; 2025 Trendify Store. All rights reserved. | Privacy Policy |
             Terms of Service
           </p>
         </div>

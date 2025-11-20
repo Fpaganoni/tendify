@@ -71,7 +71,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen">
       <Header />
-      <main>
+      <main className="pb-0">
         {/* Hero Section */}
         <ScrollAnimation>
           <section className="py-20 bg-gradient-to-r from-primary/10 to-secondary/10">
@@ -99,7 +99,7 @@ export default function AboutPage() {
         <ScrollAnimation>
           <section className="py-16">
             <div className="container px-4">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="pb-16 grid grid-cols-2 lg:grid-cols-4 gap-8">
                 {stats.map((stat, index) => (
                   <ScrollAnimation key={stat.label} delay={index * 0.1}>
                     <Card className="text-center">
@@ -122,7 +122,7 @@ export default function AboutPage() {
 
         {/* Mission Section */}
         <ScrollAnimation>
-          <section className="py-16 bg-muted/30">
+          <section className="py-32 bg-muted/95">
             <div className="container px-4">
               <div className="max-w-4xl mx-auto">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -166,7 +166,7 @@ export default function AboutPage() {
                   experience we create for our customers.
                 </p>
               </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="pb-16 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {values.map((value, index) => (
                   <ScrollAnimation key={value.title} delay={index * 0.1}>
                     <Card className="text-center h-full">
@@ -189,7 +189,7 @@ export default function AboutPage() {
 
         {/* Team Section */}
         <ScrollAnimation>
-          <section className="py-16 bg-muted/30">
+          <section className="py-32 bg-muted/95">
             <div className="container px-4">
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold mb-4">Meet Our Team</h2>
@@ -201,7 +201,7 @@ export default function AboutPage() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
                 {team.map((member, index) => (
                   <ScrollAnimation key={member.name} delay={index * 0.1}>
-                    <Card className="text-center">
+                    <Card className="text-center shadow-2xl">
                       <CardContent className="p-6">
                         <div className="relative w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden">
                           <Image

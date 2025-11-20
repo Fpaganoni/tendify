@@ -60,7 +60,7 @@ const supportOptions = [
   {
     icon: MessageSquare,
     title: "Live Chat",
-    description: "Get instant help from our support team",
+    description: "Get instant help from our support",
     availability: "Available 24/7",
     badge: "Fastest",
   },
@@ -119,7 +119,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen">
       <Header />
-      <main>
+      <main className="pb-32">
         {/* Hero Section */}
         <ScrollAnimation>
           <section className="py-20 bg-gradient-to-r from-primary/10 to-secondary/10">
@@ -180,7 +180,9 @@ export default function ContactPage() {
                         <p className="text-sm text-muted-foreground mb-4">
                           {option.availability}
                         </p>
-                        <Button className="w-full">Get Started</Button>
+                        <Button className="w-full cursor-pointer">
+                          Get Started
+                        </Button>
                       </CardContent>
                     </Card>
                   </ScrollAnimation>
@@ -192,7 +194,7 @@ export default function ContactPage() {
 
         {/* Contact Form & Info */}
         <ScrollAnimation>
-          <section className="py-16 bg-muted/30  ">
+          <section className="py-16 bg-muted/95  ">
             <div className="container px-4 mb-10 mt-5">
               <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
                 {/* Contact Form */}
@@ -254,7 +256,7 @@ export default function ContactPage() {
                         </div>
                         <Button
                           type="submit"
-                          className="w-full"
+                          className="w-full cursor-pointer"
                           disabled={isSubmitting}
                         >
                           {isSubmitting ? "Sending..." : "Send Message"}
@@ -310,8 +312,8 @@ export default function ContactPage() {
         <ScrollAnimation>
           <section className="py-16">
             <div className="container px-4">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold mb-4">
+              <div className="text-center mb-12 py-16">
+                <h2 className="text-3xl font-bold mb-4 ">
                   Frequently Asked Questions
                 </h2>
                 <p className="text-muted-foreground text-lg max-w-2xl mx-auto">

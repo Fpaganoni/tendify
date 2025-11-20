@@ -108,7 +108,7 @@ export default function UserProfilePage() {
     <div className="min-h-screen">
       <Header />
 
-      <div className="min-h-screen bg-background text-primary p-6">
+      <main className="min-h-screen bg-background text-primary p-6 pb-32">
         <div className="max-w-6xl mx-auto">
           {/* Header con Banner y Avatar */}
           <div className="relative mb-8">
@@ -370,7 +370,7 @@ export default function UserProfilePage() {
             </div>
           </div>
         </div>
-      </div>
+      </main>
 
       <Footer />
     </div>

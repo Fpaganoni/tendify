@@ -98,7 +98,7 @@ export default function CategoriesPage() {
 
         {/* Featured Categories */}
         <ScrollAnimation>
-          <section className="py-16">
+          <section className="pt-16 pb-32">
             <div className="container px-4">
               <h2 className="text-3xl font-bold text-center mb-12">
                 Featured Categories
@@ -151,7 +151,7 @@ export default function CategoriesPage() {
 
         {/* All Categories */}
         <ScrollAnimation>
-          <section className="py-16 bg-muted/30">
+          <section className="pt-16 pb-32 bg-muted/95">
             <div className="container px-4">
               <h2 className="text-3xl font-bold text-center mb-12">
                 All Categories

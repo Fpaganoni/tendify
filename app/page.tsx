@@ -11,7 +11,7 @@ export default async function HomePage() {
   return (
     <div className="min-h-screen">
       <Header />
-      <main>
+      <main className="pb-32">
         <HeroSection />
         <ScrollAnimation animation="fadeInUp" delay={200}>
           <div className="container px-4 pb-16 pt-4">

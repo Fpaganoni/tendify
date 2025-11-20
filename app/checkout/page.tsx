@@ -28,8 +28,8 @@ export default function CheckoutPage() {
   return (
     <div className="min-h-screen">
       <Header />
-      <div className="container px-4 py-8">
-        <div className="max-w-6xl mx-auto">
+      <main className="container px-4 py-8">
+        <div className="max-w-6xl mx-auto pb-32">
           <ScrollAnimation animation="fadeInUp">
             <h1 className="text-3xl font-bold mb-8 text-center">Checkout</h1>
           </ScrollAnimation>
@@ -40,7 +40,7 @@ export default function CheckoutPage() {
             <CheckoutForm onProcessingChange={setIsProcessing} />
           </ScrollAnimation>
         </div>
-      </div>
+      </main>
       <Footer />
     </div>
   );

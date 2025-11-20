@@ -97,7 +97,7 @@ export function AuthDialog() {
         </DialogHeader>
         <Tabs defaultValue="login" className="w-full">
           <TabsList className="grid w-full grid-cols-2 my-2">
-            <TabsTrigger value="login" className="cursor-pointer ">
+            <TabsTrigger value="login" className="cursor-pointer">
               Login
             </TabsTrigger>
             <TabsTrigger value="register" className="cursor-pointer ">
@@ -156,9 +156,11 @@ export function AuthDialog() {
                 {state.isLoading ? "Signing in..." : "Sign In"}
               </Button>
             </form>
-            <p className="text-xs text-muted-foreground text-center">
-              Demo: admin@example.com / password
-            </p>
+            <ul className="text-xs text-muted-foreground text-center">
+              <li>Demo accounts:</li>
+              <li>admin@example.com / password</li>
+              <li>user@example.com / password</li>
+            </ul>
           </TabsContent>
 
           <TabsContent value="register" className="space-y-4">

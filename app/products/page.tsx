@@ -151,7 +151,7 @@ export default function ProductsPage() {
           </aside>
 
           {/* Main Content */}
-          <main className="flex-1">
+          <main className="flex-1 pb-32">
             <ScrollAnimation animation="fadeInUp">
               <div className="mb-6">
                 <h1 className="text-3xl font-bold mb-2">
