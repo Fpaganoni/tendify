@@ -13,10 +13,13 @@ import {
 } from "lucide-react";
 
 import { ThemeToggle } from "./theme-toggle";
+import { useAuth } from "@/lib/auth-context";
 
 interface SettingsProps {}
 
 const Settings: React.FC<SettingsProps> = () => {
+  const { state } = useAuth();
+  const user = state.user;
   const [activeTab, setActiveTab] = useState("account");
   const [darkMode, setDarkMode] = useState(true);
   const [emailNotifications, setEmailNotifications] = useState(true);
@@ -79,7 +82,10 @@ const Settings: React.FC<SettingsProps> = () => {
                     </label>
                     <input
                       type="text"
-                      defaultValue="John Doe"
+                      defaultValue={
+                        user ? `${user.first_name} ${user.last_name}` : ""
+                      }
+                      placeholder="Your full name"
                       className="w-full bg-background ring-1 ring-primary rounded-lg px-4 py-3 text-primary/80 focus:outline-none focus:ring-2 focus:ring-orange"
                     />
                   </div>
@@ -90,7 +96,8 @@ const Settings: React.FC<SettingsProps> = () => {
                     </label>
                     <input
                       type="email"
-                      defaultValue="user@example.com"
+                      defaultValue={user?.email ?? ""}
+                      placeholder="Your email address"
                       className="w-full bg-background ring-1 ring-primary rounded-lg px-4 py-3 text-primary/80 focus:outline-none focus:ring-2 focus:ring-orange"
                     />
                   </div>

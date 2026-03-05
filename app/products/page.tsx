@@ -6,10 +6,10 @@ import { useSearchParams } from "next/navigation";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ProductGrid } from "@/components/product-grid";
+import { ProductGridSkeleton } from "@/components/product-grid-skeleton";
 import { CategoryFilter, type FilterState } from "@/components/category-filter";
 import { ScrollAnimation } from "@/components/scroll-animations";
 import { stripHtml } from "@/utils/stripHtml";
-import Loading from "./loading";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<WooCommerceProduct[]>([]);
@@ -53,7 +53,7 @@ export default function ProductsPage() {
             .includes(searchQuery.toLowerCase()) ||
           product.categories[0]?.name
             .toLowerCase()
-            .includes(searchQuery.toLowerCase())
+            .includes(searchQuery.toLowerCase()),
       );
       setFilteredProducts(searchFiltered);
     } else if (products.length > 0) {
@@ -71,14 +71,14 @@ export default function ProductsPage() {
               .includes(searchQuery.toLowerCase()) ||
             product.categories[0]?.name
               .toLowerCase()
-              .includes(searchQuery.toLowerCase())
+              .includes(searchQuery.toLowerCase()),
         )
       : [...products];
 
     // Filter by category
     if (filters.category !== "all") {
       filtered = filtered.filter(
-        (product) => product.categories[0].name === filters.category
+        (product) => product.categories[0].name === filters.category,
       );
     }
 
@@ -118,17 +118,24 @@ export default function ProductsPage() {
   const categories = Array.from(
     new Set(
       products.map(
-        (product) => stripHtml(product.categories?.[0].name) || "Uncategorized"
-      )
-    )
+        (product) => stripHtml(product.categories?.[0].name) || "Uncategorized",
+      ),
+    ),
   );
 
   if (loading) {
     return (
       <div className="min-h-screen">
         <Header />
-        <div className="container px-4 py-16 min-h-screen mt-48">
-          <Loading content="Loading Products..." />
+        <div className="container px-4 py-8">
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Sidebar placeholder */}
+            <aside className="lg:w-80 flex-shrink-0" />
+            {/* Skeleton grid */}
+            <main className="flex-1 pb-32">
+              <ProductGridSkeleton count={8} />
+            </main>
+          </div>
         </div>
         <Footer />
       </div>

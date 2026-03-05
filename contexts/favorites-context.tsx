@@ -43,7 +43,7 @@ const FavoritesContext = createContext<{
 
 function favoritesReducer(
   state: FavoritesState,
-  action: FavoritesAction
+  action: FavoritesAction,
 ): FavoritesState {
   switch (action.type) {
     case "SET_LOADING":
@@ -126,7 +126,7 @@ const getUserFavorites = (userId: number): FavoriteProduct[] => {
 
 const saveUserFavorites = (
   userId: number,
-  favorites: FavoriteProduct[]
+  favorites: FavoriteProduct[],
 ): void => {
   try {
     const key = getUserFavoritesKey(userId);
@@ -160,7 +160,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
 
         guestFavorites.forEach((guestFav) => {
           const exists = combinedFavorites.some(
-            (fav) => fav.id === guestFav.id
+            (fav) => fav.id === guestFav.id,
           );
           if (!exists) {
             combinedFavorites.push(guestFav);
@@ -174,10 +174,6 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
         clearGuestFavorites();
 
         dispatch({ type: "SET_FAVORITES", favorites: combinedFavorites });
-
-        console.log(
-          `✅ Migrated ${guestFavorites.length} guest favorites to user ${authState.user.id}`
-        );
       } else {
         dispatch({ type: "SET_FAVORITES", favorites: userFavorites });
       }
@@ -213,10 +209,8 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
   const toggleFavorite = (product: FavoriteProduct): void => {
     if (isFavorite(product.id)) {
       dispatch({ type: "REMOVE_FAVORITE", productId: product.id });
-      console.log("❌ Removed from favorites:", product.name);
     } else {
       dispatch({ type: "ADD_FAVORITE", product });
-      console.log("✅ Added to favorites:", product.name);
     }
   };
 

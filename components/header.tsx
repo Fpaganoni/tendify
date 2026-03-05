@@ -4,6 +4,7 @@ import type React from "react";
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Search, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,14 +22,12 @@ export function Header() {
   const [searchQuery, setSearchQuery] = useState("");
   const { state } = useAuth();
   const { favoritesCount } = useFavorites();
+  const router = useRouter();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      // Navigate to products page with search query
-      window.location.href = `/products?search=${encodeURIComponent(
-        searchQuery.trim()
-      )}`;
+      router.push(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
     }
   };
 
@@ -106,7 +105,7 @@ export function Header() {
 
           <Link href="/favorites" className="relative p-2">
             <Heart className="w-6 h-6  " fill="white" />
-            {favoritesCount >= 0 && (
+            {favoritesCount > 0 && (
               <span className="absolute -top-[0.3rem] -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
                 {favoritesCount}
               </span>
@@ -193,7 +192,7 @@ export function Header() {
                 )}
                 <Link href="/favorites" className="relative p-2">
                   <Heart className="w-6 h-6  " fill="white" />
-                  {favoritesCount >= 0 && (
+                  {favoritesCount > 0 && (
                     <span className="absolute -top-[0.3rem] left-7 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
                       {favoritesCount}
                     </span>
