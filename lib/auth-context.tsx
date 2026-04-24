@@ -31,7 +31,7 @@ const AuthContext = createContext<{
     email: string,
     password: string,
     firstName: string,
-    lastName: string
+    lastName: string,
   ) => Promise<boolean>;
   logout: () => void;
 } | null>(null);
@@ -126,7 +126,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     email: string,
     password: string,
     firstName: string,
-    lastName: string
+    lastName: string,
   ): Promise<boolean> => {
     dispatch({ type: "SET_LOADING", loading: true });
 

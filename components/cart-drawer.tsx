@@ -112,7 +112,7 @@ export function CartDrawer() {
                         </p>
                       </div>
 
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-0 md:space-x-2">
                         <Button
                           variant="outline"
                           size="icon"

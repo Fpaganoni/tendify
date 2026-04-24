@@ -23,6 +23,10 @@ import { useState } from "react";
 export default function UserProfilePage() {
   const { state } = useAuth();
 
+  const firstNameLetter = state.user?.first_name.charAt(0).toUpperCase();
+  const lastNameLetter = state.user?.last_name.charAt(0).toUpperCase();
+  const fullName = state.user?.first_name + " " + state.user?.last_name;
+
   if (!state.isAuthenticated) {
     return null;
   }
@@ -31,12 +35,12 @@ export default function UserProfilePage() {
 
   const createDateFormated = format(
     new Date(createDate || ""),
-    "dd-MM-yyyy HH:mm"
+    "dd-MM-yyyy HH:mm",
   );
 
   const updateDateFormated = format(
     new Date(updateDate || ""),
-    "dd-MM-yyyy HH:mm"
+    "dd-MM-yyyy HH:mm",
   );
 
   const [isEditing, setIsEditing] = useState(false);
@@ -116,21 +120,21 @@ export default function UserProfilePage() {
             <div className=" flex items-end gap-6">
               <div className="relative">
                 <div className="w-32 h-32 rounded-full border-4 border-contrast-gradient bg-gradient-to-br from-orange/30 to-orange/90 flex items-center justify-center text-4xl font-bold">
-                  JD
+                  {firstNameLetter + " " + lastNameLetter}
                 </div>
                 <button className="absolute bottom-0 right-0 p-2 bg-orange/75 rounded-full hover:bg-orange transition-colors cursor-pointer">
                   <Camera size={16} />
                 </button>
               </div>
               <div className="mb-4">
-                <h1 className="text-3xl font-bold">{profileData.name}</h1>
+                <h1 className="text-3xl font-bold">{fullName}</h1>
                 <p className="text-primary/80">
-                  Member since {profileData.joinDate}
+                  Member since {createDateFormated}
                 </p>
               </div>
             </div>
 
-            <div className="absolute top-4 right-4">
+            <div className="absolute -bottom-12 right-0 md:absolute md:top-4 md:right-4">
               {!isEditing ? (
                 <button
                   onClick={() => setIsEditing(true)}
