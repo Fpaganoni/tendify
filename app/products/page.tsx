@@ -22,58 +22,45 @@ export default function ProductsPage() {
 
   useEffect(() => {
     const loadProducts = async () => {
+      setLoading(true);
       try {
-        const response = await fetch("/api/products");
+        // Delegate search to the API so WooCommerce (or mocks) handle filtering
+        const url = searchQuery
+          ? `/api/products?search=${encodeURIComponent(searchQuery)}`
+          : "/api/products";
+
+        const response = await fetch(url);
 
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error(`HTTP ${response.status}: Failed to fetch products`);
         }
 
         const data = await response.json();
-
         setProducts(data);
         setFilteredProducts(data);
       } catch (error) {
         console.error("Failed to load products:", error);
+        setProducts([]);
+        setFilteredProducts([]);
       } finally {
         setLoading(false);
       }
     };
 
     loadProducts();
-  }, []);
+  // Re-fetch whenever the search query changes — server does the search work
+  }, [searchQuery]);
 
+  // Client-side search fallback is no longer needed — the API handles it.
+  // This effect now only syncs filteredProducts when the base list refreshes.
   useEffect(() => {
-    if (searchQuery && products.length > 0) {
-      const searchFiltered = products.filter(
-        (product) =>
-          product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          product.description
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase()) ||
-          product.categories[0]?.name
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase()),
-      );
-      setFilteredProducts(searchFiltered);
-    } else if (products.length > 0) {
-      setFilteredProducts(products);
-    }
-  }, [searchQuery, products]);
+    setFilteredProducts(products);
+  }, [products]);
 
   const handleFilterChange = (filters: FilterState) => {
-    let filtered = searchQuery
-      ? products.filter(
-          (product) =>
-            product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            product.description
-              .toLowerCase()
-              .includes(searchQuery.toLowerCase()) ||
-            product.categories[0]?.name
-              .toLowerCase()
-              .includes(searchQuery.toLowerCase()),
-        )
-      : [...products];
+    // `products` already reflects the search result from the API.
+    // Client-side filters (category, price, sort) are applied on top of it.
+    let filtered = [...products];
 
     // Filter by category
     if (filters.category !== "all") {
