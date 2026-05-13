@@ -12,6 +12,8 @@ import {
 import type { User } from "./types";
 import { useRouter } from "next/navigation";
 
+// ─── State & actions ──────────────────────────────────────────────────────────
+
 interface AuthState {
   user: User | null;
   isLoading: boolean;
@@ -22,19 +24,6 @@ type AuthAction =
   | { type: "SET_LOADING"; loading: boolean }
   | { type: "SET_USER"; user: User | null }
   | { type: "LOGOUT" };
-
-const AuthContext = createContext<{
-  state: AuthState;
-  dispatch: React.Dispatch<AuthAction>;
-  login: (email: string, password: string) => Promise<boolean>;
-  register: (
-    email: string,
-    password: string,
-    firstName: string,
-    lastName: string,
-  ) => Promise<boolean>;
-  logout: () => void;
-} | null>(null);
 
 function authReducer(state: AuthState, action: AuthAction): AuthState {
   switch (action.type) {
@@ -48,38 +37,28 @@ function authReducer(state: AuthState, action: AuthAction): AuthState {
         isLoading: false,
       };
     case "LOGOUT":
-      return {
-        ...state,
-        user: null,
-        isAuthenticated: false,
-        isLoading: false,
-      };
+      return { ...state, user: null, isAuthenticated: false, isLoading: false };
     default:
       return state;
   }
 }
 
-// Mock users for development
-const mockUsers: User[] = [
-  {
-    id: 1,
-    email: "admin@example.com",
-    first_name: "Admin",
-    last_name: "User",
-    role: "admin",
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: 2,
-    email: "user@example.com",
-    first_name: "John",
-    last_name: "Doe",
-    role: "customer",
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-];
+// ─── Context ──────────────────────────────────────────────────────────────────
+
+const AuthContext = createContext<{
+  state: AuthState;
+  dispatch: React.Dispatch<AuthAction>;
+  login: (email: string, password: string) => Promise<boolean>;
+  register: (
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string
+  ) => Promise<boolean>;
+  logout: () => Promise<void>;
+} | null>(null);
+
+// ─── Provider ─────────────────────────────────────────────────────────────────
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(authReducer, {
@@ -89,77 +68,95 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   });
   const router = useRouter();
 
-  // Check for existing session on mount
+  /**
+   * On mount, hit GET /api/auth/me to restore the session from the httpOnly
+   * cookie. This replaces the old localStorage.getItem("user") pattern so
+   * the token is never accessible from JavaScript.
+   */
   useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) {
-      try {
-        const user = JSON.parse(savedUser);
-        dispatch({ type: "SET_USER", user });
-      } catch (error) {
-        console.error("Failed to parse saved user:", error);
-        localStorage.removeItem("user");
-      }
-    }
-    dispatch({ type: "SET_LOADING", loading: false });
+    fetch("/api/auth/me")
+      .then((res) => res.json())
+      .then(({ user }) => dispatch({ type: "SET_USER", user: user ?? null }))
+      .catch(() => dispatch({ type: "SET_USER", user: null }));
   }, []);
 
+  /**
+   * Login: delegates credential validation to POST /api/auth/login.
+   * The server sets the session cookie — the client never sees the token.
+   */
   const login = async (email: string, password: string): Promise<boolean> => {
     dispatch({ type: "SET_LOADING", loading: true });
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    // Mock authentication - in production, this would be a real API call
-    const user = mockUsers.find((u) => u.email === email);
-    if (user && password === "password") {
-      localStorage.setItem("user", JSON.stringify(user));
-      dispatch({ type: "SET_USER", user });
+      const data = await res.json();
+
+      if (!res.ok) {
+        dispatch({ type: "SET_LOADING", loading: false });
+        return false;
+      }
+
+      dispatch({ type: "SET_USER", user: data.user });
       return true;
+    } catch {
+      dispatch({ type: "SET_LOADING", loading: false });
+      return false;
     }
-
-    dispatch({ type: "SET_LOADING", loading: false });
-    return false;
   };
 
+  /**
+   * Register: creates a WooCommerce customer via POST /api/auth/register.
+   * On success, the server auto-logs the user in (sets the session cookie)
+   * and returns the new user object.
+   */
   const register = async (
     email: string,
     password: string,
     firstName: string,
-    lastName: string,
+    lastName: string
   ): Promise<boolean> => {
     dispatch({ type: "SET_LOADING", loading: true });
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, firstName, lastName }),
+      });
 
-    // Mock registration - in production, this would be a real API call
-    const existingUser = mockUsers.find((u) => u.email === email);
-    if (existingUser) {
+      const data = await res.json();
+
+      if (!res.ok) {
+        dispatch({ type: "SET_LOADING", loading: false });
+        return false;
+      }
+
+      dispatch({ type: "SET_USER", user: data.user });
+      return true;
+    } catch {
       dispatch({ type: "SET_LOADING", loading: false });
       return false;
     }
-
-    const newUser: User = {
-      id: mockUsers.length + 1,
-      email,
-      first_name: firstName,
-      last_name: lastName,
-      role: "customer",
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    };
-
-    mockUsers.push(newUser);
-    localStorage.setItem("user", JSON.stringify(newUser));
-    dispatch({ type: "SET_USER", user: newUser });
-    return true;
   };
 
-  const logout = () => {
-    localStorage.removeItem("user");
-    dispatch({ type: "LOGOUT" });
-    router.push("/");
+  /**
+   * Logout: calls DELETE /api/auth/me to clear the httpOnly cookie server-side,
+   * then resets local state and navigates to home.
+   */
+  const logout = async (): Promise<void> => {
+    try {
+      await fetch("/api/auth/me", { method: "DELETE" });
+    } catch {
+      // Non-blocking — even if the server is unreachable, clear local state
+    } finally {
+      dispatch({ type: "LOGOUT" });
+      router.push("/");
+    }
   };
 
   return (
@@ -168,6 +165,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     </AuthContext.Provider>
   );
 }
+
+// ─── Hook ─────────────────────────────────────────────────────────────────────
 
 export function useAuth() {
   const context = useContext(AuthContext);

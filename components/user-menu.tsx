@@ -61,7 +61,7 @@ export function UserMenu() {
           <Link href="/user/settings">Settings</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={logout} className="cursor-pointer">
+        <DropdownMenuItem onClick={() => void logout()} className="cursor-pointer">
           <LogOut className="mr-2 h-4 w-4 " />
           <span>Log out</span>
         </DropdownMenuItem>

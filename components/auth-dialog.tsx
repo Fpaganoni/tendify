@@ -257,11 +257,13 @@ export function AuthDialog() {
                 {state.isLoading ? "Signing in..." : "Sign In"}
               </Button>
             </form>
-            <ul className="text-xs text-muted-foreground text-center">
-              <li>Demo accounts:</li>
-              <li>admin@example.com / password</li>
-              <li>user@example.com / password</li>
-            </ul>
+            {process.env.NODE_ENV === "development" && (
+              <ul className="text-xs text-muted-foreground text-center">
+                <li>Dev accounts (mock mode only):</li>
+                <li>admin@example.com / password</li>
+                <li>user@example.com / password</li>
+              </ul>
+            )}
           </TabsContent>
 
           {/* ── REGISTER TAB ── */}
