@@ -102,6 +102,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                 src={product.images[0].src || "/placeholder.svg"}
                 alt={product.name}
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
                 priority
               />
