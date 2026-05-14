@@ -10,15 +10,9 @@ import {
 } from "react";
 import { useAuth } from "@/lib/auth-context";
 
-export interface FavoriteProduct {
-  id: number;
-  name: string;
-  price: string;
-  image: string;
-  featured: boolean;
-  description: string;
-  stock: number | null;
-}
+import { WooCommerceProduct } from "@/lib/woocommerce-types";
+
+export type FavoriteProduct = WooCommerceProduct;
 
 interface FavoritesState {
   favorites: FavoriteProduct[];

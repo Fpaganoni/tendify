@@ -29,17 +29,7 @@ export function ProductCard({ product }: ProductCardProps) {
     e.preventDefault();
     e.stopPropagation();
 
-    const productFav = {
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: product.images?.[0]?.src || "/placeholder.svg",
-      featured: product.featured,
-      description: stripDescription,
-      stock: product.stock_quantity, // WooCommerceProduct does not have stock info in this context
-    };
-
-    toggleFavorite(productFav);
+    toggleFavorite(product);
   };
 
   return (
