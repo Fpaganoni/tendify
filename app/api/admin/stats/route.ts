@@ -4,6 +4,8 @@
  * Retrieves sales reports and general statistics from WooCommerce.
  * Protected route: ensures the caller is an admin.
  */
+export const dynamic = "force-dynamic";
+
 import { NextResponse } from "next/server";
 import axios, { AxiosError } from "axios";
 import { getWCAdminHeaders, isWPConfigured } from "@/lib/auth-helpers";

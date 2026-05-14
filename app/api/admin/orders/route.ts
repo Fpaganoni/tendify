@@ -3,6 +3,8 @@
  *
  * Retrieves recent orders for the admin dashboard.
  */
+export const dynamic = "force-dynamic";
+
 import { NextResponse } from "next/server";
 import axios, { AxiosError } from "axios";
 import { getWCAdminHeaders, isWPConfigured } from "@/lib/auth-helpers";
