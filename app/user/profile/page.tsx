@@ -1,76 +1,66 @@
 "use client";
 
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
-
 import { useAuth } from "@/lib/auth-context";
 import { format } from "date-fns";
 import {
-  Camera,
   MapPin,
   Calendar,
   Mail,
   Phone,
-  Edit2,
-  Save,
-  X,
   Package,
   Heart,
   Star,
+  Edit2,
 } from "lucide-react";
-import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import Link from "next/link";
 
 export default function UserProfilePage() {
   const { state } = useAuth();
+  const { user, isAuthenticated } = state;
 
-  const firstNameLetter = state.user?.first_name.charAt(0).toUpperCase();
-  const lastNameLetter = state.user?.last_name.charAt(0).toUpperCase();
-  const fullName = state.user?.first_name + " " + state.user?.last_name;
-
-  if (!state.isAuthenticated) {
-    return null;
+  if (!isAuthenticated || !user) {
+    return null; // El middleware o useEffect deberían redirigir al login
   }
-  const createDate = state.user?.created_at;
-  const updateDate = state.user?.updated_at;
 
-  const createDateFormated = format(
-    new Date(createDate || ""),
-    "dd-MM-yyyy HH:mm",
-  );
+  const firstNameLetter = user.first_name.charAt(0).toUpperCase();
+  const lastNameLetter = user.last_name.charAt(0).toUpperCase();
+  const fullName = `${user.first_name} ${user.last_name}`;
 
-  const updateDateFormated = format(
-    new Date(updateDate || ""),
-    "dd-MM-yyyy HH:mm",
-  );
-
-  const [isEditing, setIsEditing] = useState(false);
-  const [profileData, setProfileData] = useState({
-    name: "John Doe",
-    email: "user@example.com",
-    phone: "+1 (555) 123-4567",
-    location: "New York, USA",
-    bio: "Tech enthusiast and avid shopper. Love discovering new products and trends!",
-    joinDate: createDateFormated,
-  });
+  const createDateFormated = user.created_at
+    ? format(new Date(user.created_at), "MMMM dd, yyyy")
+    : "Recently joined";
 
   const stats = [
     {
       icon: Package,
       label: "Total Orders",
-      value: "24",
-      color: "var(--color-gradient-blue)",
+      value: "24", // Hardcoded para el UI por ahora
+      color: "text-blue-500",
+      bg: "bg-blue-500/10",
     },
     {
       icon: Heart,
       label: "Wishlist Items",
       value: "12",
-      color: "var(--color-gradient-pink)",
+      color: "text-rose-500",
+      bg: "bg-rose-500/10",
     },
     {
       icon: Star,
       label: "Reviews",
       value: "18",
-      color: "var(--color-gradient-orange)",
+      color: "text-amber-500",
+      bg: "bg-amber-500/10",
     },
   ];
 
@@ -98,285 +88,148 @@ export default function UserProfilePage() {
     },
   ];
 
-  const handleSave = () => {
-    setIsEditing(false);
-    // Aquí irían las llamadas a la API para guardar los cambios
-  };
-
-  const handleCancel = () => {
-    setIsEditing(false);
-    // Revertir cambios si es necesario
-  };
-
   return (
-    <div className="min-h-screen">
-      <Header />
-
-      <main className="min-h-screen bg-background text-primary p-6 pb-32">
-        <div className="max-w-6xl mx-auto">
-          {/* Header con Banner y Avatar */}
-          <div className="relative mb-8">
-            {/* Avatar y Botones */}
-            <div className=" flex items-end gap-6">
-              <div className="relative">
-                <div className="w-32 h-32 rounded-full border-4 border-contrast-gradient bg-gradient-to-br from-orange/30 to-orange/90 flex items-center justify-center text-4xl font-bold">
-                  {firstNameLetter + " " + lastNameLetter}
-                </div>
-                <button className="absolute bottom-0 right-0 p-2 bg-orange/75 rounded-full hover:bg-orange transition-colors cursor-pointer">
-                  <Camera size={16} />
-                </button>
-              </div>
-              <div className="mb-4">
-                <h1 className="text-3xl font-bold">{fullName}</h1>
-                <p className="text-primary/80">
-                  Member since {createDateFormated}
-                </p>
-              </div>
-            </div>
-
-            <div className="absolute -bottom-12 right-0 md:absolute md:top-4 md:right-4">
-              {!isEditing ? (
-                <button
-                  onClick={() => setIsEditing(true)}
-                  className="flex items-center gap-2 bg-muted   hover:bg-muted/70 px-4 py-2 rounded-lg transition-all cursor-pointer"
-                >
-                  <Edit2 size={18} />
-                  Edit Profile
-                </button>
-              ) : (
-                <div className="flex gap-2">
-                  <button
-                    onClick={handleSave}
-                    className="flex items-center gap-2 bg-orange/80 hover:bg-orange px-4 py-2 rounded-lg transition-colors cursor-pointer"
-                  >
-                    <Save size={18} />
-                    Save
-                  </button>
-                  <button
-                    onClick={handleCancel}
-                    className="flex items-center gap-2 bg-muted/80 hover:bg-muted px-4 py-2 rounded-lg transition-colors cursor-pointer"
-                  >
-                    <X size={18} />
-                    Cancel
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 mt-20">
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <div
-                  key={index}
-                  className="bg-muted rounded-xl p-6 ring-1 ring-primary"
-                >
-                  <div className="flex items-center gap-4">
-                    <div
-                      style={{ backgroundImage: stat.color }}
-                      className="w-12 h-12 rounded-lg flex items-center justify-center text-primary"
-                    >
-                      <Icon size={24} className="text-white" />
-                    </div>
-                    <div>
-                      <p className="text-primary/80 text-sm">{stat.label}</p>
-                      <p className="text-2xl font-bold">{stat.value}</p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Información Personal */}
-            <div className="lg:col-span-1 space-y-6">
-              <div className="bg-muted  rounded-xl p-6 ring-1 ring-primary">
-                <h2 className="text-xl font-bold mb-4">Personal Information</h2>
-
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <Mail className="text-orange mt-1" size={20} />
-                    <div className="flex-1">
-                      <p className="text-primary/80 text-sm">Email</p>
-                      {isEditing ? (
-                        <input
-                          type="email"
-                          value={profileData.email}
-                          onChange={(e) =>
-                            setProfileData({
-                              ...profileData,
-                              email: e.target.value,
-                            })
-                          }
-                          className="w-full bg-background  rounded px-3 py-1 mt-1 text-primary focus:outline-none focus:ring-2 focus:ring-orange"
-                        />
-                      ) : (
-                        <p className="font-medium">{profileData.email}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <Phone className="text-orange mt-1" size={20} />
-                    <div className="flex-1">
-                      <p className="text-primary/80 text-sm">Phone</p>
-                      {isEditing ? (
-                        <input
-                          type="tel"
-                          value={profileData.phone}
-                          onChange={(e) =>
-                            setProfileData({
-                              ...profileData,
-                              phone: e.target.value,
-                            })
-                          }
-                          className="w-full bg-background rounded px-3 py-1 mt-1 text-primary focus:outline-none focus:ring-2 focus:ring-orange"
-                        />
-                      ) : (
-                        <p className="font-medium">{profileData.phone}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <MapPin className="text-orange mt-1" size={20} />
-                    <div className="flex-1">
-                      <p className="text-primary/80 text-sm">Location</p>
-                      {isEditing ? (
-                        <input
-                          type="text"
-                          value={profileData.location}
-                          onChange={(e) =>
-                            setProfileData({
-                              ...profileData,
-                              location: e.target.value,
-                            })
-                          }
-                          className="w-full bg-background rounded px-3 py-1 mt-1 text-primary focus:outline-none focus:ring-2 focus:ring-orange"
-                        />
-                      ) : (
-                        <p className="font-medium">{profileData.location}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <Calendar className="text-orange mt-1" size={20} />
-                    <div className="flex-1">
-                      <p className="text-primary/80 text-sm">Member Since</p>
-                      <p className="font-medium">{profileData.joinDate}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bio */}
-              <div className="bg-muted rounded-xl p-6 ring-1 ring-primary">
-                <h2 className="text-xl font-bold mb-4">About Me</h2>
-                {isEditing ? (
-                  <textarea
-                    value={profileData.bio}
-                    onChange={(e) =>
-                      setProfileData({ ...profileData, bio: e.target.value })
-                    }
-                    rows={4}
-                    className="w-full bg-background rounded-lg px-4 py-3 text-primary focus:outline-none focus:ring-2 focus:ring-orange max-h-36"
-                  />
-                ) : (
-                  <p className="text-primey/80">{profileData.bio}</p>
-                )}
-              </div>
-            </div>
-
-            {/* Recent Orders */}
-            <div className="lg:col-span-2">
-              <div className="bg-muted rounded-xl p-6 ring-1 ring-primary">
-                <h2 className="text-xl font-bold mb-6">Recent Orders</h2>
-
-                <div className="space-y-4">
-                  {recentOrders.map((order) => (
-                    <div
-                      key={order.id}
-                      className="bg-background rounded-lg p-4  transition-all"
-                    >
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-orange font-semibold">
-                              #{order.id}
-                            </span>
-                            <span
-                              className={`text-xs px-2 py-1 rounded-full ${
-                                order.status === "Delivered"
-                                  ? "bg-green-check text-primary"
-                                  : "bg-alert text-primary"
-                              }`}
-                            >
-                              {order.status}
-                            </span>
-                          </div>
-                          <p className="font-medium mb-1">{order.product}</p>
-                          <p className="text-primary/80 text-sm">
-                            {order.date}
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                          <p className="text-xl font-bold text-orange">
-                            {order.amount}
-                          </p>
-                          <button className="bg-muted/80 hover:bg-muted cursor-pointer px-4 py-2 rounded-lg text-sm transition-colors">
-                            View Details
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <button className="w-full mt-6 bg-background hover:bg-background/80 text-primary font-medium px-6 py-3 rounded-lg transition-colors cursor-pointer">
-                  View All Orders
-                </button>
-              </div>
-
-              {/* Activity Section */}
-              <div className="mt-6 bg-muted rounded-xl p-6 ring-1 ring-primary">
-                <h2 className="text-xl font-bold mb-6">Recent Activity</h2>
-
-                <div className="space-y-4">
-                  <div className="flex items-start gap-4">
-                    <div className="w-2 h-2 bg-orange rounded-full mt-2"></div>
-                    <div className="flex-1">
-                      <p className="font-medium">
-                        Reviewed "Minimalist Desk Lamp"
-                      </p>
-                      <p className="text-primary/80 text-sm">2 days ago</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-2 h-2 bg-orange rounded-full mt-2"></div>
-                    <div className="flex-1">
-                      <p className="font-medium">Added 3 items to wishlist</p>
-                      <p className="text-primary/80 text-sm">5 days ago</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-2 h-2 bg-orange rounded-full mt-2"></div>
-                    <div className="flex-1">
-                      <p className="font-medium">Updated profile information</p>
-                      <p className="text-primary/80 text-sm">1 week ago</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-8">
+        <div className="flex items-center gap-6">
+          <Avatar className="w-24 h-24 border-4 border-background shadow-lg">
+            <AvatarFallback className="bg-orange/20 text-orange text-2xl font-bold">
+              {firstNameLetter}
+              {lastNameLetter}
+            </AvatarFallback>
+          </Avatar>
+          <div>
+            <h1 className="text-3xl font-bold">{fullName}</h1>
+            <p className="text-muted-foreground">
+              Member since {createDateFormated}
+            </p>
           </div>
         </div>
-      </main>
+        <Link href="/user/settings">
+          <Button variant="outline" className="gap-2 cursor-pointer">
+            <Edit2 size={16} />
+            Edit Profile
+          </Button>
+        </Link>
+      </div>
 
-      <Footer />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {stats.map((stat, index) => {
+          const Icon = stat.icon;
+          return (
+            <Card key={index} className="border-none shadow-sm bg-muted/50">
+              <CardContent className="p-6 flex items-center gap-4">
+                <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${stat.bg}`}>
+                  <Icon size={24} className={stat.color} />
+                </div>
+                <div>
+                  <p className="text-muted-foreground text-sm font-medium">
+                    {stat.label}
+                  </p>
+                  <p className="text-2xl font-bold">{stat.value}</p>
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-1 space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Personal Information</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-start gap-3 text-sm">
+                <Mail className="text-muted-foreground mt-0.5" size={18} />
+                <div>
+                  <p className="font-medium">{user.email}</p>
+                  <p className="text-muted-foreground text-xs">Email</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-sm">
+                <Phone className="text-muted-foreground mt-0.5" size={18} />
+                <div>
+                  <p className="font-medium">+1 (555) 123-4567</p>
+                  <p className="text-muted-foreground text-xs">Phone</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-sm">
+                <MapPin className="text-muted-foreground mt-0.5" size={18} />
+                <div>
+                  <p className="font-medium">New York, USA</p>
+                  <p className="text-muted-foreground text-xs">Location</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-sm">
+                <Calendar className="text-muted-foreground mt-0.5" size={18} />
+                <div>
+                  <p className="font-medium">{createDateFormated}</p>
+                  <p className="text-muted-foreground text-xs">Joined</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>About Me</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Tech enthusiast and avid shopper. Love discovering new products and trends!
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="lg:col-span-2 space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Recent Orders</CardTitle>
+              <CardDescription>Your latest purchases and their status.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {recentOrders.map((order) => (
+                <div
+                  key={order.id}
+                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-lg bg-muted/30 border border-border/50"
+                >
+                  <div>
+                    <div className="flex items-center gap-3 mb-1">
+                      <span className="font-semibold">#{order.id}</span>
+                      <Badge
+                        variant={order.status === "Delivered" ? "default" : "secondary"}
+                        className={order.status === "Delivered" ? "bg-green-600/20 text-green-600 hover:bg-green-600/30 border-none" : "border-none"}
+                      >
+                        {order.status}
+                      </Badge>
+                    </div>
+                    <p className="font-medium text-sm">{order.product}</p>
+                    <p className="text-muted-foreground text-xs mt-1">{order.date}</p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <p className="font-bold">{order.amount}</p>
+                    <Link href="/user/orders">
+                      <Button variant="ghost" size="sm" className="cursor-pointer">
+                        View
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              ))}
+              <div className="pt-2">
+                <Link href="/user/orders">
+                  <Button variant="outline" className="w-full cursor-pointer">
+                    View All Orders
+                  </Button>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 }
