@@ -11,7 +11,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-04-30.basil",
+  apiVersion: "2026-04-22.dahlia",
 });
 
 export async function POST(request: Request) {
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     if (!amount || typeof amount !== "number" || amount <= 0) {
       return NextResponse.json(
         { error: "Invalid amount. Must be a positive number (in cents)." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 

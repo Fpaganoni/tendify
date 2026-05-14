@@ -20,10 +20,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { ProductMock } from "@/lib/mock-types";
+import { stripHtml } from "@/utils/stripHtml";
+import type { WooCommerceProduct } from "@/lib/woocommerce-types";
 
 interface AdminProductTableProps {
-  products: ProductMock[];
+  products: WooCommerceProduct[];
 }
 
 export function AdminProductTable({ products }: AdminProductTableProps) {
@@ -65,7 +66,7 @@ export function AdminProductTable({ products }: AdminProductTableProps) {
                   <div className="flex items-center space-x-3">
                     <div className="relative h-10 w-10 rounded-md overflow-hidden">
                       <Image
-                        src={product.images[0].src || "/placeholder.svg"}
+                        src={product.images?.[0]?.src || "/placeholder.svg"}
                         alt={product.name}
                         fill
                         className="object-cover"
@@ -74,28 +75,26 @@ export function AdminProductTable({ products }: AdminProductTableProps) {
                     <div>
                       <p className="font-medium line-clamp-1">{product.name}</p>
                       <p className="text-sm text-muted-foreground line-clamp-1">
-                        {product.description}
+                        {stripHtml(product.description || "")}
                       </p>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <Badge variant="outline">{product.categories[0].name}</Badge>
+                  <Badge variant="outline">{product.categories?.[0]?.name || "Uncategorized"}</Badge>
                 </TableCell>
                 <TableCell className="font-medium">
-                  ${parseFloat(product.prices.price).toFixed(2)}
+                  ${parseFloat(product.price || "0").toFixed(2)}
                 </TableCell>
                 <TableCell>
                   <span
                     className={
-                      product.stock_availability.text === "In Stock"
+                      product.stock_status === "instock"
                         ? "text-green-500"
                         : "text-red-500"
                     }
                   >
-                    {product.stock_availability.text === "In Stock"
-                      ? "In Stock"
-                      : "Out of Stock"}
+                    {product.stock_status === "instock" ? "In Stock" : "Out of Stock"}
                   </span>
                 </TableCell>
                 <TableCell>

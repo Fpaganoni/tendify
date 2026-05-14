@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Plus } from "lucide-react";
 import { AdminLayout } from "@/components/admin-layout";
 import { AdminProductTable } from "@/components/admin-product-table";
@@ -13,24 +13,47 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { mockProducts } from "@/lib/db";
+import { Skeleton } from "@/components/ui/skeleton";
+import type { WooCommerceProduct } from "@/lib/woocommerce-types";
 
 export default function AdminProductsPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [categoryFilter, setCategoryFilter] = useState<number | "all">("all");
+  const [products, setProducts] = useState<WooCommerceProduct[]>([]);
+  // We'll extract categories from the fetched products for simplicity,
+  // or you could add an /api/categories route in the future.
+  const [categories, setCategories] = useState<{id: number, name: string}[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const filteredProducts = mockProducts.filter((product) => {
-    const matchesSearch = product.name
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase());
-    const matchesCategory =
-      categoryFilter === "all" || product.category === categoryFilter;
-    return matchesSearch && matchesCategory;
-  });
+  // Fetch products via our Next.js API route to avoid CORS and hide WC credentials
+  useEffect(() => {
+    setIsLoading(true);
+    
+    // Construct query parameters
+    const params = new URLSearchParams();
+    params.append("per_page", "50");
+    if (searchQuery) params.append("search", searchQuery);
+    if (categoryFilter !== "all") params.append("category", categoryFilter.toString());
 
-  const categories = Array.from(
-    new Set(mockProducts.map((product) => product.category))
-  );
+    fetch(`/api/products?${params.toString()}`)
+      .then((res) => res.json())
+      .then((data: WooCommerceProduct[]) => {
+        setProducts(data);
+        
+        // Extract unique categories from the loaded products
+        const uniqueCategories = new Map<number, {id: number, name: string}>();
+        data.forEach(p => {
+          p.categories?.forEach(c => {
+            if (!uniqueCategories.has(c.id)) {
+              uniqueCategories.set(c.id, c);
+            }
+          });
+        });
+        setCategories(Array.from(uniqueCategories.values()));
+      })
+      .catch((err) => console.error("Failed to load products", err))
+      .finally(() => setIsLoading(false));
+  }, [searchQuery, categoryFilter]);
 
   return (
     <AdminLayout>
@@ -55,22 +78,29 @@ export default function AdminProductsPage() {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="max-w-sm"
           />
-          <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+          <Select 
+            value={categoryFilter.toString()} 
+            onValueChange={(val) => setCategoryFilter(val === "all" ? "all" : parseInt(val))}
+          >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Category" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Categories</SelectItem>
               {categories.map((category) => (
-                <SelectItem key={category} value={category}>
-                  {category}
+                <SelectItem key={category.id} value={category.id.toString()}>
+                  {category.name}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
 
-        <AdminProductTable products={filteredProducts} />
+        {isLoading ? (
+          <Skeleton className="h-[400px] w-full" />
+        ) : (
+          <AdminProductTable products={products} />
+        )}
       </div>
     </AdminLayout>
   );
