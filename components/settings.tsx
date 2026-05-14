@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import {
   User,
-  Mail,
   Lock,
   Bell,
   CreditCard,
@@ -15,354 +14,279 @@ import {
 import { ThemeToggle } from "./theme-toggle";
 import { useAuth } from "@/lib/auth-context";
 
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
+
 interface SettingsProps {}
 
 const Settings: React.FC<SettingsProps> = () => {
   const { state } = useAuth();
   const user = state.user;
-  const [activeTab, setActiveTab] = useState("account");
-  const [darkMode, setDarkMode] = useState(true);
+  
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [orderUpdates, setOrderUpdates] = useState(true);
   const [promotions, setPromotions] = useState(false);
 
-  const tabs = [
-    { id: "account", label: "Account", icon: User },
-    { id: "security", label: "Security", icon: Lock },
-    { id: "notifications", label: "Notifications", icon: Bell },
-    { id: "payment", label: "Payment", icon: CreditCard },
-    { id: "preferences", label: "Preferences", icon: Globe },
-  ];
-
   return (
-    <main className="min-h-screen bg-background text-primary px-6 pt-16 pb-32 ">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Settings</h1>
-          <p className="text-primary/80">
-            Manage your account settings and preferences
-          </p>
-        </div>
-
-        <div className="flex flex-col lg:flex-row gap-6">
-          {/* Sidebar */}
-          <div className="lg:w-64 bg-muted bg-opacity-50 backdrop-blur-lg rounded-xl p-4  ring-1 ring-primary h-fit">
-            <nav className="space-y-2">
-              {tabs.map((tab) => {
-                const Icon = tab.icon;
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all cursor-pointer ${
-                      activeTab === tab.id
-                        ? "bg-orange text-white"
-                        : "text-primary hover:bg-contrast-gradient"
-                    }`}
-                  >
-                    <Icon size={20} />
-                    <span className="font-medium">{tab.label}</span>
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
-
-          {/* Main Content */}
-          <div className="flex-1 bg-muted bg-opacity-50 backdrop-blur-lg rounded-xl p-6 ring-1 ring-primary">
-            {activeTab === "account" && (
-              <div className="space-y-6">
-                <h2 className="text-2xl font-bold mb-6">Account Information</h2>
-
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-primary/80 mb-2">
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      defaultValue={
-                        user ? `${user.first_name} ${user.last_name}` : ""
-                      }
-                      placeholder="Your full name"
-                      className="w-full bg-background ring-1 ring-primary rounded-lg px-4 py-3 text-primary/80 focus:outline-none focus:ring-2 focus:ring-orange"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-primary mb-2">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      defaultValue={user?.email ?? ""}
-                      placeholder="Your email address"
-                      className="w-full bg-background ring-1 ring-primary rounded-lg px-4 py-3 text-primary/80 focus:outline-none focus:ring-2 focus:ring-orange"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-primary mb-2">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      defaultValue="+1 (555) 123-4567"
-                      className="w-full bg-background ring-1 ring-primary rounded-lg px-4 py-3 text-primary/80 focus:outline-none focus:ring-2 focus:ring-orange"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-primary mb-2">
-                      Bio
-                    </label>
-                    <textarea
-                      rows={4}
-                      placeholder="Tell us about yourself..."
-                      className="w-full bg-background ring-1 ring-primary rounded-lg px-4 py-3 text-primary/80 focus:outline-none focus:ring-2 focus:ring-orange max-h-36"
-                    />
-                  </div>
-
-                  <button className="bg-orange hover:bg-orange/80 text-primary cursor-pointer font-medium px-6 py-3 rounded-lg transition-colors">
-                    Save Changes
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {activeTab === "security" && (
-              <div className="space-y-6">
-                <h2 className="text-2xl font-bold mb-6">Security Settings</h2>
-
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-primary mb-2">
-                      Current Password
-                    </label>
-                    <input
-                      type="password"
-                      placeholder="Enter current password"
-                      className="w-full bg-background ring-1 ring-primary rounded-lg px-4 py-3 text-primary/80 focus:outline-none focus:ring-2 focus:ring-orange"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-primary mb-2">
-                      New Password
-                    </label>
-                    <input
-                      type="password"
-                      placeholder="Enter new password"
-                      className="w-full bg-background ring-1 ring-primary rounded-lg px-4 py-3 text-primary/80 focus:outline-none focus:ring-2 focus:ring-orange"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-primary mb-2">
-                      Confirm New Password
-                    </label>
-                    <input
-                      type="password"
-                      placeholder="Confirm new password"
-                      className="w-full bg-background ring-1 ring-primary rounded-lg px-4 py-3 text-primary/80 focus:outline-none focus:ring-2 focus:ring-orange"
-                    />
-                  </div>
-
-                  <div className="pt-4 border-t border-primary/80">
-                    <h3 className="font-semibold mb-3">
-                      Two-Factor Authentication
-                    </h3>
-                    <p className="text-primary/80 text-sm mb-4">
-                      Add an extra layer of security to your account
-                    </p>
-                    <button className="bg-background hover:bg-contrast-gradient text-primary font-medium px-6 py-3 rounded-lg transition-colors cursor-pointer">
-                      Enable 2FA
-                    </button>
-                  </div>
-
-                  <button className="bg-orange hover:bg-orange/80 text-primary font-medium px-6 py-3 rounded-lg transition-colors cursor-pointer">
-                    Update Password
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {activeTab === "notifications" && (
-              <div className="space-y-6">
-                <h2 className="text-2xl font-bold mb-6">
-                  Notification Preferences
-                </h2>
-
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 bg-background rounded-lg">
-                    <div>
-                      <h3 className="font-semibold">Email Notifications</h3>
-                      <p className="text-primary/80 text-sm">
-                        Receive notifications via email
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => setEmailNotifications(!emailNotifications)}
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${
-                        emailNotifications ? "bg-orange" : "bg-muted"
-                      }`}
-                    >
-                      <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                          emailNotifications ? "translate-x-6" : "translate-x-1"
-                        }`}
-                      />
-                    </button>
-                  </div>
-
-                  <div className="flex items-center justify-between p-4 bg-background rounded-lg">
-                    <div>
-                      <h3 className="font-semibold">Order Updates</h3>
-                      <p className="text-primary/80 text-sm">
-                        Get notified about order status changes
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => setOrderUpdates(!orderUpdates)}
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${
-                        orderUpdates ? "bg-orange" : "bg-muted"
-                      }`}
-                    >
-                      <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                          orderUpdates ? "translate-x-6" : "translate-x-1"
-                        }`}
-                      />
-                    </button>
-                  </div>
-
-                  <div className="flex items-center justify-between p-4 bg-background rounded-lg">
-                    <div>
-                      <h3 className="font-semibold">Promotions & Offers</h3>
-                      <p className="text-primary/80 text-sm">
-                        Receive special offers and discounts
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => setPromotions(!promotions)}
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${
-                        promotions ? "bg-orange" : "bg-muted"
-                      }`}
-                    >
-                      <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                          promotions ? "translate-x-6" : "translate-x-1"
-                        }`}
-                      />
-                    </button>
-                  </div>
-
-                  <button className="bg-orange hover:bg-orange/80 text-primary font-medium px-6 py-3 rounded-lg transition-colors cursor-pointer">
-                    Save Preferences
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {activeTab === "payment" && (
-              <div className="space-y-6">
-                <h2 className="text-2xl font-bold mb-6">Payment Methods</h2>
-
-                <div className="space-y-4">
-                  <div className="p-4 bg-background rounded-lg ring-1 ring-primary">
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-8 bg-gradient-to-r from-blue-400 to-blue-600 rounded flex items-center justify-center text-white text-xs font-bold">
-                          VISA
-                        </div>
-                        <div>
-                          <p className="font-semibold">•••• •••• •••• 4242</p>
-                          <p className="text-primary/80 text-sm">
-                            Expires 12/26
-                          </p>
-                        </div>
-                      </div>
-                      <span className="text-xs bg-orange px-2 py-1 rounded-full">
-                        Default
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="p-4 bg-background rounded-lg">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-8 bg-gradient-to-r from-red-400 to-orange-600 rounded flex items-center justify-center text-white text-xs font-bold">
-                          MC
-                        </div>
-                        <div>
-                          <p className="font-semibold">•••• •••• •••• 8888</p>
-                          <p className="text-primary/80 text-sm">
-                            Expires 09/25
-                          </p>
-                        </div>
-                      </div>
-                      <button className="text-primary/80 hover:text-primary cursor-pointer text-sm">
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-
-                  <button className="w-full bg-background hover:bg-contrast-gradient text-primary font-medium px-6 py-3 rounded-lg border-2 border-dashed border-muted transition-colors cursor-pointer">
-                    + Add New Payment Method
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {activeTab === "preferences" && (
-              <div className="space-y-6">
-                <h2 className="text-2xl font-bold mb-6">Preferences</h2>
-
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 bg-background rounded-lg">
-                    <div className="flex items-center gap-3">
-                      {darkMode ? <Moon size={20} /> : <Sun size={20} />}
-                      <div>
-                        <h3 className="font-semibold">Dark Mode</h3>
-                        <p className="text-primary-80 text-sm">
-                          Use dark theme across the site
-                        </p>
-                      </div>
-                    </div>
-                    <ThemeToggle />
-                  </div>
-
-                  <div className="p-4 bg-background rounded-lg">
-                    <h3 className="font-semibold mb-2">Language</h3>
-                    <select className="w-full bg-background rounded-lg px-4 py-3 text-primary ring-1 ring-primary focus:outline-none focus:ring-2 focus:ring-orange">
-                      <option>English</option>
-                      <option>Español</option>
-                      <option>Français</option>
-                      <option>Deutsch</option>
-                    </select>
-                  </div>
-
-                  <div className="p-4 bg-background rounded-lg">
-                    <h3 className="font-semibold mb-2">Currency</h3>
-                    <select className="w-full bg-background ring-1 ring-primary rounded-lg px-4 py-3 text-primary focus:outline-none focus:ring-2 focus:ring-orange">
-                      <option>USD ($)</option>
-                      <option>EUR (€)</option>
-                      <option>GBP (£)</option>
-                      <option>JPY (¥)</option>
-                    </select>
-                  </div>
-
-                  <button className="bg-orange hover:bg-orange/80 text-primary font-medium px-6 py-3 rounded-lg transition-colors cursor-pointer">
-                    Save Preferences
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-2">Settings</h1>
+        <p className="text-muted-foreground">
+          Manage your account settings and preferences
+        </p>
       </div>
-    </main>
+
+      <Tabs defaultValue="account" className="flex flex-col md:flex-row gap-6">
+        <TabsList className="flex flex-row md:flex-col justify-start md:w-64 h-auto bg-transparent gap-2">
+          <TabsTrigger value="account" className="w-full justify-start gap-3 px-4 py-3 data-[state=active]:bg-muted/80">
+            <User size={18} /> Account
+          </TabsTrigger>
+          <TabsTrigger value="security" className="w-full justify-start gap-3 px-4 py-3 data-[state=active]:bg-muted/80">
+            <Lock size={18} /> Security
+          </TabsTrigger>
+          <TabsTrigger value="notifications" className="w-full justify-start gap-3 px-4 py-3 data-[state=active]:bg-muted/80">
+            <Bell size={18} /> Notifications
+          </TabsTrigger>
+          <TabsTrigger value="payment" className="w-full justify-start gap-3 px-4 py-3 data-[state=active]:bg-muted/80">
+            <CreditCard size={18} /> Payment
+          </TabsTrigger>
+          <TabsTrigger value="preferences" className="w-full justify-start gap-3 px-4 py-3 data-[state=active]:bg-muted/80">
+            <Globe size={18} /> Preferences
+          </TabsTrigger>
+        </TabsList>
+
+        <div className="flex-1 w-full max-w-3xl">
+          <TabsContent value="account" className="mt-0">
+            <Card>
+              <CardHeader>
+                <CardTitle>Account Information</CardTitle>
+                <CardDescription>Update your personal details here.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="firstName">First Name</Label>
+                    <Input id="firstName" defaultValue={user?.first_name || ""} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="lastName">Last Name</Label>
+                    <Input id="lastName" defaultValue={user?.last_name || ""} />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email Address</Label>
+                  <Input id="email" type="email" defaultValue={user?.email || ""} />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Phone Number</Label>
+                  <Input id="phone" type="tel" defaultValue="+1 (555) 123-4567" />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="bio">Bio</Label>
+                  <Textarea
+                    id="bio"
+                    placeholder="Tell us about yourself..."
+                    className="min-h-[100px]"
+                  />
+                </div>
+
+                <Button className="cursor-pointer">Save Changes</Button>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="security" className="mt-0">
+            <Card>
+              <CardHeader>
+                <CardTitle>Security Settings</CardTitle>
+                <CardDescription>Update your password and secure your account.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="current_password">Current Password</Label>
+                  <Input id="current_password" type="password" />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="new_password">New Password</Label>
+                  <Input id="new_password" type="password" />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="confirm_password">Confirm New Password</Label>
+                  <Input id="confirm_password" type="password" />
+                </div>
+
+                <div className="pt-4 border-t">
+                  <h3 className="font-medium mb-2">Two-Factor Authentication</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Add an extra layer of security to your account
+                  </p>
+                  <Button variant="outline" className="cursor-pointer">Enable 2FA</Button>
+                </div>
+
+                <div className="pt-4">
+                  <Button className="cursor-pointer">Update Password</Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="notifications" className="mt-0">
+            <Card>
+              <CardHeader>
+                <CardTitle>Notification Preferences</CardTitle>
+                <CardDescription>Choose what updates you want to receive.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="flex items-center justify-between p-4 rounded-lg border">
+                  <div className="space-y-0.5">
+                    <Label className="text-base font-medium">Email Notifications</Label>
+                    <p className="text-sm text-muted-foreground">Receive notifications via email</p>
+                  </div>
+                  <Switch 
+                    checked={emailNotifications} 
+                    onCheckedChange={setEmailNotifications} 
+                  />
+                </div>
+
+                <div className="flex items-center justify-between p-4 rounded-lg border">
+                  <div className="space-y-0.5">
+                    <Label className="text-base font-medium">Order Updates</Label>
+                    <p className="text-sm text-muted-foreground">Get notified about order status changes</p>
+                  </div>
+                  <Switch 
+                    checked={orderUpdates} 
+                    onCheckedChange={setOrderUpdates} 
+                  />
+                </div>
+
+                <div className="flex items-center justify-between p-4 rounded-lg border">
+                  <div className="space-y-0.5">
+                    <Label className="text-base font-medium">Promotions & Offers</Label>
+                    <p className="text-sm text-muted-foreground">Receive special offers and discounts</p>
+                  </div>
+                  <Switch 
+                    checked={promotions} 
+                    onCheckedChange={setPromotions} 
+                  />
+                </div>
+
+                <Button className="cursor-pointer">Save Preferences</Button>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="payment" className="mt-0">
+            <Card>
+              <CardHeader>
+                <CardTitle>Payment Methods</CardTitle>
+                <CardDescription>Manage your saved payment methods.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="flex items-center justify-between p-4 rounded-lg border">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                      VISA
+                    </div>
+                    <div>
+                      <p className="font-medium">•••• •••• •••• 4242</p>
+                      <p className="text-sm text-muted-foreground">Expires 12/26</p>
+                    </div>
+                  </div>
+                  <Badge>Default</Badge>
+                </div>
+
+                <div className="flex items-center justify-between p-4 rounded-lg border">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-8 bg-gradient-to-r from-red-500 to-orange-500 rounded flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                      MC
+                    </div>
+                    <div>
+                      <p className="font-medium">•••• •••• •••• 8888</p>
+                      <p className="text-sm text-muted-foreground">Expires 09/25</p>
+                    </div>
+                  </div>
+                  <Button variant="ghost" size="sm" className="text-muted-foreground cursor-pointer">
+                    Remove
+                  </Button>
+                </div>
+
+                <Button variant="outline" className="w-full border-dashed cursor-pointer">
+                  + Add New Payment Method
+                </Button>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="preferences" className="mt-0">
+            <Card>
+              <CardHeader>
+                <CardTitle>Preferences</CardTitle>
+                <CardDescription>Customize your overall experience.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="flex items-center justify-between p-4 rounded-lg border">
+                  <div className="flex items-center gap-4">
+                    <div className="bg-muted p-2 rounded-md">
+                      <Moon size={20} className="hidden dark:block" />
+                      <Sun size={20} className="block dark:hidden" />
+                    </div>
+                    <div className="space-y-0.5">
+                      <Label className="text-base font-medium">Appearance</Label>
+                      <p className="text-sm text-muted-foreground">Toggle between light and dark themes</p>
+                    </div>
+                  </div>
+                  <ThemeToggle />
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Language</Label>
+                  <Select defaultValue="en">
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Language" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="en">English</SelectItem>
+                      <SelectItem value="es">Español</SelectItem>
+                      <SelectItem value="fr">Français</SelectItem>
+                      <SelectItem value="de">Deutsch</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Currency</Label>
+                  <Select defaultValue="usd">
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Currency" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="usd">USD ($)</SelectItem>
+                      <SelectItem value="eur">EUR (€)</SelectItem>
+                      <SelectItem value="gbp">GBP (£)</SelectItem>
+                      <SelectItem value="jpy">JPY (¥)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <Button className="cursor-pointer">Save Preferences</Button>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </div>
+      </Tabs>
+    </div>
   );
 };
 
